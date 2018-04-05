@@ -1,14 +1,26 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
+            <h:outputStylesheet name="css/ripple.css" library="ultima-layout" />
+            <h:outputStylesheet name="css/layout-#{themePreferences.theme}.css" library="ultima-layout" />
+            <h:outputStylesheet name="css/customize.css" library="ultima-layout" />
     </h:head>
     <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+        <h:form id="formMain">
+            <div class="login-panel ui-fluid">
+                <div class="ui-g">
+                    <h:panelGrid columns="1" cellpadding="10">
+                        <p:button outcome="/web/citizenLogin.xhtml" target="_blank" value="Citizen Login" icon="ui-icon-arrow-forward" iconPos="right"/>
+                        <p:button outcome="/web/organizationLogin.xhtml" target="_blank" value="Organization Login" icon="ui-icon-arrow-forward" iconPos="right"/>
+                        <p:button outcome="/web/embassyLogin.xhtml" target="_blank" value="Embassy Login" icon="ui-icon-arrow-forward" iconPos="right"/>
+                    </h:panelGrid>
+                </div>
+            </div>
+        </h:form>
     </h:body>
 </html>
 
