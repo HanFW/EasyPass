@@ -35,7 +35,7 @@ public class bankViewListManagedBean {
     public ArrayList<BankStatement> getBankStatements() throws IOException{
         //---Retrieve list of pending bank statements
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<BankStatement> bankStatements = mapper.readValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BankStatement/get_response.json"), new TypeReference<List<BankStatement>>(){});
+        ArrayList<BankStatement> bankStatements = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BankStatement/get_response.json"), new TypeReference<List<BankStatement>>(){});
         return bankStatements;
     }
     
