@@ -44,7 +44,7 @@ public class hotelDoEndorsementManagedBean implements Serializable {
         //$$$ValidateAccomodation transaction
         System.out.println("Accomodation " + accomodation.getAccomodationId() + ": " + decision);
         
-        ec.redirect(ec.getRequestContextPath() + "/web/hotelViewList.xhtml?faces-redirect=true");
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/hotelViewList.xhtml?faces-redirect=true");
     }
 
     public Accomodation getAccomodation() {

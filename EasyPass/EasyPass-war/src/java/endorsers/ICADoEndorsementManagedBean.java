@@ -43,7 +43,7 @@ public class ICADoEndorsementManagedBean implements Serializable{
         //$$$ValidateBasicInfo transaction
         System.out.println("BasicInfo " + basicInfo.getBasicInfoId() + ": " + decision);
         
-        ec.redirect(ec.getRequestContextPath() + "/web/ICAViewList.xhtml?faces-redirect=true");
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/ICAViewList.xhtml?faces-redirect=true");
     }
 
     public BasicInfo getBasicInfo() {
