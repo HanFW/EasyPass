@@ -43,6 +43,6 @@ public class bankViewListManagedBean {
     public void viewBankStatement (BankStatement bankStatement) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getFlash().put("bankStatement", bankStatement);
-        ec.redirect(ec.getRequestContextPath() + "/web/bankDoEndorsement.xhtml?faces-redirect=true");
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/bankDoEndorsement.xhtml?faces-redirect=true");
     }
 }

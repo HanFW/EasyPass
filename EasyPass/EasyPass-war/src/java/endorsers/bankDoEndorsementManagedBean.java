@@ -45,7 +45,7 @@ public class bankDoEndorsementManagedBean implements Serializable{
         //$$$ValidateBankStatement transaction
         System.out.println("Bank Statement " + bankStatement.getBankStatementId() + ": " + decision);
         
-        ec.redirect(ec.getRequestContextPath() + "/web/bankViewList.xhtml?faces-redirect=true");
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/bankViewList.xhtml?faces-redirect=true");
     }
 
     public BankStatement getBankStatement() {
