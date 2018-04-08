@@ -43,7 +43,7 @@ public class TransportationProviderViewListManagedBean implements Serializable {
     public void viewTransportationReference (TransportationReference transportationReference) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getFlash().put("transportationReference", transportationReference);
-        ec.redirect(ec.getRequestContextPath() + "/web/TransportationProviderDoEndorsement.xhtml?faces-redirect=true");
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/TransportationProviderDoEndorsement.xhtml?faces-redirect=true");
     }
     
 }

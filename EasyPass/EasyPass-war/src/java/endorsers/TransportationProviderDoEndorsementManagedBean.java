@@ -44,7 +44,7 @@ public class TransportationProviderDoEndorsementManagedBean implements Serializa
         //$$$ValidateTransportationReference transaction
         System.out.println("TransportationReference " + transportationReference.getTransportationReferenceId() + ": " + decision);
 
-        ec.redirect(ec.getRequestContextPath() + "/web/TransportationProviderViewList.xhtml?faces-redirect=true");
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/TransportationProviderViewList.xhtml?faces-redirect=true");
     }
 
     public TransportationReference getTransportationReference() {
