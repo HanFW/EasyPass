@@ -11,13 +11,13 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  *
  * @author Jingyuan
  */
-public class Accomodation {
+public class TransportationReference {
     @JsonIgnore
     private String $class;
     
-    private String accomodationId;
+    private String transportationReferenceId;
     private String carrierName;
-    private String referenceNumber;
+    private String reference;
     private String transportationReferenceImageURL;
     private String endorsementState;
     private String owner;
@@ -34,20 +34,12 @@ public class Accomodation {
         this.$class = $class;
     }
 
-    public String getOwner() {
-        return owner.substring(owner.indexOf("#")+1);
+    public String getTransportationReferenceId() {
+        return transportationReferenceId;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    public String getAccomodationId() {
-        return accomodationId;
-    }
-
-    public void setAccomodationId(String accomodationId) {
-        this.accomodationId = accomodationId;
+    public void setTransportationReferenceId(String transportationReferenceId) {
+        this.transportationReferenceId = transportationReferenceId;
     }
 
     public String getCarrierName() {
@@ -58,12 +50,12 @@ public class Accomodation {
         this.carrierName = carrierName;
     }
 
-    public String getReferenceNumber() {
-        return referenceNumber;
+    public String getReference() {
+        return reference;
     }
 
-    public void setReferenceNumber(String referenceNumber) {
-        this.referenceNumber = referenceNumber;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public String getTransportationReferenceImageURL() {
@@ -80,6 +72,14 @@ public class Accomodation {
 
     public void setEndorsementState(String endorsementState) {
         this.endorsementState = endorsementState;
+    }
+
+    public String getOwner() {
+       return owner.substring(owner.indexOf("#")+1);
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public String getEndorseBy() {
@@ -99,6 +99,5 @@ public class Accomodation {
     }
     
     
-
-       
+    
 }

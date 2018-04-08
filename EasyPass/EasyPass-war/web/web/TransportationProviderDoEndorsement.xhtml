@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templates/endorserTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="content">
+        <h:form>
+            <p:outputLabel value="Passport Number: " />
+            <p:outputLabel value="#{transportationProviderDoEndorsementManagedBean.transportationReference.owner}" />
+            <p:outputLabel value="Transportation Reference Number: " />
+            <p:outputLabel value="#{transportationProviderDoEndorsementManagedBean.transportationReference.reference}" />
+            <br/>
+
+            <p:media value="https://localhost:8181/#{transportationProviderDoEndorsementManagedBean.transportationReference.transportationReferenceImageURL}" width="90%" height="400px"/>  
+
+            <p:message id="decisionMessage" for="decisionRadio"/>
+            <p:selectOneRadio id="decisionRadio" value="#{transportationProviderDoEndorsementManagedBean.decision}" required="true" requiredMessage="Please select to validate or reject ">
+                <f:selectItem itemLabel="Reject" itemValue="Rejected" />
+                <f:selectItem itemLabel="Validate" itemValue="Validated" />
+            </p:selectOneRadio>
+            <br/>
+            <p:commandButton value="Submit" action="#{transportationProviderDoEndorsementManagedBean.validateDocument()}" update="decisionMessage"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
