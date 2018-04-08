@@ -9,21 +9,21 @@
     <ui:define name="content">
         <h:form>
             <div align="center">
-                <p:dataTable var="accomodation" id="accomodationTable" value="#{hotelViewListManagedBean.accomodations}" reflow="true" paginatorPosition="bottom">
+                <p:dataTable var="insurance" id="insuranceTable" value="#{insuranceCoViewListManagedBean.insurances}" reflow="true" paginatorPosition="bottom">
                     <f:facet name="header">
-                        Hotel Booking Reference of visa applicants
+                        Insurance contract of visa applicants
                     </f:facet>
 
                     <p:column headerText="Passport number">
-                        <h:outputText value="#{accomodation.owner}"/>
+                        <h:outputText value="#{insurance.owner}"/>
                     </p:column>
 
-                    <p:column headerText="Hotel Booking Reference Number">
-                        <h:outputText value="#{accomodation.referenceNumber}"/>
+                    <p:column headerText="Insurance Reference Number">
+                        <h:outputText value="#{insurance.referenceNumber}"/>
                     </p:column>
 
-                    <p:column headerText="View Booking Reference">
-                        <p:commandButton icon="ui-icon-document" action="#{hotelViewListManagedBean.viewAccomodation(accomodation)}"/>
+                    <p:column headerText="View Insurance Contract">
+                        <p:commandButton icon="ui-icon-document" action="#{insuranceCoViewListManagedBean.viewInsurance(insurance)}"/>
                     </p:column>
 
                 </p:dataTable>
