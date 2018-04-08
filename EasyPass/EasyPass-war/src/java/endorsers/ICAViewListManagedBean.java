@@ -32,18 +32,18 @@ public class ICAViewListManagedBean implements Serializable {
     public ICAViewListManagedBean() {
     }
     
-     public ArrayList<BasicInfo> getBasicInfos() throws IOException{
+    public ArrayList<BasicInfo> getBasicInfos() throws IOException{
         //---Retrieve list of visa applicants
         ObjectMapper mapper = new ObjectMapper();
         ArrayList<BasicInfo> basicInfos = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BasicInfo/get_response.json"), new TypeReference<List<BasicInfo>>(){});
         return basicInfos;
     }
     
-        //redirect to view & validate basic information of individual visa applicant
+    //redirect to view & validate basic information of individual visa applicant
     public void viewBasicInfo (BasicInfo basicInfo) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getFlash().put("basicInfo", basicInfo);
-        ec.redirect(ec.getRequestContextPath() + "/web/ICADoEndorsement.xhtml?faces-redirect=true");
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/ICADoEndorsement.xhtml?faces-redirect=true");
     }
     
     

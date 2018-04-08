@@ -43,7 +43,7 @@ public class hotelViewListManagedBean implements Serializable {
     public void viewAccomodation (Accomodation accomodation) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getFlash().put("accomodation", accomodation);
-        ec.redirect(ec.getRequestContextPath() + "/web/hotelDoEndorsement.xhtml?faces-redirect=true");
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/hotelDoEndorsement.xhtml?faces-redirect=true");
     }
     
 }
