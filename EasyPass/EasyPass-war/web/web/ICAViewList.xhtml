@@ -9,21 +9,25 @@
     <ui:define name="content">
         <h:form>
             <div align="center">
-                <p:dataTable var="accomodation" id="accomodationTable" value="#{hotelViewListManagedBean.accomodations}" reflow="true" paginatorPosition="bottom">
+                <p:dataTable var="basicInfo" id="basicInfoTable" value="#{iCAViewListManagedBean.basicInfos}" reflow="true" paginatorPosition="bottom">
                     <f:facet name="header">
-                        Hotel Booking Reference of visa applicants
+                        Basic Information of Visa Applicants
                     </f:facet>
 
                     <p:column headerText="Passport number">
-                        <h:outputText value="#{accomodation.owner}"/>
+                        <h:outputText value="#{basicInfo.passportNumber}"/>
                     </p:column>
 
-                    <p:column headerText="Hotel Booking Refernce Number">
-                        <h:outputText value="#{accomodation.referenceNumber}"/>
+                    <p:column headerText="First Name">
+                        <h:outputText value="#{basicInfo.firstName}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Last Name">
+                        <h:outputText value="#{basicInfo.lastName}"/>
                     </p:column>
 
-                    <p:column headerText="View Booking Reference">
-                        <p:commandButton icon="ui-icon-document" action="#{hotelViewListManagedBean.viewAccomodation(accomodation)}"/>
+                    <p:column headerText="View Basic Information">
+                        <p:commandButton icon="ui-icon-document" action="#{iCAViewListManagedBean.viewBasicInfo(basicInfo)}"/>
                     </p:column>
 
                 </p:dataTable>

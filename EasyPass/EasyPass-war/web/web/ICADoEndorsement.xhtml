@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templates/endorserTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="content">
+        <h:form>
+            <p:panelGrid columns="2">
+                <p:outputLabel value="Passport Number: " />
+                <p:outputLabel value="#{iCADoEndorsementManagedBean.basicInfo.owner}" />
+                <p:outputLabel value="First Name: " />
+                <p:outputLabel value="#{iCADoEndorsementManagedBean.basicInfo.firstName}" />
+                <p:outputLabel value="Last Name: " />
+                <p:outputLabel value="#{iCADoEndorsementManagedBean.basicInfo.lastName}" />
+                <p:outputLabel value="Identity Number: " />
+                <p:outputLabel value="#{iCADoEndorsementManagedBean.basicInfo.identityNumber}" />
+                <p:outputLabel value="Residential Address: " />
+                <p:outputLabel value="#{iCADoEndorsementManagedBean.basicInfo.residentialAddress}" />
+                <p:outputLabel value="Maritial Status: " />
+                <p:outputLabel value="#{iCADoEndorsementManagedBean.basicInfo.maritialStatus}" />
+                <p:outputLabel value="Gender: " />
+                <p:outputLabel value="#{iCADoEndorsementManagedBean.basicInfo.sex}" />
+                <p:outputLabel value="Nationality: " />
+                <p:outputLabel value="#{iCADoEndorsementManagedBean.basicInfo.nationality}" />
+            </p:panelGrid>
+            <br/>
+
+            <p:message id="decisionMessage" for="decisionRadio"/>
+            <p:selectOneRadio id="decisionRadio" value="#{iCADoEndorsementManagedBean.decision}" required="true" requiredMessage="Please select to validate or reject ">
+                <f:selectItem itemLabel="Reject" itemValue="Rejected" />
+                <f:selectItem itemLabel="Validate" itemValue="Validated" />
+            </p:selectOneRadio>
+            <br/>
+            <p:commandButton value="Submit" action="#{iCADoEndorsementManagedBean.validateDocument()}" update="decisionMessage"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

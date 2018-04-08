@@ -24,7 +24,7 @@ public class Accomodation {
     @JsonIgnore
     private String endorseBy;
     @JsonIgnore
-    private String visaApplication; 
+    private String visaApplication;
 
     public String get$class() {
         return $class;
