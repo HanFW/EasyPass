@@ -24,12 +24,12 @@ import objects.Accomodation;
  */
 @Named(value = "hotelViewListManagedBean")
 @RequestScoped
-public class hotelViewListManagedBean implements Serializable {
+public class HotelViewListManagedBean implements Serializable {
 
     /**
      * Creates a new instance of hotelViewListManagedBean
      */
-    public hotelViewListManagedBean() {
+    public HotelViewListManagedBean() {
     }
     
     public ArrayList<Accomodation> getAccomodations() throws IOException{

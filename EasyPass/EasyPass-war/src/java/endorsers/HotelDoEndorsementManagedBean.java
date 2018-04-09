@@ -20,14 +20,14 @@ import objects.Accomodation;
  */
 @Named(value = "hotelDoEndorsementManagedBean")
 @ViewScoped
-public class hotelDoEndorsementManagedBean implements Serializable {
+public class HotelDoEndorsementManagedBean implements Serializable {
     private Accomodation accomodation;
     private String decision; 
     
     /**
      * Creates a new instance of hotelDoEndorsementManagedBean
      */
-    public hotelDoEndorsementManagedBean() {
+    public HotelDoEndorsementManagedBean() {
     }
     
     @PostConstruct

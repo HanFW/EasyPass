@@ -20,7 +20,7 @@ import objects.BankStatement;
  */
 @Named(value = "bankDoEndorsementManagedBean")
 @ViewScoped
-public class bankDoEndorsementManagedBean implements Serializable{
+public class BankDoEndorsementManagedBean implements Serializable{
     
     private BankStatement bankStatement;
     private String decision; 
@@ -28,7 +28,7 @@ public class bankDoEndorsementManagedBean implements Serializable{
     /**
      * Creates a new instance of bankDoEndorsementManagedBean
      */
-    public bankDoEndorsementManagedBean() {
+    public BankDoEndorsementManagedBean() {
     }
     
     @PostConstruct

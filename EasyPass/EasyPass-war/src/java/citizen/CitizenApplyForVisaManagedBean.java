@@ -40,7 +40,7 @@ import org.primefaces.model.UploadedFile;
  */
 @Named(value = "citizenApplyForVisaManagedBean")
 @ViewScoped
-public class citizenApplyForVisaManagedBean implements Serializable{
+public class CitizenApplyForVisaManagedBean implements Serializable{
     
     private VisaApplication visaApplication;
     private String applicationId;
@@ -86,7 +86,7 @@ public class citizenApplyForVisaManagedBean implements Serializable{
     /**
      * Creates a new instance of citizenApplyForVisaManagedBean
      */
-    public citizenApplyForVisaManagedBean() {
+    public CitizenApplyForVisaManagedBean() {
     }
     
     @PostConstruct

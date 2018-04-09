@@ -23,12 +23,12 @@ import objects.BankStatement;
  */
 @Named(value = "bankViewListManagedBean")
 @RequestScoped
-public class bankViewListManagedBean {
+public class BankViewListManagedBean {
     
     /**
      * Creates a new instance of bankViewListManagedBean
      */
-    public bankViewListManagedBean() {
+    public BankViewListManagedBean() {
     }
     
     //retrieve list of bank statements submitted
