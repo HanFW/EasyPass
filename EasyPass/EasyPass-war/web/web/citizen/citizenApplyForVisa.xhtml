@@ -1,10 +1,441 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./../templates/citizenTemplate.xhtml">
+                template="./../templates/citizenTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        content
+        <h:form enctype="multipart/form-data">
+            <p:wizard widgetVar ="visaApplicationWizard" flowListener="#{citizenApplyForVisaManagedBean.onFlowProcess}" showNavBar="false">
+                <p:tab id="basic">
+                    <h:panelGrid columns="1">
+                        <p:steps activeIndex="0">
+                            <p:menuitem value="Basic Information" />
+                            <p:menuitem value="Plan of Visit" />
+                            <p:menuitem value="Supporting Documents"/>
+                            <p:menuitem value="Application Submission"/>
+                        </p:steps>
+                    </h:panelGrid>
+                    <p:panelGrid>
+                        <p:outputLabel for="sex" value="Sex: "/>
+                        <p:selectOneRadio id="sex" value="#{citizenApplyForVisaManagedBean.sex}" required="true" requiredMessage="Required Field">
+                            <f:selectItem itemLabel="Male" itemValue="Male" />
+                            <f:selectItem itemLabel="Female" itemValue="Female" />
+                            <f:selectItem itemLabel="Unspecified" itemValue="Unspecified" />
+                        </p:selectOneRadio>
+                        <p:message for="sex"/>
+
+                        <p:outputLabel for="firstName" value="First name: " />
+                        <p:inputText id="firstName" value="#{citizenApplyForVisaManagedBean.firstName}" required="true" requiredMessage="Required field."/>
+                        <p:message for="firstName"/>
+
+                        <p:outputLabel for="lastName" value="Last name: " />
+                        <p:inputText id="lastName" value="#{citizenApplyForVisaManagedBean.lastName}" required="true" requiredMessage="Required field."/>
+                        <p:message for="lastName"/>
+
+                        <p:outputLabel for="birthday" value="Date of birth: "/>
+                        <p:calendar id="birthday" value="#{citizenApplyForVisaManagedBean.birthday}" 
+                                    showOn="button" locale="de" navigator="true" pattern="dd/MM/yyyy" 
+                                    yearRange="c-200:c+0" required="true" requiredMessage="Required Field"/>
+                        <p:message for="birthday"/>
+
+                        <p:outputLabel for="nationality" value="Nationality: "/>
+                        <p:selectOneMenu id="nationality" value="#{citizenApplyForVisaManagedBean.nationality}" required="true" requiredMessage="Required Field">
+                            <f:selectItem itemLabel="" itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Afghanistan" itemValue="Afghanistan" />
+                            <f:selectItem itemLabel="Albania" itemValue="Albania" />
+                            <f:selectItem itemLabel="Algeria" itemValue="Algeria" />
+                            <f:selectItem itemLabel="Andorra" itemValue="Andorra" />
+                            <f:selectItem itemLabel="Angola" itemValue="Angola" />
+                            <f:selectItem itemLabel="Antigua and Barbuda" itemValue="Antigua and Barbuda" />
+                            <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
+                            <f:selectItem itemLabel="Armenia" itemValue="Armenia" />
+                            <f:selectItem itemLabel="Aruba" itemValue="Aruba" />
+                            <f:selectItem itemLabel="Australia" itemValue="Australia" />
+                            <f:selectItem itemLabel="Austria" itemValue="Austria" />
+                            <f:selectItem itemLabel="Azerbaijan" itemValue="Azerbaijan" />
+                            <f:selectItem itemLabel="Bahrain" itemValue="Bahrain" />
+                            <f:selectItem itemLabel="Bangladesh" itemValue="Bangladesh" />
+                            <f:selectItem itemLabel="Barbados" itemValue="Barbados" />
+                            <f:selectItem itemLabel="Belarus" itemValue="Belarus" />
+                            <f:selectItem itemLabel="Belgium" itemValue="Belgium" />
+                            <f:selectItem itemLabel="Belize" itemValue="Belize" />
+                            <f:selectItem itemLabel="Benin" itemValue="Benin" />
+                            <f:selectItem itemLabel="Bhutan" itemValue="Bhutan" />
+                            <f:selectItem itemLabel="Bolivia" itemValue="Bolivia" />
+                            <f:selectItem itemLabel="Bosnia and Herzegovina" itemValue="Bosnia and Herzegovina" />
+                            <f:selectItem itemLabel="Botswana" itemValue="Botswana" />
+                            <f:selectItem itemLabel="Brazil" itemValue="Brazil" />
+                            <f:selectItem itemLabel="Brunei " itemValue="Brunei " />
+                            <f:selectItem itemLabel="Bulgaria" itemValue="Bulgaria" />
+                            <f:selectItem itemLabel="Burkina Faso" itemValue="Burkina Faso" />
+                            <f:selectItem itemLabel="Burma" itemValue="Burma" />
+                            <f:selectItem itemLabel="Burundi" itemValue="Burundi" />
+                            <f:selectItem itemLabel="Cambodia" itemValue="Cambodia" />
+                            <f:selectItem itemLabel="Cameroon" itemValue="Cameroon" />
+                            <f:selectItem itemLabel="Canada" itemValue="Canada" />
+                            <f:selectItem itemLabel="Cabo Verde" itemValue="Cabo Verde" />
+                            <f:selectItem itemLabel="Central African Republic" itemValue="Central African Republic" />
+                            <f:selectItem itemLabel="Chad" itemValue="Chad" />
+                            <f:selectItem itemLabel="Chile" itemValue="Chile" />
+                            <f:selectItem itemLabel="China" itemValue="China" />
+                            <f:selectItem itemLabel="Colombia" itemValue="Colombia" />
+                            <f:selectItem itemLabel="Comoros" itemValue="Comoros" />
+                            <f:selectItem itemLabel="Congo, Democratic Republic of the" itemValue="Congo, Democratic Republic of the" />
+                            <f:selectItem itemLabel="Congo, Republic of the" itemValue="Congo, Republic of the" />
+                            <f:selectItem itemLabel="Costa Rica" itemValue="Costa Rica" />
+                            <f:selectItem itemLabel="Cote d'Ivoire" itemValue="Cote d'Ivoire" />
+                            <f:selectItem itemLabel="Croatia" itemValue="Croatia" />
+                            <f:selectItem itemLabel="Cuba" itemValue="Cuba" />
+                            <f:selectItem itemLabel="Curacao" itemValue="Curacao" />
+                            <f:selectItem itemLabel="Cyprus" itemValue="Cyprus" />
+                            <f:selectItem itemLabel="Czech Republic" itemValue="Czech Republic" />
+                            <f:selectItem itemLabel="Denmark" itemValue="Denmark" />
+                            <f:selectItem itemLabel="Djibouti" itemValue="Djibouti" />
+                            <f:selectItem itemLabel="Dominica" itemValue="Dominica" />
+                            <f:selectItem itemLabel="Dominican Republic" itemValue="Dominican Republic" />
+                            <f:selectItem itemLabel="Ecuador" itemValue="Ecuador" />
+                            <f:selectItem itemLabel="Egypt" itemValue="Egypt" />
+                            <f:selectItem itemLabel="El Salvador" itemValue="El Salvador" />
+                            <f:selectItem itemLabel="Equatorial Guinea" itemValue="Equatorial Guinea" />
+                            <f:selectItem itemLabel="Eritrea" itemValue="Eritrea" />
+                            <f:selectItem itemLabel="Estonia" itemValue="Estonia" />
+                            <f:selectItem itemLabel="Ethiopia" itemValue="Ethiopia" />
+                            <f:selectItem itemLabel="Fiji" itemValue="Fiji" />
+                            <f:selectItem itemLabel="Finland" itemValue="Finland" />
+                            <f:selectItem itemLabel="France" itemValue="France" />
+                            <f:selectItem itemLabel="Gabon" itemValue="Gabon" />
+                            <f:selectItem itemLabel="Georgia" itemValue="Georgia" />
+                            <f:selectItem itemLabel="Germany" itemValue="Germany" />
+                            <f:selectItem itemLabel="Ghana" itemValue="Ghana" />
+                            <f:selectItem itemLabel="Greece" itemValue="Greece" />
+                            <f:selectItem itemLabel="Grenada" itemValue="Grenada" />
+                            <f:selectItem itemLabel="Guatemala" itemValue="Guatemala" />
+                            <f:selectItem itemLabel="Guinea" itemValue="Guinea" />
+                            <f:selectItem itemLabel="Guinea-Bissau" itemValue="Guinea-Bissau" />
+                            <f:selectItem itemLabel="Guyana" itemValue="Guyana" />
+                            <f:selectItem itemLabel="Haiti" itemValue="Haiti" />
+                            <f:selectItem itemLabel="Holy See" itemValue="Holy See" />
+                            <f:selectItem itemLabel="Honduras" itemValue="Honduras" />
+                            <f:selectItem itemLabel="Hong Kong" itemValue="Hong Kong" />
+                            <f:selectItem itemLabel="Hungary" itemValue="Hungary" />
+                            <f:selectItem itemLabel="Iceland" itemValue="Iceland" />
+                            <f:selectItem itemLabel="India" itemValue="India" />
+                            <f:selectItem itemLabel="Indonesia" itemValue="Indonesia" />
+                            <f:selectItem itemLabel="Iran" itemValue="Iran" />
+                            <f:selectItem itemLabel="Iraq" itemValue="Iraq" />
+                            <f:selectItem itemLabel="Ireland" itemValue="Ireland" />
+                            <f:selectItem itemLabel="Israel" itemValue="Israel" />
+                            <f:selectItem itemLabel="Italy" itemValue="Italy" />
+                            <f:selectItem itemLabel="Jamaica" itemValue="Jamaica" />
+                            <f:selectItem itemLabel="Japan" itemValue="Japan" />
+                            <f:selectItem itemLabel="Jordan" itemValue="Jordan" />
+                            <f:selectItem itemLabel="Kazakhstan" itemValue="Kazakhstan" />
+                            <f:selectItem itemLabel="Kenya" itemValue="Kenya" />
+                            <f:selectItem itemLabel="Kiribati" itemValue="Kiribati" />
+                            <f:selectItem itemLabel="Korea, North" itemValue="Korea, North" />
+                            <f:selectItem itemLabel="Korea, South" itemValue="Korea, South" />
+                            <f:selectItem itemLabel="Kosovo" itemValue="Kosovo" />
+                            <f:selectItem itemLabel="Kuwait" itemValue="Kuwait" />
+                            <f:selectItem itemLabel="Kyrgyzstan" itemValue="Kyrgyzstan" />
+                            <f:selectItem itemLabel="Laos" itemValue="Laos" />
+                            <f:selectItem itemLabel="Latvia" itemValue="Latvia" />
+                            <f:selectItem itemLabel="Lebanon" itemValue="Lebanon" />
+                            <f:selectItem itemLabel="Lesotho" itemValue="Lesotho" />
+                            <f:selectItem itemLabel="Liberia" itemValue="Liberia" />
+                            <f:selectItem itemLabel="Libya" itemValue="Libya" />
+                            <f:selectItem itemLabel="Liechtenstein" itemValue="Liechtenstein" />
+                            <f:selectItem itemLabel="Lithuania" itemValue="Lithuania" />
+                            <f:selectItem itemLabel="Luxembourg" itemValue="Luxembourg" />
+                            <f:selectItem itemLabel="Macau" itemValue="Macau" />
+                            <f:selectItem itemLabel="Macedonia" itemValue="Macedonia" />
+                            <f:selectItem itemLabel="Madagascar" itemValue="Madagascar" />
+                            <f:selectItem itemLabel="Malawi" itemValue="Malawi" />
+                            <f:selectItem itemLabel="Malaysia" itemValue="Malaysia" />
+                            <f:selectItem itemLabel="Maldives" itemValue="Maldives" />
+                            <f:selectItem itemLabel="Mali" itemValue="Mali" />
+                            <f:selectItem itemLabel="Malta" itemValue="Malta" />
+                            <f:selectItem itemLabel="Marshall Islands" itemValue="Marshall Islands" />
+                            <f:selectItem itemLabel="Mauritania" itemValue="Mauritania" />
+                            <f:selectItem itemLabel="Mauritius" itemValue="Mauritius" />
+                            <f:selectItem itemLabel="Mexico" itemValue="Mexico" />
+                            <f:selectItem itemLabel="Micronesia" itemValue="Micronesia" />
+                            <f:selectItem itemLabel="Moldova" itemValue="Moldova" />
+                            <f:selectItem itemLabel="Monaco" itemValue="Monaco" />
+                            <f:selectItem itemLabel="Mongolia" itemValue="Mongolia" />
+                            <f:selectItem itemLabel="Montenegro" itemValue="Montenegro" />
+                            <f:selectItem itemLabel="Morocco" itemValue="Morocco" />
+                            <f:selectItem itemLabel="Mozambique" itemValue="Mozambique" />
+                            <f:selectItem itemLabel="Namibia" itemValue="Namibia" />
+                            <f:selectItem itemLabel="Nauru" itemValue="Nauru" />
+                            <f:selectItem itemLabel="Nepal" itemValue="Nepal" />
+                            <f:selectItem itemLabel="Netherlands" itemValue="Netherlands" />
+                            <f:selectItem itemLabel="Netherlands Antilles" itemValue="Netherlands Antilles" />
+                            <f:selectItem itemLabel="New Zealand" itemValue="New Zealand" />
+                            <f:selectItem itemLabel="Nicaragua" itemValue="Nicaragua" />
+                            <f:selectItem itemLabel="Niger" itemValue="Niger" />
+                            <f:selectItem itemLabel="Nigeria" itemValue="Nigeria" />
+                            <f:selectItem itemLabel="North Korea" itemValue="North Korea" />
+                            <f:selectItem itemLabel="Oman" itemValue="Oman" />
+                            <f:selectItem itemLabel="Pakistan" itemValue="Pakistan" />
+                            <f:selectItem itemLabel="Palau" itemValue="Palau" />
+                            <f:selectItem itemLabel="Palestinian Territories" itemValue="Palestinian Territories" />
+                            <f:selectItem itemLabel="Panama" itemValue="Panama" />
+                            <f:selectItem itemLabel="Papua New Guinea" itemValue="Papua New Guinea" />
+                            <f:selectItem itemLabel="Paraguay" itemValue="Paraguay" />
+                            <f:selectItem itemLabel="Peru" itemValue="Peru" />
+                            <f:selectItem itemLabel="Philippines" itemValue="Philippines" />
+                            <f:selectItem itemLabel="Poland" itemValue="Poland" />
+                            <f:selectItem itemLabel="Portugal" itemValue="Portugal" />
+                            <f:selectItem itemLabel="Qatar" itemValue="Qatar" />
+                            <f:selectItem itemLabel="Romania" itemValue="Romania" />
+                            <f:selectItem itemLabel="Russia" itemValue="Russia" />
+                            <f:selectItem itemLabel="Rwanda" itemValue="Rwanda" />
+                            <f:selectItem itemLabel="Saint Kitts and Nevis" itemValue="Saint Kitts and Nevis" />
+                            <f:selectItem itemLabel="Saint Lucia" itemValue="Saint Lucia" />
+                            <f:selectItem itemLabel="Saint Vincent and the Grenadines" itemValue="Saint Vincent and the Grenadines" />
+                            <f:selectItem itemLabel="Samoa " itemValue="Samoa " />
+                            <f:selectItem itemLabel="San Marino" itemValue="San Marino" />
+                            <f:selectItem itemLabel="Sao Tome and Principe" itemValue="Sao Tome and Principe" />
+                            <f:selectItem itemLabel="Saudi Arabia" itemValue="Saudi Arabia" />
+                            <f:selectItem itemLabel="Senegal" itemValue="Senegal" />
+                            <f:selectItem itemLabel="Serbia" itemValue="Serbia" />
+                            <f:selectItem itemLabel="Seychelles" itemValue="Seychelles" />
+                            <f:selectItem itemLabel="Sierra Leone" itemValue="Sierra Leone" />
+                            <f:selectItem itemLabel="Singapore" itemValue="Singapore" />
+                            <f:selectItem itemLabel="Sint Maarten" itemValue="Sint Maarten" />
+                            <f:selectItem itemLabel="Slovakia" itemValue="Slovakia" />
+                            <f:selectItem itemLabel="Slovenia" itemValue="Slovenia" />
+                            <f:selectItem itemLabel="Solomon Islands" itemValue="Solomon Islands" />
+                            <f:selectItem itemLabel="Somalia" itemValue="Somalia" />
+                            <f:selectItem itemLabel="South Africa" itemValue="South Africa" />
+                            <f:selectItem itemLabel="South Korea" itemValue="South Korea" />
+                            <f:selectItem itemLabel="South Sudan" itemValue="South Sudan" />
+                            <f:selectItem itemLabel="Spain " itemValue="Spain " />
+                            <f:selectItem itemLabel="Sri Lanka" itemValue="Sri Lanka" />
+                            <f:selectItem itemLabel="Sudan" itemValue="Sudan" />
+                            <f:selectItem itemLabel="Suriname" itemValue="Suriname" />
+                            <f:selectItem itemLabel="Swaziland " itemValue="Swaziland " />
+                            <f:selectItem itemLabel="Sweden" itemValue="Sweden" />
+                            <f:selectItem itemLabel="Switzerland" itemValue="Switzerland" />
+                            <f:selectItem itemLabel="Syria" itemValue="Syria" />
+                            <f:selectItem itemLabel="Taiwan" itemValue="Taiwan" />
+                            <f:selectItem itemLabel="Tajikistan" itemValue="Tajikistan" />
+                            <f:selectItem itemLabel="Tanzania" itemValue="Tanzania" />
+                            <f:selectItem itemLabel="Thailand " itemValue="Thailand" />
+                            <f:selectItem itemLabel="Timor-Leste" itemValue="Timor-Leste" />
+                            <f:selectItem itemLabel="Togo" itemValue="Togo" />
+                            <f:selectItem itemLabel="Tonga" itemValue="Tonga" />
+                            <f:selectItem itemLabel="Trinidad and Tobago" itemValue="Trinidad and Tobago" />
+                            <f:selectItem itemLabel="Tunisia" itemValue="Tunisia" />
+                            <f:selectItem itemLabel="Turkey" itemValue="Turkey" />
+                            <f:selectItem itemLabel="Turkmenistan" itemValue="Turkmenistan" />
+                            <f:selectItem itemLabel="Tuvalu" itemValue="Tuvalu" />
+                            <f:selectItem itemLabel="Uganda" itemValue="Uganda" />
+                            <f:selectItem itemLabel="Ukraine" itemValue="Ukraine" />
+                            <f:selectItem itemLabel="United Arab Emirates" itemValue="United Arab Emirates" />
+                            <f:selectItem itemLabel="United Kingdom" itemValue="United Kingdom" />
+                            <f:selectItem itemLabel="United States" itemValue="United States" />
+                            <f:selectItem itemLabel="Uruguay" itemValue="Uruguay" />
+                            <f:selectItem itemLabel="Uzbekistan" itemValue="Uzbekistan" />
+                            <f:selectItem itemLabel="Vanuatu" itemValue="Vanuatu" />
+                            <f:selectItem itemLabel="Venezuela" itemValue="Venezuela" />
+                            <f:selectItem itemLabel="Vietnam" itemValue="Vietnam" />
+                            <f:selectItem itemLabel="Yemen" itemValue="Yemen" />
+                            <f:selectItem itemLabel="Zambia" itemValue="Zambia" />
+                            <f:selectItem itemLabel="Zimbabwe" itemValue="Zimbabwe" />
+                        </p:selectOneMenu>
+                        <p:message for="nationality"/>
+
+                        <p:outputLabel for="identityNumber" value="Natioanl identity number: " />
+                        <p:inputText id="identityNumber" value="#{citizenApplyForVisaManagedBean.identityNumber}" required="true" requiredMessage="Required field."/>
+                        <p:message for="identityNumber"/>
+
+                        <p:outputLabel for="maritalStatus" value="Marital status: "/>
+                        <p:selectOneMenu id="maritalStatus" value="#{citizenApplyForVisaManagedBean.maritalStatus}" required="true" requiredMessage="Required Field">
+                            <f:selectItem itemLabel="" itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Divorced" itemValue="Divorced" />
+                            <f:selectItem itemLabel="Married" itemValue="Married" />
+                            <f:selectItem itemLabel="Other" itemValue="Other" />
+                            <f:selectItem itemLabel="Separated" itemValue="Separated" />
+                            <f:selectItem itemLabel="Single" itemValue="Single" />
+                            <f:selectItem itemLabel="Widowed" itemValue="Widowed" />
+                        </p:selectOneMenu>
+                        <p:message for="maritalStatus"/>
+
+                        <p:outputLabel for="residentialAddress" value="Residential address: " />
+                        <p:inputText id="residentialAddress" value="#{citizenApplyForVisaManagedBean.residentialAddress}" required="true" requiredMessage="Required field."/>
+                        <p:message for="residentialAddress"/>                            
+                    </p:panelGrid>
+
+                    <h:panelGrid columns="2" class="ui-lg-6"> 
+                        <p:commandButton value="Back" icon="ui-icon-arrow-1-w" iconPos="left" disabled="true"/>
+                        <p:commandButton value="Next" icon="ui-icon-arrow-1-e" iconPos="right" onclick="PF('visaApplicationWizard').next();"/>
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab id="plan">
+                    <h:panelGrid columns="1">
+                        <p:steps activeIndex="1">
+                            <p:menuitem value="Basic Information" />
+                            <p:menuitem value="Plan of Visit" />
+                            <p:menuitem value="Supporting Documents"/>
+                            <p:menuitem value="Application Submission"/>
+                        </p:steps>
+                    </h:panelGrid>
+                    <p:panelGrid>
+                        <p:outputLabel for="startDate" value="Planned date of arrival in Schegen area: "/>
+                        <p:calendar id="startDate" value="#{citizenApplyForVisaManagedBean.startDate}" 
+                                    showOn="button" locale="de" navigator="true" pattern="dd/MM/yyyy" 
+                                    yearRange="c-0:c+10" required="true" requiredMessage="Required Field"/>
+                        <p:message for="startDate"/>
+
+                        <p:outputLabel for="endDate" value="Planned date of departure in Schegen area: "/>
+                        <p:calendar id="endDate" value="#{citizenApplyForVisaManagedBean.endDate}" 
+                                    showOn="button" locale="de" navigator="true" pattern="dd/MM/yyyy" 
+                                    yearRange="c-0:c+10" required="true" requiredMessage="Required Field"/>
+                        <p:message for="endDate"/>
+
+                        <p:outputLabel for="purposeOfVisit" value="Purpose of visit: "/>
+                        <p:selectOneMenu id="purposeOfVisit" value="#{citizenApplyForVisaManagedBean.purposeOfVisit}" required="true" requiredMessage="Required Field">
+                            <f:selectItem itemLabel="Tourism" itemValue="Tourism" />
+                        </p:selectOneMenu>
+                        <p:message for="purposeOfVisit"/>
+
+                        <p:outputLabel for="localContactName" value="Name of local contact: " />
+                        <p:inputText id="localContactName" value="#{citizenApplyForVisaManagedBean.localContactName}" required="true" requiredMessage="Required field."/>
+                        <p:message for="localContactName"/>
+
+                        <p:outputLabel for="localContactIdentityNumber" value="Identify number of local contact: " />
+                        <p:inputText id="localContactIdentityNumber" value="#{citizenApplyForVisaManagedBean.localContactIdentityNumber}" required="true" requiredMessage="Required field."/>
+                        <p:message for="localContactIdentityNumber"/>
+                    </p:panelGrid>
+
+                    <h:panelGrid columns="2" class="ui-lg-6"> 
+                        <p:commandButton value="Back" icon="ui-icon-arrow-1-w" iconPos="left" onclick="PF('visaApplicationWizard').back();"/>
+                        <p:commandButton value="Next" icon="ui-icon-arrow-1-e" iconPos="right" onclick="PF('visaApplicationWizard').next();"/>
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab id="documents">
+                    <h:panelGrid columns="1">
+                        <p:steps activeIndex="2">
+                            <p:menuitem value="Basic Information" />
+                            <p:menuitem value="Plan of Visit" />
+                            <p:menuitem value="Supporting Documents"/>
+                            <p:menuitem value="Application Submission"/>
+                        </p:steps>
+                    </h:panelGrid>
+                    <p:fieldset legend="Bank Statement">
+                        <p:outputLabel for="bankName" value="Bank name: "/>
+                        <p:selectOneMenu id="bankName" value="#{citizenApplyForVisaManagedBean.bankName}" required="true" requiredMessage="Required Field">
+                            <f:selectItem itemLabel="" itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="DBS" itemValue="DBS" />
+                            <f:selectItem itemLabel="OCBC" itemValue="OCBC" />
+                            <f:selectItem itemLabel="HSBC" itemValue="HSBC" />
+                        </p:selectOneMenu>
+                        <p:message for="bankName"/>
+
+                        <p:outputLabel for="accountNumber" value="Account number: " />
+                        <p:inputText id="accountNumber" value="#{citizenApplyForVisaManagedBean.accountNumber}" required="true" requiredMessage="Required field."/>
+                        <p:message for="accountNumber"/>
+
+                        <p:outputLabel value="Bank statement upload (PDF): "/>
+                        <p:fileUpload id="bankStatement" label="Bank Statement" update="bankStatementMessage" 
+                                      fileUploadListener="#{citizenApplyForVisaManagedBean.bankStatementUpload}"
+                                      mode="advanced" skinSimple="true" sizeLimit="10000000" allowTypes="/(\.|\/)(pdf)$/" multiple="false"/>
+                        <p:messages for="bankStatement" id="bankStatementMessage"/>
+                    </p:fieldset>
+                    <p:fieldset legend="Transportation Details">
+                        <p:outputLabel for="carrierName" value="Carrier name: "/>
+                        <p:selectOneMenu id="carrierName" value="#{citizenApplyForVisaManagedBean.carrierName}" required="true" requiredMessage="Required Field">
+                            <f:selectItem itemLabel="" itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Singapore Airlines" itemValue="Singapore Airlines" />
+                            <f:selectItem itemLabel="China Airlines" itemValue="China Airlines" />
+                            <f:selectItem itemLabel="Air France" itemValue="Air France" />
+                        </p:selectOneMenu>
+                        <p:message for="carrierName"/>
+
+                        <p:outputLabel for="transportationReference" value="Booking reference: " />
+                        <p:inputText id="transportationReference" value="#{citizenApplyForVisaManagedBean.transportationReference}" required="true" requiredMessage="Required field."/>
+                        <p:message for="transportationReference"/>
+
+                        <p:outputLabel value="Transportation booking confirmation (PDF): "/>
+                        <p:fileUpload id="transportationFile" label="Booking Confirmation" update="transportationFileMessage" 
+                                      fileUploadListener="#{citizenApplyForVisaManagedBean.transportationFileUpload}"
+                                      mode="advanced" skinSimple="true" sizeLimit="10000000" allowTypes="/(\.|\/)(pdf)$/" multiple="false"/>
+                        <p:messages for="transportationFile" id="transportationFileMessage"/>
+                    </p:fieldset>
+                    <p:fieldset legend="Accommodation Details">
+                        <p:outputLabel for="accommodationName" value="Hotel name: "/>
+                        <p:selectOneMenu id="accommodationName" value="#{citizenApplyForVisaManagedBean.accommodationName}" required="true" requiredMessage="Required Field">
+                            <f:selectItem itemLabel="" itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Le Chardon Mountain Lodges" itemValue="Le Chardon Mountain Lodges" />
+                            <f:selectItem itemLabel="La Bastide de Gordes" itemValue="La Bastide de Gordes" />
+                            <f:selectItem itemLabel="Villa Maïa" itemValue="Villa Maïa" />
+                        </p:selectOneMenu>
+                        <p:message for="accommodationName"/>
+
+                        <p:outputLabel for="accommodationReference" value="Booking reference: " />
+                        <p:inputText id="accommodationReference" value="#{citizenApplyForVisaManagedBean.accommodationReference}" required="true" requiredMessage="Required field."/>
+                        <p:message for="accommodationReference"/>
+
+                        <p:outputLabel value="Accommodation booking confirmation (PDF): "/>
+                        <p:fileUpload id="accommodationFile" label="Booking Confirmation" update="accommodationFileMessage" 
+                                      fileUploadListener="#{citizenApplyForVisaManagedBean.accommodationFileUpload}"
+                                      mode="advanced" skinSimple="true" sizeLimit="10000000" allowTypes="/(\.|\/)(pdf)$/" multiple="false"/>
+                        <p:messages for="accommodationFile" id="accommodationFileMessage"/>
+                    </p:fieldset>
+                    <p:fieldset legend="Travel insurance Details">
+                        <p:outputLabel for="insuranceCompanyName" value="Insurance company name: "/>
+                        <p:selectOneMenu id="insuranceCompanyName" value="#{citizenApplyForVisaManagedBean.insuranceCompanyName}" required="true" requiredMessage="Required Field">
+                            <f:selectItem itemLabel="" itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="NTUC" itemValue="NTUC" />
+                            <f:selectItem itemLabel="American Express" itemValue="American Express" />
+                        </p:selectOneMenu>
+                        <p:message for="insuranceCompanyName"/>
+
+                        <p:outputLabel for="insuranceReference" value="Travel insurance reference: " />
+                        <p:inputText id="insuranceReference" value="#{citizenApplyForVisaManagedBean.insuranceReference}" required="true" requiredMessage="Required field."/>
+                        <p:message for="insuranceReference"/>
+
+                        <p:outputLabel value="Travel insurance document (PDF): "/>
+                        <p:fileUpload id="insuranceFile" label="Insurance Document" update="insuranceFileMessage" 
+                                      fileUploadListener="#{citizenApplyForVisaManagedBean.insuranceFileUpload}"
+                                      mode="advanced" skinSimple="true" sizeLimit="10000000" allowTypes="/(\.|\/)(pdf)$/" multiple="false"/>
+                        <p:messages for="insuranceFile" id="insuranceFileMessage"/>
+                    </p:fieldset>
+
+                    <h:panelGrid columns="2" class="ui-lg-6"> 
+                        <p:commandButton value="Back" icon="ui-icon-arrow-1-w" iconPos="left" onclick="PF('visaApplicationWizard').back();"/>
+                        <p:commandButton value="Next" icon="ui-icon-arrow-1-e" iconPos="right" onclick="PF('visaApplicationWizard').next();"/>
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab id="submission">
+                    <h:panelGrid columns="1">
+                        <p:steps activeIndex="3">
+                            <p:menuitem value="Basic Information" />
+                            <p:menuitem value="Plan of Visit" />
+                            <p:menuitem value="Supporting Documents"/>
+                            <p:menuitem value="Application Submission"/>
+                        </p:steps>
+                    </h:panelGrid>
+                    <p:panelGrid>
+                        <p:messages for="confirmation"/>
+                        <p:message for="confirmation"/>
+                        <p:selectBooleanCheckbox id = "confirmation" value="#{citizenApplyForVisaManagedBean.confirmation}"/>
+                        <h:outputText value=" I declare that all the information provided is correct and complete to the best of my knowledge." />
+                    </p:panelGrid>
+                    <h:panelGrid columns="2" class="ui-lg-6"> 
+                        <p:commandButton value="Back" icon="ui-icon-arrow-1-w" iconPos="left" onclick="PF('visaApplicationWizard').back();"/>
+                        <p:commandButton value="Submit Application" actionListener="#{citizenApplyForVisaManagedBean.submitNewApplication}" update="@form"/>
+                    </h:panelGrid>
+                </p:tab>
+            </p:wizard>
+        </h:form>
     </ui:define>
 
 </ui:composition>
