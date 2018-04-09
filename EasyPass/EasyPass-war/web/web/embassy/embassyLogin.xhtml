@@ -1,12 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
+        <h:outputScript name="js/ripple.js" library="ultima-layout" />
+        <h:outputScript name="js/layout.js" library="ultima-layout" />  
     </h:head>
-    <h:body>
-        Embassy Login
+    <h:body styleClass="login-body">
+        <h:form>
+            <div class="card login-panel ui-fluid">
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <label>Embassy Login</label>
+                        <p:messages globalOnly="true" showDetail="false"/>
+                    </div>
+     
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText type="text" id="embassyAccountNumber" value="#{embassyLoginManagedBean.accountNumber}" required="true" requiredMessage="Please enter your account number."/>
+                            <label>Account Number</label>
+                            <p:message for="embassyAccountNumber"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText type="password" id= "embassyPassword" value="#{embassyLoginManagedBean.password}" required="true" requiredMessage="Please enter your password."/>
+                            <label>Password</label>
+                            <p:message for="embassyPassword"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <p:commandButton value="Log in" type="submit" actionListener="#{embassyLoginManagedBean.embassyDoLogin}" icon="ui-icon-person" update="@form"/>
+                    </div>
+                </div>
+            </div>
+
+            <h:outputStylesheet name="css/ripple.css" library="ultima-layout" />
+            <h:outputStylesheet name="css/layout-#{themePreferences.theme}.css" library="ultima-layout" />
+        </h:form>
     </h:body>
 </html>
 
