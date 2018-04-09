@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package session;
-
-import javax.ejb.Local;
+package exception;
 
 /**
  *
  * @author hanfengwei
  */
-@Local
-public interface CitizenSessionBeanLocal {
-    
+public class AuthenticationFailException extends Exception {
+
+	public AuthenticationFailException(String message) {
+		super(message);
+	}
+
 }

@@ -8,8 +8,38 @@
         <h:outputScript name="js/ripple.js" library="ultima-layout" />
         <h:outputScript name="js/layout.js" library="ultima-layout" />  
     </h:head>
-    <h:body class="login-body">
-        Citizen Login
+    <h:body styleClass="login-body">
+        <h:form>
+            <div class="card login-panel ui-fluid">
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <label>Citizen Login</label>
+                        <p:messages globalOnly="true" showDetail="false"/>
+                    </div>
+     
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText type="text" id="citizenAccountNumber" value="#{citizenLoginManagedBean.accountNumber}" required="true" requiredMessage="Please enter your account number."/>
+                            <label>Account Number</label>
+                            <p:message for="citizenAccountNumber"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText type="password" id= "citizenPassword" value="#{citizenLoginManagedBean.password}" required="true" requiredMessage="Please enter your password."/>
+                            <label>Password</label>
+                            <p:message for="citizenPassword"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <p:commandButton value="Log in" type="submit" actionListener="#{citizenLoginManagedBean.citizenDoLogin}" icon="ui-icon-person" update="@form"/>
+                    </div>
+                </div>
+            </div>
+
+            <h:outputStylesheet name="css/ripple.css" library="ultima-layout" />
+            <h:outputStylesheet name="css/layout-#{themePreferences.theme}.css" library="ultima-layout" />
+        </h:form>
     </h:body>
 </html>
 

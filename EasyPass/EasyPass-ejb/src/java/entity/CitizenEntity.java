@@ -16,12 +16,14 @@ import javax.persistence.Id;
  * @author hanfengwei
  */
 @Entity
-public class Citizen implements Serializable {
+public class CitizenEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String passportNum;
+    private String accountNumber;
+    private String password;
+    private String passwordSalt;
 
     public Long getId() {
         return id;
@@ -31,11 +33,27 @@ public class Citizen implements Serializable {
         this.id = id;
     }
 
-    public String getPassportNum() {
-        return passportNum;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setPassportNum(String passportNum) {
-        this.passportNum = passportNum;
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPasswordSalt() {
+        return passwordSalt;
+    }
+
+    public void setPasswordSalt(String passwordSalt) {
+        this.passwordSalt = passwordSalt;
     }
 }
