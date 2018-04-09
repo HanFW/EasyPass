@@ -5,26 +5,39 @@
  */
 package objects;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import java.util.UUID;
+import util.Constants;
 
 /**
  *
  * @author Jingyuan
  */
 public class Accomodation {
-    @JsonIgnore
     private String $class;
-    
     private String accomodationId;
     private String carrierName;
     private String referenceNumber;
     private String transportationReferenceImageURL;
     private String endorsementState;
     private String owner;
-    @JsonIgnore
     private String endorseBy;
-    @JsonIgnore
     private String visaApplication;
+    
+    public Accomodation() {
+        this.$class = "org.acme.easypass.Accomodation";
+        this.accomodationId = UUID.randomUUID().toString();
+        this.endorsementState = Constants.STATUS_PENDING;
+        this.owner = "CitizenId(TBC)";
+    }
+
+    public Accomodation(String carrierName, String referenceNumber, String transportationReferenceImageURL, String endorseBy, String visaApplication) {
+        this();
+        this.carrierName = carrierName;
+        this.referenceNumber = referenceNumber;
+        this.transportationReferenceImageURL = transportationReferenceImageURL;
+        this.endorseBy = endorseBy;
+        this.visaApplication = visaApplication;
+    }
 
     public String get$class() {
         return $class;

@@ -5,7 +5,8 @@
  */
 package objects;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import java.util.UUID;
+import util.Constants;
 
 /**
  *
@@ -13,20 +14,32 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 public class Insurance {
 
-    @JsonIgnore
     private String $class;
-
     private String insuranceId;
     private String companyName;
     private String referenceNumber;
     private String insuranceContractImageURL;
     private String endorsementState;
     private String owner;
-    @JsonIgnore
     private String endorseBy;
-    @JsonIgnore
     private String visaApplication;
+    
+    public Insurance() {
+        this.$class = "org.acme.easypass.Insurance";
+        this.insuranceId = UUID.randomUUID().toString();
+        this.endorsementState = Constants.STATUS_PENDING;
+        this.owner = "CitizenId(TBC)";
+    }
 
+    public Insurance(String companyName, String referenceNumber, String insuranceContractImageURL, String endorseBy, String visaApplication) {
+        this();
+        this.companyName = companyName;
+        this.referenceNumber = referenceNumber;
+        this.insuranceContractImageURL = insuranceContractImageURL;
+        this.endorseBy = endorseBy;
+        this.visaApplication = visaApplication;
+    }
+    
     public String get$class() {
         return $class;
     }

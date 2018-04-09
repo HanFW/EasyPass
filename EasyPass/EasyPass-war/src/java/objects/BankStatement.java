@@ -5,33 +5,41 @@
  */
 package objects;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import util.Constants;
 
 /**
  *
  * @author hanfengwei
  */
 public class BankStatement {
-    @JsonIgnore
     private String $class;
-    
     private String bankStatementId;
     private String bankName;
     private String accountNumber;
     private String bankStatementImageURL;
     private String endorsementState;
     private String owner;
-    @JsonIgnore
     private String endorseBy;
-    @JsonIgnore
     private String visaApplication;
     
+    public BankStatement() {
+        this.$class = "org.acme.easypass.BankStatement";
+        this.bankStatementId = UUID.randomUUID().toString();
+        this.endorsementState = Constants.STATUS_PENDING;
+        this.owner = "CitizenId(TBC)";
+    }
+
+    public BankStatement(String bankName, String accountNumber, String bankStatementImageURL, String endorseBy, String visaApplication) {
+        this();
+        this.bankName = bankName;
+        this.accountNumber = accountNumber;
+        this.bankStatementImageURL = bankStatementImageURL;
+        this.endorseBy = endorseBy;
+        this.visaApplication = visaApplication;
+    }
+        
     public String get$class() {
         return $class;
     }

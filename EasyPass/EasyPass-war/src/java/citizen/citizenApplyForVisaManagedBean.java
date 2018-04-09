@@ -6,17 +6,27 @@
 package citizen;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import objects.Accomodation;
+import objects.BankStatement;
+import objects.BasicInfo;
+import objects.Insurance;
+import objects.LocalContact;
+import objects.TransportationReference;
+import objects.VisaApplication;
+import objects.VisaStatus;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.UploadedFile;
@@ -29,6 +39,7 @@ import org.primefaces.model.UploadedFile;
 @ViewScoped
 public class citizenApplyForVisaManagedBean implements Serializable{
     
+    private VisaApplication visaApplication;
     private String applicationId;
     //basic info
     private String firstName;
@@ -77,7 +88,8 @@ public class citizenApplyForVisaManagedBean implements Serializable{
     
     @PostConstruct
     public void init() {
-        applicationId = UUID.randomUUID().toString();
+        visaApplication = new VisaApplication();
+        applicationId = visaApplication.getVisaApplicationId();
     }
     
     //control the flow of application tabs
@@ -86,16 +98,49 @@ public class citizenApplyForVisaManagedBean implements Serializable{
         return nextStep;
     }
     
-    public void submitNewApplication (ActionEvent event) {
+    public void submitNewApplication (ActionEvent event) throws IOException {
         if(!confirmation){
             //ask citizen to confirm before submitting application
             FacesContext.getCurrentInstance().addMessage("confirmation", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please confirm before submitting the application", " "));        
         } else {
             //create new visa application
-            System.out.println("create new application");
             ObjectMapper mapper = new ObjectMapper();
-
+            
+            // - create new visa status
+            VisaStatus visaStatus = new VisaStatus("EmbassyId(TBC)",applicationId);
+            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_" + firstName + ".json"), visaStatus);
+            // - create new basic info
+            BasicInfo basicInfo = new BasicInfo(firstName,lastName, formatDate(birthday),identityNumber, residentialAddress, maritalStatus, "passportnumber(TBC)", sex, nationality, applicationId);
+            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BasicInfo/post_request_" + firstName + ".json"), basicInfo);
+            // - create bank statement
+            BankStatement bankStatement = new BankStatement(bankName, accountNumber, bankStatementURL, "bankdId(TBC)", applicationId);
+            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BankStatement/post_request_" + firstName + ".json"), bankStatement);
+            // - create transportation reference
+            TransportationReference transportation = new TransportationReference(carrierName, transportationReference, transportationURL, "carrierId(TBC)", applicationId);
+            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/TransportationReference/post_request_" + firstName + ".json"), transportation);
+            // - create accommodation reference
+            Accomodation accommodation = new Accomodation(accommodationName, accommodationReference, accommodationURL, "hotelId(TBC)", applicationId);
+            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Accomodation/post_request_" + firstName + ".json"), accommodation);
+            // - create insurance reference
+            Insurance insurance = new Insurance(insuranceCompanyName, insuranceReference, insuranceURL, "insuranceCompanyId(TBC)", applicationId);
+            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Insurance/post_request_" + firstName + ".json"), insurance);
+            // - create local contact
+            LocalContact localContact = new LocalContact(localContactName, localContactIdentityNumber, "localcontactId(TBC)", applicationId);
+            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/LocalContact/post_request_" + firstName + ".json"), localContact);
+            // - update visa application
+            visaApplication.updateVisaApplicationInfo(formatDate(startDate), formatDate(endDate), purposeOfVisit);
+            visaApplication.updateVisaApplicationReferences(visaStatus.getVisaStatusId(), 
+                    "passportId(TBC)", "citizenId(TBC)", 
+                    basicInfo.getBasicInfoId(), bankStatement.getBankStatementId(), 
+                    transportation.getTransportationReferenceId(), accommodation.getAccomodationId(), 
+                    insurance.getInsuranceId(), localContact.getLocalContactId());
+            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaApplication/post_request_" + firstName + ".json"), visaApplication);
         }
+    }
+    
+    private String formatDate(Date dateOriginal) {
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        return df.format(dateOriginal);
     }
     
     public void bankStatementUpload (FileUploadEvent event) throws FileNotFoundException, IOException {
@@ -139,6 +184,14 @@ public class citizenApplyForVisaManagedBean implements Serializable{
     
     public void insuranceFileUpload (FileUploadEvent event) {
         
+    }
+
+    public VisaApplication getVisaApplication() {
+        return visaApplication;
+    }
+
+    public void setVisaApplication(VisaApplication visaApplication) {
+        this.visaApplication = visaApplication;
     }
     
     public String getApplicationId() {

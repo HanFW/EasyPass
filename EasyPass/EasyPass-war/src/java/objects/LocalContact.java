@@ -5,14 +5,14 @@
  */
 package objects;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import java.util.UUID;
+import util.Constants;
 
 /**
  *
  * @author Jingyuan
  */
 public class LocalContact {
-    @JsonIgnore
     private String $class;
     
     private String localContactId;
@@ -20,10 +20,23 @@ public class LocalContact {
     private String identityNumber;
     private String endorsementState;
     private String owner;
-    @JsonIgnore
     private String endorseBy;
-    @JsonIgnore
     private String visaApplication;
+    
+    public LocalContact() {
+        this.$class = "org.acme.easypass.LocalContact";
+        this.localContactId = UUID.randomUUID().toString();
+        this.endorsementState = Constants.STATUS_PENDING;
+        this.owner = "CitizenId(TBC)";
+    }
+
+    public LocalContact(String contactName, String identityNumber, String endorseBy, String visaApplication) {
+        this();
+        this.contactName = contactName;
+        this.identityNumber = identityNumber;
+        this.endorseBy = endorseBy;
+        this.visaApplication = visaApplication;
+    }    
 
     public String get$class() {
         return $class;

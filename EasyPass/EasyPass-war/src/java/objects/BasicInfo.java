@@ -5,7 +5,8 @@
  */
 package objects;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import java.util.UUID;
+import util.Constants;
 
 /**
  *
@@ -13,26 +14,44 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 public class BasicInfo {
 
-    @JsonIgnore
     private String $class;
-
     private String basicInfoId;
     private String firstName;
     private String lastName;
     private String birthday;
     private String identityNumber;
     private String residentialAddress;
-    private String maritialStatus;
+    private String maritalStatus;
     private String passportNumber;
     private String sex;
     private String nationality;
     private String endorsementState;
     private String owner;
-    @JsonIgnore
     private String endorseBy;
-    @JsonIgnore
     private String visaApplication;
+    
+    public BasicInfo() {
+        this.$class = "org.acme.easypass.BasicInfo";
+        this.basicInfoId = UUID.randomUUID().toString();
+        this.endorsementState = Constants.STATUS_PENDING;
+        this.owner = "CitizenId(TBC)";
+        this.endorseBy = "ICAId(TBC)";
+    }
 
+    public BasicInfo(String firstName, String lastName, String birthday, String identityNumber, String residentialAddress, String maritalStatus, String passportNumber, String sex, String nationality, String visaApplication) {
+        this();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.identityNumber = identityNumber;
+        this.residentialAddress = residentialAddress;
+        this.maritalStatus = maritalStatus;
+        this.passportNumber = passportNumber;
+        this.sex = sex;
+        this.nationality = nationality;
+        this.visaApplication = visaApplication;
+    }
+    
     public String get$class() {
         return $class;
     }
@@ -89,12 +108,12 @@ public class BasicInfo {
         this.residentialAddress = residentialAddress;
     }
 
-    public String getMaritialStatus() {
-        return maritialStatus;
+    public String getMaritalStatus() {
+        return maritalStatus;
     }
 
-    public void setMaritialStatus(String maritalStatus) {
-        this.maritialStatus = maritalStatus;
+    public void setMaritalStatus(String maritalStatus) {
+        this.maritalStatus = maritalStatus;
     }
 
     public String getPassportNumber() {

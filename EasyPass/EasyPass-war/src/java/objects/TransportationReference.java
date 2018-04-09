@@ -5,27 +5,40 @@
  */
 package objects;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import java.util.UUID;
+import util.Constants;
 
 /**
  *
  * @author Jingyuan
  */
 public class TransportationReference {
-    @JsonIgnore
     private String $class;
-    
     private String transportationReferenceId;
     private String carrierName;
     private String reference;
     private String transportationReferenceImageURL;
     private String endorsementState;
     private String owner;
-    @JsonIgnore
     private String endorseBy;
-    @JsonIgnore
     private String visaApplication;
+    
+    public TransportationReference() {
+        this.$class = "org.acme.easypass.TransportationReference";
+        this.transportationReferenceId = UUID.randomUUID().toString();
+        this.endorsementState = Constants.STATUS_PENDING;
+        this.owner = "CitizenId(TBC)";
+    }
 
+    public TransportationReference(String carrierName, String reference, String transportationReferenceImageURL, String endorseBy, String visaApplication) {
+        this();
+        this.carrierName = carrierName;
+        this.reference = reference;
+        this.transportationReferenceImageURL = transportationReferenceImageURL;
+        this.endorseBy = endorseBy;
+        this.visaApplication = visaApplication;
+    }
+    
     public String get$class() {
         return $class;
     }
