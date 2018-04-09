@@ -308,7 +308,7 @@
                         <p:inputText id="localContactName" value="#{citizenApplyForVisaManagedBean.localContactName}" required="true" requiredMessage="Required field."/>
                         <p:message for="localContactName"/>
 
-                        <p:outputLabel for="localContactIdentityNumber" value="Identify number of local contact: " />
+                        <p:outputLabel for="localContactIdentityNumber" value="National identify number of local contact: " />
                         <p:inputText id="localContactIdentityNumber" value="#{citizenApplyForVisaManagedBean.localContactIdentityNumber}" required="true" requiredMessage="Required field."/>
                         <p:message for="localContactIdentityNumber"/>
                     </p:panelGrid>
@@ -343,10 +343,10 @@
                         <p:message for="accountNumber"/>
 
                         <p:outputLabel value="Bank statement upload (PDF): "/>
+                        <p:messages for="bankStatement" id="bankStatementMessage"/>
                         <p:fileUpload id="bankStatement" label="Bank Statement" update="bankStatementMessage" 
                                       fileUploadListener="#{citizenApplyForVisaManagedBean.bankStatementUpload}"
                                       mode="advanced" skinSimple="true" sizeLimit="10000000" allowTypes="/(\.|\/)(pdf)$/" multiple="false"/>
-                        <p:messages for="bankStatement" id="bankStatementMessage"/>
                     </p:fieldset>
                     <p:fieldset legend="Transportation Details">
                         <p:outputLabel for="carrierName" value="Carrier name: "/>
@@ -363,10 +363,10 @@
                         <p:message for="transportationReference"/>
 
                         <p:outputLabel value="Transportation booking confirmation (PDF): "/>
+                        <p:messages for="transportationFile" id="transportationFileMessage"/>
                         <p:fileUpload id="transportationFile" label="Booking Confirmation" update="transportationFileMessage" 
                                       fileUploadListener="#{citizenApplyForVisaManagedBean.transportationFileUpload}"
                                       mode="advanced" skinSimple="true" sizeLimit="10000000" allowTypes="/(\.|\/)(pdf)$/" multiple="false"/>
-                        <p:messages for="transportationFile" id="transportationFileMessage"/>
                     </p:fieldset>
                     <p:fieldset legend="Accommodation Details">
                         <p:outputLabel for="accommodationName" value="Hotel name: "/>
@@ -383,10 +383,10 @@
                         <p:message for="accommodationReference"/>
 
                         <p:outputLabel value="Accommodation booking confirmation (PDF): "/>
+                        <p:messages for="accommodationFile" id="accommodationFileMessage"/>
                         <p:fileUpload id="accommodationFile" label="Booking Confirmation" update="accommodationFileMessage" 
                                       fileUploadListener="#{citizenApplyForVisaManagedBean.accommodationFileUpload}"
                                       mode="advanced" skinSimple="true" sizeLimit="10000000" allowTypes="/(\.|\/)(pdf)$/" multiple="false"/>
-                        <p:messages for="accommodationFile" id="accommodationFileMessage"/>
                     </p:fieldset>
                     <p:fieldset legend="Travel insurance Details">
                         <p:outputLabel for="insuranceCompanyName" value="Insurance company name: "/>
@@ -402,10 +402,10 @@
                         <p:message for="insuranceReference"/>
 
                         <p:outputLabel value="Travel insurance document (PDF): "/>
+                        <p:messages for="insuranceFile" id="insuranceFileMessage"/>
                         <p:fileUpload id="insuranceFile" label="Insurance Document" update="insuranceFileMessage" 
                                       fileUploadListener="#{citizenApplyForVisaManagedBean.insuranceFileUpload}"
                                       mode="advanced" skinSimple="true" sizeLimit="10000000" allowTypes="/(\.|\/)(pdf)$/" multiple="false"/>
-                        <p:messages for="insuranceFile" id="insuranceFileMessage"/>
                     </p:fieldset>
 
                     <h:panelGrid columns="2" class="ui-lg-6"> 

@@ -8,7 +8,10 @@ package citizen;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -95,6 +98,24 @@ public class citizenApplyForVisaManagedBean implements Serializable{
     //control the flow of application tabs
     public String onFlowProcess(FlowEvent event) {
         String nextStep = event.getNewStep();
+        if(event.getOldStep().equals("documents")) {
+            if(bankStatementFile == null) {
+                FacesContext.getCurrentInstance().addMessage("bankStatement", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please upload your bank statement.", " "));
+                nextStep = event.getOldStep();
+            }
+            if(transportationFile == null) {
+                FacesContext.getCurrentInstance().addMessage("transportationFile", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please upload your transportation document.", " "));
+                nextStep = event.getOldStep();
+            }
+            if(accommodationFile == null) {
+                FacesContext.getCurrentInstance().addMessage("accommodationFile", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please upload your accommodation document.", " "));
+                nextStep = event.getOldStep();
+            }
+            if(insuranceFile == null) {
+                FacesContext.getCurrentInstance().addMessage("insuranceFile", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please upload your Insurance document.", " "));
+                nextStep = event.getOldStep();
+            }
+        }
         return nextStep;
     }
     
@@ -144,46 +165,131 @@ public class citizenApplyForVisaManagedBean implements Serializable{
     }
     
     public void bankStatementUpload (FileUploadEvent event) throws FileNotFoundException, IOException {
+        this.bankStatementFile = event.getFile();
         
-        System.out.println("test upload");
-//        this.bankStatementFile = event.getFile();
-//        
-//        if (bankStatementFile != null) {
-//            String filename = applicationId + "-bankStatement.pdf";
-//            String newFilePath = System.getProperty("user.dir").replace("config", "docroot") + System.getProperty("file.separator");
-//            OutputStream output = new FileOutputStream(new File(newFilePath, filename));
-//
-//            int a;
-//            int BUFFER_SIZE = 8192;
-//            byte[] buffer = new byte[BUFFER_SIZE];
-//
-//            InputStream inputStream = bankStatementFile.getInputstream();
-//
-//            while (true) {
-//                a = inputStream.read(buffer);
-//                if (a < 0) {
-//                    break;
-//                }
-//                output.write(buffer, 0, a);
-//                output.flush();
-//            }
-//
-//            output.close();
-//            inputStream.close();
-//            FacesContext.getCurrentInstance().addMessage("bankStatement", new FacesMessage(FacesMessage.SEVERITY_INFO, "Bank statement uploaded successful!", " "));
-//        }
+        if (bankStatementFile != null) {
+            String filename = applicationId + "-bankStatement.pdf";
+            bankStatementURL = "https://localhost:8181/" + filename;
+            String newFilePath = System.getProperty("user.dir").replace("config", "docroot") + System.getProperty("file.separator");
+            OutputStream output = new FileOutputStream(new File(newFilePath, filename));
+
+            int a;
+            int BUFFER_SIZE = 8192;
+            byte[] buffer = new byte[BUFFER_SIZE];
+
+            InputStream inputStream = bankStatementFile.getInputstream();
+
+            while (true) {
+                a = inputStream.read(buffer);
+                if (a < 0) {
+                    break;
+                }
+                output.write(buffer, 0, a);
+                output.flush();
+            }
+
+            output.close();
+            inputStream.close();
+            FacesContext.getCurrentInstance().addMessage("bankStatement", new FacesMessage(FacesMessage.SEVERITY_INFO, "Bank statement uploaded successfully!", " "));
+        } else {
+            FacesContext.getCurrentInstance().addMessage("bankStatement", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot find file, please upload again.", " "));
+        }
     }
     
-    public void transportationFileUpload (FileUploadEvent event) {
+    public void transportationFileUpload (FileUploadEvent event) throws FileNotFoundException, IOException {
+        this.transportationFile = event.getFile();
         
+        if (transportationFile != null) {
+            String filename = applicationId + "-transportation.pdf";
+            transportationURL = "https://localhost:8181/" + filename;
+            String newFilePath = System.getProperty("user.dir").replace("config", "docroot") + System.getProperty("file.separator");
+            OutputStream output = new FileOutputStream(new File(newFilePath, filename));
+
+            int a;
+            int BUFFER_SIZE = 8192;
+            byte[] buffer = new byte[BUFFER_SIZE];
+
+            InputStream inputStream = bankStatementFile.getInputstream();
+
+            while (true) {
+                a = inputStream.read(buffer);
+                if (a < 0) {
+                    break;
+                }
+                output.write(buffer, 0, a);
+                output.flush();
+            }
+
+            output.close();
+            inputStream.close();
+            FacesContext.getCurrentInstance().addMessage("transportationFile", new FacesMessage(FacesMessage.SEVERITY_INFO, "Transportation document uploaded successfully!", " "));
+        } else {
+            FacesContext.getCurrentInstance().addMessage("transportationFile", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot find file, please upload again.", " "));
+        }
     }
     
-    public void accommodationFileUpload (FileUploadEvent event) {
+    public void accommodationFileUpload (FileUploadEvent event) throws FileNotFoundException, IOException {
+        this.accommodationFile = event.getFile();
         
+        if (accommodationFile != null) {
+            String filename = applicationId + "-accommodation.pdf";
+            accommodationURL = "https://localhost:8181/" + filename;
+            String newFilePath = System.getProperty("user.dir").replace("config", "docroot") + System.getProperty("file.separator");
+            OutputStream output = new FileOutputStream(new File(newFilePath, filename));
+
+            int a;
+            int BUFFER_SIZE = 8192;
+            byte[] buffer = new byte[BUFFER_SIZE];
+
+            InputStream inputStream = bankStatementFile.getInputstream();
+
+            while (true) {
+                a = inputStream.read(buffer);
+                if (a < 0) {
+                    break;
+                }
+                output.write(buffer, 0, a);
+                output.flush();
+            }
+
+            output.close();
+            inputStream.close();
+            FacesContext.getCurrentInstance().addMessage("accommodationFile", new FacesMessage(FacesMessage.SEVERITY_INFO, "Accommodation document uploaded successfully!", " "));
+        } else {
+            FacesContext.getCurrentInstance().addMessage("accommodationFile", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot find file, please upload again.", " "));
+        }
     }
     
-    public void insuranceFileUpload (FileUploadEvent event) {
+    public void insuranceFileUpload (FileUploadEvent event) throws FileNotFoundException, IOException {
+        this.insuranceFile = event.getFile();
         
+        if (insuranceFile != null) {
+            String filename = applicationId + "-insurance.pdf";
+            insuranceURL = "https://localhost:8181/" + filename;
+            String newFilePath = System.getProperty("user.dir").replace("config", "docroot") + System.getProperty("file.separator");
+            OutputStream output = new FileOutputStream(new File(newFilePath, filename));
+
+            int a;
+            int BUFFER_SIZE = 8192;
+            byte[] buffer = new byte[BUFFER_SIZE];
+
+            InputStream inputStream = bankStatementFile.getInputstream();
+
+            while (true) {
+                a = inputStream.read(buffer);
+                if (a < 0) {
+                    break;
+                }
+                output.write(buffer, 0, a);
+                output.flush();
+            }
+
+            output.close();
+            inputStream.close();
+            FacesContext.getCurrentInstance().addMessage("insuranceFile", new FacesMessage(FacesMessage.SEVERITY_INFO, "Insurance document uploaded successfully!", " "));
+        } else {
+            FacesContext.getCurrentInstance().addMessage("insuranceFile", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot find file, please upload again.", " "));
+        }
     }
 
     public VisaApplication getVisaApplication() {
