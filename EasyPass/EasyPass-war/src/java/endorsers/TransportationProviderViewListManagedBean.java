@@ -10,10 +10,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import objects.TransportationReference;
@@ -23,7 +23,7 @@ import objects.TransportationReference;
  * @author Jingyuan
  */
 @Named(value = "transportationProviderViewListManagedBean")
-@SessionScoped
+@RequestScoped
 public class TransportationProviderViewListManagedBean implements Serializable {
 
     /**
