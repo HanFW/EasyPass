@@ -42,7 +42,7 @@ public class EmbassyLoginManagedBean {
             EmbassyEntity embassy = loginSessionBeanLocal.embassyDoLogin(accountNumber, password);
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             ec.getSessionMap().put("embassy", embassy);
-            System.out.println("Embassy " + embassy.getCountryName() + " logged in.");
+            ec.redirect(ec.getRequestContextPath() + "/web/embassy/embassyViewList.xhtml?faces-redirect=true");
         } catch (NoSuchEntityException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Account does not exist.", " "));
         } catch (AuthenticationFailException ex) {
