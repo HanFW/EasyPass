@@ -9,15 +9,15 @@
         <h:form>
             <p:panelGrid columns="2">
                 <p:outputLabel value="Passport Number: " />
-                <p:outputLabel value="#{hotelDoEndorsementManagedBean.accomodation.owner}" />
+                <p:outputLabel value="#{hotelDoEndorsementManagedBean.accommodation.owner}" />
                 <p:outputLabel value="Hotel Name: " />
-                <p:outputLabel value="#{hotelDoEndorsementManagedBean.accomodation.carrierName}" />
+                <p:outputLabel value="#{hotelDoEndorsementManagedBean.accommodation.carrierName}" />
                 <p:outputLabel value="Hotel Booking Reference Number: " />
-                <p:outputLabel value="#{hotelDoEndorsementManagedBean.accomodation.referenceNumber}" />
+                <p:outputLabel value="#{hotelDoEndorsementManagedBean.accommodation.referenceNumber}" />
             </p:panelGrid>
             <br/>
 
-            <p:media value="https://localhost:8181/#{hotelDoEndorsementManagedBean.accomodation.transportationReferenceImageURL}" width="90%" height="400px"/>  
+            <p:media value="https://localhost:8181/#{hotelDoEndorsementManagedBean.accommodation.transportationReferenceImageURL}" width="90%" height="400px"/>  
 
             <p:message id="decisionMessage" for="decisionRadio"/>
             <p:selectOneRadio id="decisionRadio" value="#{hotelDoEndorsementManagedBean.decision}" required="true" requiredMessage="Please select to validate or reject ">

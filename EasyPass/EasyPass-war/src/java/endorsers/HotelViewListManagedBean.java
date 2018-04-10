@@ -16,7 +16,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import objects.Accomodation;
+import objects.Accommodation;
 
 /**
  *
@@ -32,17 +32,17 @@ public class HotelViewListManagedBean implements Serializable {
     public HotelViewListManagedBean() {
     }
     
-    public ArrayList<Accomodation> getAccomodations() throws IOException{
-        //---Retrieve list of pending accomodation references of visa applicants
+    public ArrayList<Accommodation> getAccommodations() throws IOException{
+        //---Retrieve list of pending accommodation references of visa applicants
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<Accomodation> accomodations = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accomodation/get_response.json"), new TypeReference<List<Accomodation>>(){});
-        return accomodations;
+        ArrayList<Accommodation> accommodations = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accommodation/get_response.json"), new TypeReference<List<Accommodation>>(){});
+        return accommodations;
     }
     
         //redirect to view & validate hotel booking reference of individual visa applicant
-    public void viewAccomodation (Accomodation accomodation) throws IOException {
+    public void viewAccommodation (Accommodation accommodation) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        ec.getFlash().put("accomodation", accomodation);
+        ec.getFlash().put("accommodation", accommodation);
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/hotelDoEndorsement.xhtml?faces-redirect=true");
     }
     

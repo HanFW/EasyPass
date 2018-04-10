@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
-import objects.Accomodation;
+import objects.Accommodation;
 import objects.BankStatement;
 import objects.BasicInfo;
 import objects.CriminalRecord;
@@ -73,7 +73,7 @@ public class CitizenApplyForVisaManagedBean implements Serializable{
     private String transportationReference;
     private String transportationURL;
     private UploadedFile transportationFile;
-    // - accomodation
+    // - accommodation
     private String accommodationName;
     private String accommodationReference;
     private String accommodationURL;
@@ -134,36 +134,36 @@ public class CitizenApplyForVisaManagedBean implements Serializable{
                         
             // - create new visa status
             VisaStatus visaStatus = new VisaStatus(applicationId, citizen.getId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_" + firstName + ".json"), visaStatus);
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_" + firstName + ".json"), visaStatus);
             // - create new basic info
             BasicInfo basicInfo = new BasicInfo(firstName,lastName, formatDate(birthday), countryOfResidence, identityNumber, residentialAddress, maritalStatus, citizen.getId(), sex, nationality, applicationId, citizen.getId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BasicInfo/post_request_" + firstName + ".json"), basicInfo);
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BasicInfo/post_request_" + firstName + ".json"), basicInfo);
             // - create bank statement
             BankStatement bankStatement = new BankStatement(bankName, accountNumber, bankStatementURL, applicationId, citizen.getId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BankStatement/post_request_" + firstName + ".json"), bankStatement);
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BankStatement/post_request_" + firstName + ".json"), bankStatement);
             // - create transportation reference
             TransportationReference transportation = new TransportationReference(carrierName, transportationReference, transportationURL, applicationId, citizen.getId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/TransportationReference/post_request_" + firstName + ".json"), transportation);
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/TransportationReference/post_request_" + firstName + ".json"), transportation);
             // - create accommodation reference
-            Accomodation accommodation = new Accomodation(accommodationName, accommodationReference, accommodationURL, applicationId, citizen.getId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Accomodation/post_request_" + firstName + ".json"), accommodation);
+            Accommodation accommodation = new Accommodation(accommodationName, accommodationReference, accommodationURL, applicationId, citizen.getId());
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accommodation/post_request_" + firstName + ".json"), accommodation);
             // - create insurance reference
             Insurance insurance = new Insurance(insuranceCompanyName, insuranceReference, insuranceURL, applicationId, citizen.getId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Insurance/post_request_" + firstName + ".json"), insurance);
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Insurance/post_request_" + firstName + ".json"), insurance);
             // - create local contact
             LocalContact localContact = new LocalContact(localContactName, localContactIdentityNumber, applicationId, citizen.getId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/LocalContact/post_request_" + firstName + ".json"), localContact);
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_request_" + firstName + ".json"), localContact);
             // - create criminal record
             CriminalRecord criminalRecord = new CriminalRecord(applicationId, citizen.getId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/CriminalRecord/post_request_" + firstName + ".json"), criminalRecord);
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/post_request_" + firstName + ".json"), criminalRecord);
             // - update visa application
             visaApplication.updateVisaApplicationInfo(formatDate(startDate), formatDate(endDate), purposeOfVisit);
             visaApplication.updateVisaApplicationReferences(visaStatus.getVisaStatusId(), 
                     citizen.getId(), citizen.getId(), 
                     basicInfo.getBasicInfoId(), bankStatement.getBankStatementId(), 
-                    transportation.getTransportationReferenceId(), accommodation.getAccomodationId(), 
+                    transportation.getTransportationReferenceId(), accommodation.getAccommodationId(), 
                     insurance.getInsuranceId(), localContact.getLocalContactId(), criminalRecord.getCriminalRecordId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaApplication/post_request_" + firstName + ".json"), visaApplication);
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaApplication/post_request_" + firstName + ".json"), visaApplication);
         }
     }
     

@@ -23,7 +23,7 @@ public class VisaApplication {
     private String basicInfo; //basicInfoId
     private String bankStatement; //bankStatementId
     private String transportationReference; //transportationReferenceId
-    private String accomodation; //accommodationId
+    private String accommodation; //accommodationId
     private String insurance; //insuranceCompanyId
     private String localContact; //localcontactId
     private String criminalRecord; //criminalRecordId
@@ -41,13 +41,13 @@ public class VisaApplication {
     }
     
     public void updateVisaApplicationReferences(String visaStatus, String passport, String owner, 
-            String basicInfo, String bankStatement, String transportationReference, String accomodation, String insurance, String localContact, String criminalRecord){
+            String basicInfo, String bankStatement, String transportationReference, String accommodation, String insurance, String localContact, String criminalRecord){
         this.visaStatus = visaStatus;
         this.passport = passport;
         this.basicInfo = basicInfo;
         this.bankStatement = bankStatement;
         this.transportationReference = transportationReference;
-        this.accomodation = accomodation;
+        this.accommodation = accommodation;
         this.insurance = insurance;
         this.localContact = localContact;
         this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
@@ -134,12 +134,12 @@ public class VisaApplication {
         this.transportationReference = transportationReference;
     }
 
-    public String getAccomodation() {
-        return accomodation;
+    public String getAccommodation() {
+        return accommodation;
     }
 
-    public void setAccomodation(String accomodation) {
-        this.accomodation = accomodation;
+    public void setAccommodation(String accommodation) {
+        this.accommodation = accommodation;
     }
 
     public String getInsurance() {

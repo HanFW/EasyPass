@@ -9,21 +9,21 @@
     <ui:define name="content">
         <h:form>
             <div align="center">
-                <p:dataTable var="accomodation" id="accomodationTable" value="#{hotelViewListManagedBean.accomodations}" reflow="true" paginatorPosition="bottom">
+                <p:dataTable var="accommodation" id="accommodationTable" value="#{hotelViewListManagedBean.accommodations}" reflow="true" paginatorPosition="bottom">
                     <f:facet name="header">
                         Hotel Booking Reference of visa applicants
                     </f:facet>
 
                     <p:column headerText="Passport number">
-                        <h:outputText value="#{accomodation.owner}"/>
+                        <h:outputText value="#{accommodation.owner}"/>
                     </p:column>
 
                     <p:column headerText="Hotel Booking Reference Number">
-                        <h:outputText value="#{accomodation.referenceNumber}"/>
+                        <h:outputText value="#{accommodation.referenceNumber}"/>
                     </p:column>
 
                     <p:column headerText="View Booking Reference">
-                        <p:commandButton icon="ui-icon-document" action="#{hotelViewListManagedBean.viewAccomodation(accomodation)}"/>
+                        <p:commandButton icon="ui-icon-document" action="#{hotelViewListManagedBean.viewAccommodation(accommodation)}"/>
                     </p:column>
 
                 </p:dataTable>

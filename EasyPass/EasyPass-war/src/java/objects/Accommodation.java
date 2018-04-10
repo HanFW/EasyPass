@@ -12,9 +12,9 @@ import util.Constants;
  *
  * @author Jingyuan
  */
-public class Accomodation {
+public class Accommodation {
     private String $class; 
-    private String accomodationId;
+    private String accommodationId;
     private String carrierName;
     private String referenceNumber;
     private String transportationReferenceImageURL;
@@ -23,13 +23,13 @@ public class Accomodation {
     private String endorseBy; //hotelId
     private String visaApplication; //visaApplicationId
     
-    public Accomodation() {
+    public Accommodation() {
         this.$class = Constants.ASSET_ACCOMMODATION;
-        this.accomodationId = Constants.ASSET_ACCOMMODATION + "#" + UUID.randomUUID().toString();
+        this.accommodationId = Constants.ASSET_ACCOMMODATION + "#" + UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
     }
 
-    public Accomodation(String carrierName, String referenceNumber, String transportationReferenceImageURL, String visaApplication, String owner) {
+    public Accommodation(String carrierName, String referenceNumber, String transportationReferenceImageURL, String visaApplication, String owner) {
         this();
         this.carrierName = carrierName;
         this.referenceNumber = referenceNumber;
@@ -54,12 +54,12 @@ public class Accomodation {
         this.owner = owner;
     }
 
-    public String getAccomodationId() {
-        return accomodationId;
+    public String getAccommodationId() {
+        return accommodationId;
     }
 
-    public void setAccomodationId(String accomodationId) {
-        this.accomodationId = accomodationId;
+    public void setAccommodationId(String accommodationId) {
+        this.accommodationId = accommodationId;
     }
 
     public String getCarrierName() {

@@ -15,7 +15,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
-import objects.Accomodation;
+import objects.Accommodation;
 import util.Constants;
 
 /**
@@ -26,7 +26,7 @@ import util.Constants;
 @ViewScoped
 public class HotelDoEndorsementManagedBean implements Serializable {
 
-    private Accomodation accomodation;
+    private Accommodation accommodation;
     private String decision;
 
     /**
@@ -38,38 +38,38 @@ public class HotelDoEndorsementManagedBean implements Serializable {
     @PostConstruct
     public void init() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        accomodation = (Accomodation) ec.getFlash().get("accomodation");
-        System.out.println("View accomodation: " + accomodation.getAccomodationId());
+        accommodation = (Accommodation) ec.getFlash().get("accommodation");
+        System.out.println("View accommodation: " + accommodation.getAccommodationId());
     }
 
     //validate or reject document
     public void validateDocument() throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
-        //$$$ValidateAccomodation transaction
-        System.out.println("Accomodation " + accomodation.getAccomodationId() + ": " + decision);
+        //$$$ValidateAccommodation transaction
+        System.out.println("Accommodation " + accommodation.getAccommodationId() + ": " + decision);
 
         EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
         String id = endorser.getId();
-        accomodation.setEndorseBy(id);
+        accommodation.setEndorseBy(id);
 
         if (decision.equals("Validated")) {
-            accomodation.setEndorsementState(Constants.STATUS_VALIDATED);
+            accommodation.setEndorsementState(Constants.STATUS_VALIDATED);
         } else {
-            accomodation.setEndorsementState(Constants.STATUS_REJECTED);
+            accommodation.setEndorsementState(Constants.STATUS_REJECTED);
         }
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accomodation/post_response" + accomodation.getOwner() + ".json"), accomodation);
+        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accommodation/post_response" + accommodation.getOwner() + ".json"), accommodation);
         
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/hotelViewList.xhtml?faces-redirect=true");
     }
 
-    public Accomodation getAccomodation() {
-        return accomodation;
+    public Accommodation getAccommodation() {
+        return accommodation;
     }
 
-    public void setAccomodation(Accomodation accomodation) {
-        this.accomodation = accomodation;
+    public void setAccommodation(Accommodation accommodation) {
+        this.accommodation = accommodation;
     }
 
     public String getDecision() {
