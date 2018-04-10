@@ -6,6 +6,7 @@
 package endorsers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.EndorserEntity;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -50,24 +51,29 @@ public class SPFDoEndorsementManagedBean implements Serializable {
         System.out.println("Criminal Record updated");
         ObjectMapper mapper = new ObjectMapper();
 
+        //get endorserID 
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+        String endorserID = endorser.getId();
+
         String owner = criminalRecord.getOwner();
         if (decision.equals("Validated")) {
-//            CriminalRecord record = new CriminalRecord("", "VERIFIED", owner);
-//            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/post_response" + owner + ".json"), record);
+            criminalRecord.setEndorsementState(Constants.STATUS_VALIDATED);
+            criminalRecord.setEndorseBy(endorserID);
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/post_response" + owner + ".json"), criminalRecord);
         } else {
             //$$$ValidateCriminalRecord transaction
             System.out.println("Validate criminal Record: " + criminalRecord.getCriminalRecordId());
             criminalRecord.setRecordNumber(recordNumber);
             criminalRecord.setRecordDetail(recordDetail);
-            String state=Constants.STATUS_VALIDATED;
+            String state = Constants.STATUS_REJECTED;
             criminalRecord.setEndorsementState(state);
+            criminalRecord.setEndorseBy(endorserID);
             mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/post_response" + owner + ".json"), criminalRecord);
         }
 
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-
         //validate criminal record of visa applicant
-//        System.out.println("Criminal Record:  " + citizen.getPassportNumber() + ": " + decision);
+        System.out.println("Criminal Record:  " + criminalRecord.getOwner() + ": " + decision);
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/SPFViewList.xhtml?faces-redirect=true");
 
     }

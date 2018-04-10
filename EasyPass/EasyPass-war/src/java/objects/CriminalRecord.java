@@ -20,6 +20,7 @@ public class CriminalRecord {
     private String recordDetail;
     private String endorsementState;
     private String owner;
+    private String endorseBy;
 
 //    public CriminalRecord(String recordDetail, String state, String Owner) {
 //        String id = UUID.randomUUID().toString();
@@ -85,5 +86,15 @@ public class CriminalRecord {
     public void setRecordNumber(String recordNumber) {
         this.recordNumber = recordNumber;
     }
+
+    public String getEndorseBy() {
+        return endorseBy;
+    }
+
+    public void setEndorseBy(String endorseBy) {
+        this.endorseBy = endorseBy;
+    }
+    
+    
 
 }
