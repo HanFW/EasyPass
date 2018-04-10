@@ -5,6 +5,9 @@
  */
 package endorsers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.EndorserEntity;
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -13,6 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import objects.TransportationReference;
+import util.Constants;
 
 /**
  *
@@ -21,6 +25,7 @@ import objects.TransportationReference;
 @Named(value = "transportationProviderDoEndorsementManagedBean")
 @ViewScoped
 public class TransportationProviderDoEndorsementManagedBean implements Serializable {
+
     private TransportationReference transportationReference;
     private String decision;
 
@@ -43,6 +48,18 @@ public class TransportationProviderDoEndorsementManagedBean implements Serializa
 
         //$$$ValidateTransportationReference transaction
         System.out.println("TransportationReference " + transportationReference.getTransportationReferenceId() + ": " + decision);
+
+        EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+        String id = endorser.getId();
+        transportationReference.setEndorseBy(id);
+
+        if (decision.equals("Validated")) {
+            transportationReference.setEndorsementState(Constants.STATUS_VALIDATED);
+        } else {
+            transportationReference.setEndorsementState(Constants.STATUS_REJECTED);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/TransportationReference/post_response" + transportationReference.getOwner() + ".json"), transportationReference);
 
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/TransportationProviderViewList.xhtml?faces-redirect=true");
     }

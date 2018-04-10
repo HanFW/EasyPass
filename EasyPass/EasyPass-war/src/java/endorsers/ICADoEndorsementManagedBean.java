@@ -5,6 +5,9 @@
  */
 package endorsers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.EndorserEntity;
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -13,6 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import objects.BasicInfo;
+import util.Constants;
 
 /**
  *
@@ -42,6 +46,19 @@ public class ICADoEndorsementManagedBean implements Serializable{
         
         //$$$ValidateBasicInfo transaction
         System.out.println("BasicInfo " + basicInfo.getBasicInfoId() + ": " + decision);
+        
+        EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+        String id = endorser.getId();
+        basicInfo.setEndorseBy(id);
+        
+        
+        if (decision.equals("Validated")) {
+            basicInfo.setEndorsementState(Constants.STATUS_VALIDATED);
+        } else {
+            basicInfo.setEndorsementState(Constants.STATUS_REJECTED);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BasicInfo/post_response" + basicInfo.getOwner() + ".json"), basicInfo);
         
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/ICAViewList.xhtml?faces-redirect=true");
     }

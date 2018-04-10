@@ -7,6 +7,7 @@ package endorsers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.EndorserEntity;
 import java.io.File;
 import java.io.IOException;
 import javax.inject.Named;
@@ -16,9 +17,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import objects.Citizen;
 import objects.LocalContact;
+import util.Constants;
 
 /**
  *
@@ -27,7 +31,8 @@ import objects.LocalContact;
 @Named(value = "localContactViewListManagedBean")
 @ViewScoped
 public class LocalContactViewListManagedBean implements Serializable {
-    private ArrayList<LocalContact>  localContacts= new ArrayList();
+
+    private ArrayList<LocalContact> localContacts = new ArrayList();
     private LocalContact localContact;
 
     /**
@@ -35,11 +40,10 @@ public class LocalContactViewListManagedBean implements Serializable {
      */
     public LocalContactViewListManagedBean() {
     }
-    
-        
+
     @PostConstruct
-    public void init(){
-       System.out.println("INIT!!!!!!!");
+    public void init() {
+        System.out.println("INIT!!!!!!!");
         try {
             localContacts = getLocalContacts();
         } catch (IOException ex) {
@@ -61,19 +65,36 @@ public class LocalContactViewListManagedBean implements Serializable {
         Citizen citizen = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Participant/Citizen/get_response_byID.json"), Citizen.class);
         return citizen.getName();
     }
-    
 
     public void validateVisaApplicant(LocalContact localContact) throws IOException {
-        
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
         //$$$ValidateLocalContact transaction
         System.out.println("Validate LocalContact: " + localContact.getLocalContactId());
-        
+
+        EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+        String id = endorser.getId();
+        localContact.setEndorseBy(id);
+
+        localContact.setEndorsementState(Constants.STATUS_VALIDATED);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_response" + localContact.getOwner() + ".json"), localContact);
 
     }
-    
-    public void rejectVisaApplicant(LocalContact localContact) throws IOException{
+
+    public void rejectVisaApplicant(LocalContact localContact) throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
         //$$$RejectLocalContact transaction
         System.out.println("Reject LocalContact: " + localContact.getLocalContactId());
+
+        EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+        String id = endorser.getId();
+        localContact.setEndorseBy(id);
+
+        localContact.setEndorsementState(Constants.STATUS_REJECTED);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_response" + localContact.getOwner() + ".json"), localContact);
     }
 
     public LocalContact getLocalContact() {
