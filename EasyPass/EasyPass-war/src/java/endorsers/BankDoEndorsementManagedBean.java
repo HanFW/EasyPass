@@ -5,6 +5,9 @@
  */
 package endorsers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.EndorserEntity;
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -13,6 +16,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import objects.BankStatement;
+import util.Constants;
 
 /**
  *
@@ -20,31 +24,43 @@ import objects.BankStatement;
  */
 @Named(value = "bankDoEndorsementManagedBean")
 @ViewScoped
-public class BankDoEndorsementManagedBean implements Serializable{
-    
+public class BankDoEndorsementManagedBean implements Serializable {
+
     private BankStatement bankStatement;
-    private String decision; 
+    private String decision;
 
     /**
      * Creates a new instance of bankDoEndorsementManagedBean
      */
     public BankDoEndorsementManagedBean() {
     }
-    
+
     @PostConstruct
     public void init() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         bankStatement = (BankStatement) ec.getFlash().get("bankStatement");
         System.out.println("View bank statement: " + bankStatement.getBankStatementId());
     }
-    
+
     //validate or reject document
-    public void validateDocument () throws IOException {
+    public void validateDocument() throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        
+
         //$$$ValidateBankStatement transaction
+        EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+        String id = endorser.getId();
+        bankStatement.setEndorseBy(id);
+
+        if (decision.equals("Validated")) {
+            bankStatement.setEndorsementState(Constants.STATUS_VALIDATED);
+        } else {
+            bankStatement.setEndorsementState(Constants.STATUS_REJECTED);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BankStatement/post_response" + bankStatement.getOwner() + ".json"), bankStatement);
+
         System.out.println("Bank Statement " + bankStatement.getBankStatementId() + ": " + decision);
-        
+
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/bankViewList.xhtml?faces-redirect=true");
     }
 

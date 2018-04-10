@@ -25,9 +25,10 @@ import session.LoginSessionBeanLocal;
 @Named(value = "endorserLoginManagedBean")
 @RequestScoped
 public class EndorserLoginManagedBean {
+
     @EJB
     private LoginSessionBeanLocal loginSessionBeanLocal;
-    
+
     private String accountNumber;
     private String password;
 
@@ -36,7 +37,7 @@ public class EndorserLoginManagedBean {
      */
     public EndorserLoginManagedBean() {
     }
-    
+
     public void endorserDoLogin(ActionEvent event) throws IOException {
         try {
             EndorserEntity endorser = loginSessionBeanLocal.endorserDoLogin(accountNumber, password);
@@ -49,7 +50,7 @@ public class EndorserLoginManagedBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Incorrect password.", " "));
         }
     }
-    
+
     public void endorserDoLogout(ActionEvent event) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getSessionMap().remove("endorser");

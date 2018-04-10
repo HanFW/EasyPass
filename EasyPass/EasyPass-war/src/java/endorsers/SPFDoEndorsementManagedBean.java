@@ -60,7 +60,7 @@ public class SPFDoEndorsementManagedBean implements Serializable {
         if (decision.equals("Validated")) {
             criminalRecord.setEndorsementState(Constants.STATUS_VALIDATED);
             criminalRecord.setEndorseBy(endorserID);
-            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/post_response" + owner + ".json"), criminalRecord);
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_response" + owner + ".json"), criminalRecord);
         } else {
             //$$$ValidateCriminalRecord transaction
             System.out.println("Validate criminal Record: " + criminalRecord.getCriminalRecordId());
@@ -69,7 +69,7 @@ public class SPFDoEndorsementManagedBean implements Serializable {
             String state = Constants.STATUS_REJECTED;
             criminalRecord.setEndorsementState(state);
             criminalRecord.setEndorseBy(endorserID);
-            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/post_response" + owner + ".json"), criminalRecord);
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_response" + owner + ".json"), criminalRecord);
         }
 
         //validate criminal record of visa applicant
