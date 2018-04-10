@@ -24,19 +24,18 @@ public class TransportationReference {
     private String visaApplication; //visaApplicationId
     
     public TransportationReference() {
-        this.$class = "org.acme.easypass.TransportationReference";
-        this.transportationReferenceId = "org.acme.easypass.TransportationReference#" + UUID.randomUUID().toString();
+        this.$class = Constants.ASSET_TRANSPORTATION;
+        this.transportationReferenceId = Constants.ASSET_TRANSPORTATION + "#" + UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
-        this.owner = "CitizenId(TBC)";
     }
 
-    public TransportationReference(String carrierName, String reference, String transportationReferenceImageURL, String endorseBy, String visaApplication) {
+    public TransportationReference(String carrierName, String reference, String transportationReferenceImageURL, String visaApplication, String owner) {
         this();
         this.carrierName = carrierName;
         this.reference = reference;
         this.transportationReferenceImageURL = transportationReferenceImageURL;
-        this.endorseBy = endorseBy;
         this.visaApplication = visaApplication;
+        this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
     
     public String get$class() {
@@ -88,11 +87,11 @@ public class TransportationReference {
     }
 
     public String getOwner() {
-       return owner.substring(owner.indexOf("#")+1);
+       return owner;
     }
 
     public void setOwner(String owner) {
-        this.owner = "org.acme.easypass.Citizen#" + owner;
+        this.owner = owner;
     }
 
     public String getEndorseBy() {
@@ -100,7 +99,7 @@ public class TransportationReference {
     }
 
     public void setEndorseBy(String endorseBy) {
-        this.endorseBy = "org.acme.easypass.TransportationProvider#" + endorseBy;
+        this.endorseBy = endorseBy;
     }
 
     public String getVisaApplication() {
@@ -108,7 +107,7 @@ public class TransportationReference {
     }
 
     public void setVisaApplication(String visaApplication) {
-        this.visaApplication = "org.acme.easypass.VisaApplication#" + visaApplication;
+        this.visaApplication = visaApplication;
     }
     
     

@@ -6,6 +6,7 @@
 package objects;
 
 import java.util.UUID;
+import util.Constants;
 
 /**
  *
@@ -29,9 +30,8 @@ public class VisaApplication {
     private String owner; //citizenId
     
     public VisaApplication() {
-        this.$class = "org.acme.easypass.VisaApplication";
-        this.visaApplicationId = "org.acme.easypass.VisaApplication#" + UUID.randomUUID().toString();
-        this.owner = "CitizenId(TBC)";
+        this.$class = Constants.ASSET_VISAAPPLICATION;
+        this.visaApplicationId = Constants.ASSET_VISAAPPLICATION + "#" + UUID.randomUUID().toString();
     }
     
     public void updateVisaApplicationInfo(String startDate, String endDate, String purposeOfVisit){
@@ -41,16 +41,17 @@ public class VisaApplication {
     }
     
     public void updateVisaApplicationReferences(String visaStatus, String passport, String owner, 
-            String basicInfo, String bankStatement, String transportationReference, String accomodation, String insurance, String localContact){
+            String basicInfo, String bankStatement, String transportationReference, String accomodation, String insurance, String localContact, String criminalRecord){
         this.visaStatus = visaStatus;
         this.passport = passport;
-        this.owner = owner;
         this.basicInfo = basicInfo;
         this.bankStatement = bankStatement;
         this.transportationReference = transportationReference;
         this.accomodation = accomodation;
         this.insurance = insurance;
         this.localContact = localContact;
+        this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
+        this.criminalRecord = criminalRecord;
     }
 
     public String get$class() {
@@ -98,7 +99,7 @@ public class VisaApplication {
     }
 
     public void setVisaStatus(String visaStatus) {
-        this.visaStatus = "org.acme.easypass.VisaStatus#" + visaStatus;
+        this.visaStatus = visaStatus;
     }
 
     public String getPassport() {
@@ -106,7 +107,7 @@ public class VisaApplication {
     }
 
     public void setPassport(String passport) {
-        this.passport = "org.acme.easypass.Passport#" + passport;
+        this.passport = passport;
     }
 
     public String getBasicInfo() {
@@ -114,7 +115,7 @@ public class VisaApplication {
     }
 
     public void setBasicInfo(String basicInfo) {
-        this.basicInfo = "org.acme.easypass.BasicInfo#" + basicInfo;
+        this.basicInfo = basicInfo;
     }
 
     public String getBankStatement() {
@@ -122,7 +123,7 @@ public class VisaApplication {
     }
 
     public void setBankStatement(String bankStatement) {
-        this.bankStatement = "org.acme.easypass.BankStatement#" + bankStatement;
+        this.bankStatement = bankStatement;
     }
 
     public String getTransportationReference() {
@@ -130,7 +131,7 @@ public class VisaApplication {
     }
 
     public void setTransportationReference(String transportationReference) {
-        this.transportationReference = "org.acme.easypass.TransportationReference#" + transportationReference;
+        this.transportationReference = transportationReference;
     }
 
     public String getAccomodation() {
@@ -138,7 +139,7 @@ public class VisaApplication {
     }
 
     public void setAccomodation(String accomodation) {
-        this.accomodation = "org.acme.easypass.Accomodation#" + accomodation;
+        this.accomodation = accomodation;
     }
 
     public String getInsurance() {
@@ -146,7 +147,7 @@ public class VisaApplication {
     }
 
     public void setInsurance(String insurance) {
-        this.insurance = "org.acme.easypass.Insurance#" + insurance;
+        this.insurance = insurance;
     }
 
     public String getLocalContact() {
@@ -154,7 +155,7 @@ public class VisaApplication {
     }
 
     public void setLocalContact(String localContact) {
-        this.localContact = "org.acme.easypass.LocalContact#" + localContact;
+        this.localContact = localContact;
     }
 
     public String getCriminalRecord() {
@@ -162,7 +163,7 @@ public class VisaApplication {
     }
 
     public void setCriminalRecord(String criminalRecord) {
-        this.criminalRecord = "org.acme.easypass.CriminalRecord#" + criminalRecord;
+        this.criminalRecord = criminalRecord;
     }
 
     public String getOwner() {
@@ -170,6 +171,6 @@ public class VisaApplication {
     }
 
     public void setOwner(String owner) {
-        this.owner = "org.acme.easypass.Citizen#" + owner;
+        this.owner = owner;
     }
 }

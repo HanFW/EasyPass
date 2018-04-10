@@ -24,19 +24,18 @@ public class BankStatement {
     private String visaApplication; //visaApplicationId
     
     public BankStatement() {
-        this.$class = "org.acme.easypass.BankStatement";
-        this.bankStatementId = "org.acme.easypass.BankStatement#" + UUID.randomUUID().toString();
+        this.$class = Constants.ASSET_BANKSTATEMENT;
+        this.bankStatementId = Constants.ASSET_BANKSTATEMENT + "#" + UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
-        this.owner = "CitizenId(TBC)";
     }
 
-    public BankStatement(String bankName, String accountNumber, String bankStatementImageURL, String endorseBy, String visaApplication) {
+    public BankStatement(String bankName, String accountNumber, String bankStatementImageURL, String visaApplication, String owner) {
         this();
         this.bankName = bankName;
         this.accountNumber = accountNumber;
         this.bankStatementImageURL = bankStatementImageURL;
-        this.endorseBy = endorseBy;
         this.visaApplication = visaApplication;
+        this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
         
     public String get$class() {
@@ -88,11 +87,11 @@ public class BankStatement {
     }
 
     public String getOwner() {
-        return owner.substring(owner.indexOf("#")+1);
+        return owner;
     }
 
     public void setOwner(String owner) {
-        this.owner = "org.acme.easypass.Citizen#" + owner;
+        this.owner = owner;
     }
 
     public String getEndorseBy() {
@@ -100,7 +99,7 @@ public class BankStatement {
     }
 
     public void setEndorseBy(String endorseBy) {
-        this.endorseBy = "org.acme.easypass.Bank#" + endorseBy;
+        this.endorseBy = endorseBy;
     }
 
     public String getVisaApplication() {
@@ -108,7 +107,7 @@ public class BankStatement {
     }
 
     public void setVisaApplication(String visaApplication) {
-        this.visaApplication = "org.acme.easypass.VisaApplication#" + visaApplication;
+        this.visaApplication = visaApplication;
     }
 
 }

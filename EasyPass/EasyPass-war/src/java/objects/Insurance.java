@@ -25,19 +25,18 @@ public class Insurance {
     private String visaApplication; //visaApplicationId
     
     public Insurance() {
-        this.$class = "org.acme.easypass.Insurance";
-        this.insuranceId = "org.acme.easypass.Insurance#" + UUID.randomUUID().toString();
+        this.$class = Constants.ASSET_INSURANCE;
+        this.insuranceId = Constants.ASSET_INSURANCE + "#" + UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
-        this.owner = "CitizenId(TBC)";
     }
 
-    public Insurance(String companyName, String referenceNumber, String insuranceContractImageURL, String endorseBy, String visaApplication) {
+    public Insurance(String companyName, String referenceNumber, String insuranceContractImageURL, String visaApplication, String owner) {
         this();
         this.companyName = companyName;
         this.referenceNumber = referenceNumber;
         this.insuranceContractImageURL = insuranceContractImageURL;
-        this.endorseBy = endorseBy;
         this.visaApplication = visaApplication;
+        this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
     
     public String get$class() {
@@ -93,7 +92,7 @@ public class Insurance {
     }
 
     public void setEndorseBy(String endorseBy) {
-        this.endorseBy = "org.acme.easypass.InsuranceCompany#" + endorseBy;
+        this.endorseBy = endorseBy;
     }
 
     public String getVisaApplication() {
@@ -101,14 +100,14 @@ public class Insurance {
     }
 
     public void setVisaApplication(String visaApplication) {
-        this.visaApplication = "org.acme.easypass.VisaApplication#" + visaApplication;
+        this.visaApplication = visaApplication;
     }
 
     public String getOwner() {
-        return owner.substring(owner.indexOf("#") + 1);
+        return owner;
     }
 
     public void setOwner(String owner) {
-        this.owner = "org.acme.easypass.Citizen#" + owner;
+        this.owner = owner;
     }
 }

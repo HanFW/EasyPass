@@ -6,6 +6,7 @@
 package citizen;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.CitizenEntity;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -25,6 +26,7 @@ import javax.faces.view.ViewScoped;
 import objects.Accomodation;
 import objects.BankStatement;
 import objects.BasicInfo;
+import objects.CriminalRecord;
 import objects.Insurance;
 import objects.LocalContact;
 import objects.TransportationReference;
@@ -125,37 +127,42 @@ public class CitizenApplyForVisaManagedBean implements Serializable{
             //ask citizen to confirm before submitting application
             FacesContext.getCurrentInstance().addMessage("confirmation", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please confirm before submitting the application", " "));        
         } else {
+            CitizenEntity citizen = (CitizenEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("citizen");
+
             //create new visa application
             ObjectMapper mapper = new ObjectMapper();
-            
+                        
             // - create new visa status
-            VisaStatus visaStatus = new VisaStatus("EmbassyId(TBC)",applicationId);
+            VisaStatus visaStatus = new VisaStatus(applicationId, citizen.getId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_" + firstName + ".json"), visaStatus);
             // - create new basic info
-            BasicInfo basicInfo = new BasicInfo(firstName,lastName, formatDate(birthday), countryOfResidence, identityNumber, residentialAddress, maritalStatus, "passportnumber(TBC)", sex, nationality, applicationId);
+            BasicInfo basicInfo = new BasicInfo(firstName,lastName, formatDate(birthday), countryOfResidence, identityNumber, residentialAddress, maritalStatus, citizen.getId(), sex, nationality, applicationId, citizen.getId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BasicInfo/post_request_" + firstName + ".json"), basicInfo);
             // - create bank statement
-            BankStatement bankStatement = new BankStatement(bankName, accountNumber, bankStatementURL, "bankdId(TBC)", applicationId);
+            BankStatement bankStatement = new BankStatement(bankName, accountNumber, bankStatementURL, applicationId, citizen.getId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BankStatement/post_request_" + firstName + ".json"), bankStatement);
             // - create transportation reference
-            TransportationReference transportation = new TransportationReference(carrierName, transportationReference, transportationURL, "carrierId(TBC)", applicationId);
+            TransportationReference transportation = new TransportationReference(carrierName, transportationReference, transportationURL, applicationId, citizen.getId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/TransportationReference/post_request_" + firstName + ".json"), transportation);
             // - create accommodation reference
-            Accomodation accommodation = new Accomodation(accommodationName, accommodationReference, accommodationURL, "hotelId(TBC)", applicationId);
+            Accomodation accommodation = new Accomodation(accommodationName, accommodationReference, accommodationURL, applicationId, citizen.getId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Accomodation/post_request_" + firstName + ".json"), accommodation);
             // - create insurance reference
-            Insurance insurance = new Insurance(insuranceCompanyName, insuranceReference, insuranceURL, "insuranceCompanyId(TBC)", applicationId);
+            Insurance insurance = new Insurance(insuranceCompanyName, insuranceReference, insuranceURL, applicationId, citizen.getId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Insurance/post_request_" + firstName + ".json"), insurance);
             // - create local contact
-            LocalContact localContact = new LocalContact(localContactName, localContactIdentityNumber, "localcontactId(TBC)", applicationId);
+            LocalContact localContact = new LocalContact(localContactName, localContactIdentityNumber, applicationId, citizen.getId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/LocalContact/post_request_" + firstName + ".json"), localContact);
+            // - create criminal record
+            CriminalRecord criminalRecord = new CriminalRecord(applicationId, citizen.getId());
+            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/CriminalRecord/post_request_" + firstName + ".json"), criminalRecord);
             // - update visa application
             visaApplication.updateVisaApplicationInfo(formatDate(startDate), formatDate(endDate), purposeOfVisit);
             visaApplication.updateVisaApplicationReferences(visaStatus.getVisaStatusId(), 
-                    "passportId(TBC)", "citizenId(TBC)", 
+                    citizen.getId(), citizen.getId(), 
                     basicInfo.getBasicInfoId(), bankStatement.getBankStatementId(), 
                     transportation.getTransportationReferenceId(), accommodation.getAccomodationId(), 
-                    insurance.getInsuranceId(), localContact.getLocalContactId());
+                    insurance.getInsuranceId(), localContact.getLocalContactId(), criminalRecord.getCriminalRecordId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaApplication/post_request_" + firstName + ".json"), visaApplication);
         }
     }

@@ -24,19 +24,18 @@ public class Accomodation {
     private String visaApplication; //visaApplicationId
     
     public Accomodation() {
-        this.$class = "org.acme.easypass.Accomodation";
-        this.accomodationId = "org.acme.easypass.Accomodation#" + UUID.randomUUID().toString();
+        this.$class = Constants.ASSET_ACCOMMODATION;
+        this.accomodationId = Constants.ASSET_ACCOMMODATION + "#" + UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
-        this.owner = "CitizenId(TBC)";
     }
 
-    public Accomodation(String carrierName, String referenceNumber, String transportationReferenceImageURL, String endorseBy, String visaApplication) {
+    public Accomodation(String carrierName, String referenceNumber, String transportationReferenceImageURL, String visaApplication, String owner) {
         this();
         this.carrierName = carrierName;
         this.referenceNumber = referenceNumber;
         this.transportationReferenceImageURL = transportationReferenceImageURL;
-        this.endorseBy = endorseBy;
         this.visaApplication = visaApplication;
+        this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
 
     public String get$class() {
@@ -48,11 +47,11 @@ public class Accomodation {
     }
 
     public String getOwner() {
-        return owner.substring(owner.indexOf("#")+1);
+        return owner;
     }
 
     public void setOwner(String owner) {
-        this.owner = "org.acme.easypass.Citizen#" + owner;
+        this.owner = owner;
     }
 
     public String getAccomodationId() {
@@ -100,7 +99,7 @@ public class Accomodation {
     }
 
     public void setEndorseBy(String endorseBy) {
-        this.endorseBy = "org.acme.easypass.Hotel#" + endorseBy;
+        this.endorseBy = endorseBy;
     }
 
     public String getVisaApplication() {
@@ -108,7 +107,7 @@ public class Accomodation {
     }
 
     public void setVisaApplication(String visaApplication) {
-        this.visaApplication = "org.acme.easypass.VisaApplication#" + visaApplication;
+        this.visaApplication = visaApplication;
     }
     
     

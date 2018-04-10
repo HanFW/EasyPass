@@ -21,23 +21,18 @@ public class CriminalRecord {
     private String endorsementState;
     private String owner;
     private String endorseBy;
+    private String visaApplication;
 
-//    public CriminalRecord(String recordDetail, String state, String Owner) {
-//        String id = UUID.randomUUID().toString();
-//
-//        this.criminalRecordId = id;
-//        this.recordDetail = recordDetail;
-//        this.owner = Owner;
-//        this.endorsementState = state;
-//
-//    }
     public CriminalRecord() {
-        this.$class = "org.acme.easypass.CriminalRecord";
-        this.criminalRecordId = "org.acme.easypass.CriminalRecord#" + UUID.randomUUID().toString();
+        this.$class = Constants.ASSET_CRIMINALRECORD;
+        this.criminalRecordId = Constants.ASSET_CRIMINALRECORD + "#" + UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
-        this.owner = "CitizenId(TBC)";
     }
     
+    public CriminalRecord(String visaApplication, String owner) {
+        this.visaApplication = visaApplication;
+        this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
+    }
 
     public String get$class() {
         return $class;
@@ -72,7 +67,7 @@ public class CriminalRecord {
     }
 
     public String getOwner() {
-        return owner.substring(owner.indexOf("#") + 1);
+        return owner;
     }
 
     public void setOwner(String owner) {
@@ -94,7 +89,13 @@ public class CriminalRecord {
     public void setEndorseBy(String endorseBy) {
         this.endorseBy = endorseBy;
     }
-    
-    
 
+    public String getVisaApplication() {
+        return visaApplication;
+    }
+
+    public void setVisaApplication(String visaApplication) {
+        this.visaApplication = visaApplication;
+    }
+    
 }

@@ -32,14 +32,12 @@ public class BasicInfo {
     private String visaApplication; //visaApplicationId
     
     public BasicInfo() {
-        this.$class = "org.acme.easypass.BasicInfo";
-        this.basicInfoId = "org.acme.easypass.BasicInfo#" + UUID.randomUUID().toString();
+        this.$class = Constants.ASSET_BASICINFO;
+        this.basicInfoId = Constants.ASSET_BASICINFO + "#" + UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
-        this.owner = "CitizenId(TBC)";
-        this.endorseBy = "ICAId(TBC)";
     }
 
-    public BasicInfo(String firstName, String lastName, String birthday, String countryOfResidence, String identityNumber, String residentialAddress, String maritalStatus, String passportNumber, String sex, String nationality, String visaApplication) {
+    public BasicInfo(String firstName, String lastName, String birthday, String countryOfResidence, String identityNumber, String residentialAddress, String maritalStatus, String passportNumber, String sex, String nationality, String visaApplication, String owner) {
         this();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,6 +50,7 @@ public class BasicInfo {
         this.sex = sex;
         this.nationality = nationality;
         this.visaApplication = visaApplication;
+        this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
     
     public String get$class() {
@@ -159,11 +158,11 @@ public class BasicInfo {
     }
 
     public String getOwner() {
-        return owner.substring(owner.indexOf("#")+1);
+        return owner;
     }
 
     public void setOwner(String owner) {
-        this.owner = "org.acme.easypass.Citizen#" + owner;
+        this.owner = owner;
     }
 
     public String getEndorseBy() {
@@ -171,7 +170,7 @@ public class BasicInfo {
     }
 
     public void setEndorseBy(String endorseBy) {
-        this.endorseBy = "org.acme.easypass.ICA#" + endorseBy;
+        this.endorseBy = endorseBy;
     }
 
     public String getVisaApplication() {
@@ -179,9 +178,7 @@ public class BasicInfo {
     }
 
     public void setVisaApplication(String visaApplication) {
-        this.visaApplication = "org.acme.easypass.VisaApplication#" + visaApplication;
+        this.visaApplication = visaApplication;
     }
     
-    
-
 }

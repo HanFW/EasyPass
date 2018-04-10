@@ -22,17 +22,16 @@ public class VisaStatus {
     private String visaApplication; //visaApplicationId
     
     public VisaStatus() {
-        this.$class = "org.acme.easypass.VisaStatus";
-        this.visaStatusId = UUID.randomUUID().toString();
+        this.$class = Constants.ASSET_VISASTATUS;
+        this.visaStatusId = Constants.ASSET_VISASTATUS + "#" + UUID.randomUUID().toString();
         this.state = Constants.STATUS_PENDING;
         this.message = "";
-        this.owner = "CitizenId(TBC)";
     }
     
-    public VisaStatus(String updatedBy, String visaApplication) {
+    public VisaStatus(String visaApplication, String owner) {
         this();
-        this.updatedBy = updatedBy;
         this.visaApplication = visaApplication;
+        this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
 
     public String get$class() {
@@ -72,7 +71,7 @@ public class VisaStatus {
     }
 
     public void setOwner(String owner) {
-        this.owner = "org.acme.easypass.Citizen#" + owner;
+        this.owner = owner;
     }
 
     public String getUpdatedBy() {
@@ -80,7 +79,7 @@ public class VisaStatus {
     }
 
     public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = "org.acme.easypass.Embassy#" + updatedBy;
+        this.updatedBy = updatedBy;
     }
 
     public String getVisaApplication() {
@@ -88,7 +87,7 @@ public class VisaStatus {
     }
 
     public void setVisaApplication(String visaApplication) {
-        this.visaApplication = "org.acme.easypass.VisaApplication#" + visaApplication;
+        this.visaApplication = visaApplication;
     }
     
     

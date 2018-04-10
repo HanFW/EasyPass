@@ -24,18 +24,17 @@ public class LocalContact {
     private String visaApplication; //visaApplicationId
     
     public LocalContact() {
-        this.$class = "org.acme.easypass.LocalContact";
-        this.localContactId = "org.acme.easypass.LocalContact#" + UUID.randomUUID().toString();
+        this.$class = Constants.ASSET_LOCALCONTACT;
+        this.localContactId = Constants.ASSET_LOCALCONTACT + "#" + UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
-        this.owner = "CitizenId(TBC)";
     }
 
-    public LocalContact(String contactName, String identityNumber, String endorseBy, String visaApplication) {
+    public LocalContact(String contactName, String identityNumber, String visaApplication, String owner) {
         this();
         this.contactName = contactName;
         this.identityNumber = identityNumber;
-        this.endorseBy = endorseBy;
         this.visaApplication = visaApplication;
+        this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }    
 
     public String get$class() {
@@ -83,7 +82,7 @@ public class LocalContact {
     }
 
     public void setEndorseBy(String endorseBy) {
-        this.endorseBy = "org.acme.easypass.LocalContactPerson#" + endorseBy;
+        this.endorseBy = endorseBy;
     }
 
     public String getVisaApplication() {
@@ -91,15 +90,15 @@ public class LocalContact {
     }
 
     public void setVisaApplication(String visaApplication) {
-        this.visaApplication = "org.acme.easypass.VisaApplication#" + visaApplication;
+        this.visaApplication = visaApplication;
     }
     
     
     public String getOwner() {
-        return owner.substring(owner.indexOf("#") + 1);
+        return owner;
     }
 
     public void setOwner(String owner) {
-        this.owner = "org.acme.easypass.Citizen#" + owner;
+        this.owner = owner;
     }
 }
