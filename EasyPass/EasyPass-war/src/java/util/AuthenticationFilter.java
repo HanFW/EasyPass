@@ -51,11 +51,11 @@ public class AuthenticationFilter implements Filter {
         HttpSession httpSession = req.getSession(true);
         String requestServletPath = req.getServletPath();
         
-        if (httpSession.getAttribute("endorser") == null) { //endorser not authenticated: redirect to login page
+        if (requestServletPath.startsWith("/web/endorser/") && httpSession.getAttribute("endorser") == null) { //endorser not authenticated: redirect to login page
             req.getRequestDispatcher("/web/endorser/endorserLogin.xhtml").forward(request, response);
-        } else if (httpSession.getAttribute("citizen") == null) { //citizen not authenticated: redirect to login page
+        } else if (requestServletPath.startsWith("/web/citizen/") && httpSession.getAttribute("citizen") == null) { //citizen not authenticated: redirect to login page
             req.getRequestDispatcher("/web/citizen/citizenLogin.xhtml").forward(request, response);
-        } else if (httpSession.getAttribute("embassy") == null) { //embassy not authenticated: redirect to login page
+        } else if (requestServletPath.startsWith("/web/embassy/") && httpSession.getAttribute("embassy") == null) { //embassy not authenticated: redirect to login page
             req.getRequestDispatcher("/web/embassy/embassyLogin.xhtml").forward(request, response);
         } else {
             EndorserEntity endorser = (EndorserEntity) httpSession.getAttribute("endorser");
