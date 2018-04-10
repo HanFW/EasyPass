@@ -248,8 +248,12 @@
                             <f:selectItem itemLabel="Zimbabwe" itemValue="Zimbabwe" />
                         </p:selectOneMenu>
                         <p:message for="nationality"/>
+                        
+                        <p:outputLabel for="countryOfResidence" value="Country of residence: " />
+                        <p:inputText id="countryOfResidence" value="#{citizenApplyForVisaManagedBean.countryOfResidence}" required="true" requiredMessage="Required field."/>
+                        <p:message for="countryOfResidence"/>
 
-                        <p:outputLabel for="identityNumber" value="Natioanl identity number: " />
+                        <p:outputLabel for="identityNumber" value="Identity number: " />
                         <p:inputText id="identityNumber" value="#{citizenApplyForVisaManagedBean.identityNumber}" required="true" requiredMessage="Required field."/>
                         <p:message for="identityNumber"/>
 

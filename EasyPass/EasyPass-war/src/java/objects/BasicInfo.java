@@ -19,6 +19,7 @@ public class BasicInfo {
     private String firstName;
     private String lastName;
     private String birthday;
+    private String countryOfResidence;
     private String identityNumber;
     private String residentialAddress;
     private String maritalStatus;
@@ -38,11 +39,12 @@ public class BasicInfo {
         this.endorseBy = "ICAId(TBC)";
     }
 
-    public BasicInfo(String firstName, String lastName, String birthday, String identityNumber, String residentialAddress, String maritalStatus, String passportNumber, String sex, String nationality, String visaApplication) {
+    public BasicInfo(String firstName, String lastName, String birthday, String countryOfResidence, String identityNumber, String residentialAddress, String maritalStatus, String passportNumber, String sex, String nationality, String visaApplication) {
         this();
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
+        this.countryOfResidence = countryOfResidence;
         this.identityNumber = identityNumber;
         this.residentialAddress = residentialAddress;
         this.maritalStatus = maritalStatus;
@@ -90,6 +92,14 @@ public class BasicInfo {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getCountryOfResidence() {
+        return countryOfResidence;
+    }
+
+    public void setCountryOfResidence(String countryOfResidence) {
+        this.countryOfResidence = countryOfResidence;
     }
 
     public String getIdentityNumber() {

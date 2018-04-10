@@ -50,6 +50,7 @@ public class CitizenApplyForVisaManagedBean implements Serializable{
     private Date birthday;
     private String sex;
     private String nationality;
+    private String countryOfResidence;
     private String identityNumber;
     private String residentialAddress;
     private String maritalStatus;
@@ -131,7 +132,7 @@ public class CitizenApplyForVisaManagedBean implements Serializable{
             VisaStatus visaStatus = new VisaStatus("EmbassyId(TBC)",applicationId);
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_" + firstName + ".json"), visaStatus);
             // - create new basic info
-            BasicInfo basicInfo = new BasicInfo(firstName,lastName, formatDate(birthday),identityNumber, residentialAddress, maritalStatus, "passportnumber(TBC)", sex, nationality, applicationId);
+            BasicInfo basicInfo = new BasicInfo(firstName,lastName, formatDate(birthday), countryOfResidence, identityNumber, residentialAddress, maritalStatus, "passportnumber(TBC)", sex, nationality, applicationId);
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BasicInfo/post_request_" + firstName + ".json"), basicInfo);
             // - create bank statement
             BankStatement bankStatement = new BankStatement(bankName, accountNumber, bankStatementURL, "bankdId(TBC)", applicationId);
@@ -346,6 +347,14 @@ public class CitizenApplyForVisaManagedBean implements Serializable{
 
     public void setNationality(String nationality) {
         this.nationality = nationality;
+    }
+
+    public String getCountryOfResidence() {
+        return countryOfResidence;
+    }
+
+    public void setCountryOfResidence(String countryOfResidence) {
+        this.countryOfResidence = countryOfResidence;
     }
 
     public String getIdentityNumber() {
