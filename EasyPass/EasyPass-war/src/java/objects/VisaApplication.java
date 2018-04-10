@@ -6,7 +6,6 @@
 package objects;
 
 import java.util.UUID;
-import util.Constants;
 
 /**
  *
@@ -18,7 +17,6 @@ public class VisaApplication {
     private String startDate;
     private String endDate;
     private String purposeOfVisit;
-    private String state;
     private String visaStatus; //visaStatusId
     private String passport; //passportId
     private String basicInfo; //basicInfoId
@@ -33,7 +31,6 @@ public class VisaApplication {
     public VisaApplication() {
         this.$class = "org.acme.easypass.VisaApplication";
         this.visaApplicationId = "org.acme.easypass.VisaApplication#" + UUID.randomUUID().toString();
-        this.state = Constants.STATUS_PENDING;
         this.owner = "CitizenId(TBC)";
     }
     
@@ -94,14 +91,6 @@ public class VisaApplication {
 
     public void setPurposeOfVisit(String purposeOfVisit) {
         this.purposeOfVisit = purposeOfVisit;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public String getVisaStatus() {
