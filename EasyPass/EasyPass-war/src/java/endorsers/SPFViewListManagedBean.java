@@ -15,7 +15,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import objects.Citizen;
+import objects.CriminalRecord;
 
 /**
  *
@@ -32,17 +32,17 @@ public class SPFViewListManagedBean {
     }
     
     //retrieve list visa applicants
-    public ArrayList<Citizen> getCitizens() throws IOException{
-        //---Retrieve list of visa applicants
+    public ArrayList<CriminalRecord> getCriminalRecords() throws IOException{
+        //---Retrieve list of criminal records of visa applicants
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<Citizen> citizens = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Participant/Citizen/get_response.json"), new TypeReference<List<Citizen>>(){});
-        return citizens;
+        ArrayList<CriminalRecord> criminalRecords = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/get_response.json"), new TypeReference<List<CriminalRecord>>(){});
+        return criminalRecords;
     }
     
     //redirect to  validate criminal record of individual visa applicant
-    public void redirectPage (Citizen citizen) throws IOException {
+    public void redirectPage (CriminalRecord criminalRecord) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        ec.getFlash().put("citizen", citizen);
+        ec.getFlash().put("criminalRecord", criminalRecord);
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/SPFDoEndorsement.xhtml?faces-redirect=true");
     }
     

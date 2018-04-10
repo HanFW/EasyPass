@@ -6,6 +6,7 @@
 package objects;
 
 import java.util.UUID;
+import util.Constants;
 
 /**
  *
@@ -13,21 +14,37 @@ import java.util.UUID;
  */
 public class CriminalRecord {
 
+    private String $class;
     private String criminalRecordId;
-    private String recordDetails;
+    private String recordNumber;
+    private String recordDetail;
     private String endorsementState;
     private String owner;
 
-    public CriminalRecord(String recordDetails, String state, String Owner) {
-        String id = UUID.randomUUID().toString();
-
-        this.criminalRecordId = id;
-        this.recordDetails = recordDetails;
-        this.owner = Owner;
-        this.endorsementState = state;
-
+//    public CriminalRecord(String recordDetail, String state, String Owner) {
+//        String id = UUID.randomUUID().toString();
+//
+//        this.criminalRecordId = id;
+//        this.recordDetail = recordDetail;
+//        this.owner = Owner;
+//        this.endorsementState = state;
+//
+//    }
+    public CriminalRecord() {
+        this.$class = "org.acme.easypass.CriminalRecord";
+        this.criminalRecordId = "org.acme.easypass.CriminalRecord#" + UUID.randomUUID().toString();
+        this.endorsementState = Constants.STATUS_PENDING;
+        this.owner = "CitizenId(TBC)";
     }
     
+
+    public String get$class() {
+        return $class;
+    }
+
+    public void set$class(String $class) {
+        this.$class = $class;
+    }
 
     public String getCriminalRecordId() {
         return criminalRecordId;
@@ -37,12 +54,12 @@ public class CriminalRecord {
         this.criminalRecordId = criminalRecordId;
     }
 
-    public String getRecordDetails() {
-        return recordDetails;
+    public String getRecordDetail() {
+        return recordDetail;
     }
 
-    public void setRecordDetails(String recordDetails) {
-        this.recordDetails = recordDetails;
+    public void setRecordDetail(String recordDetail) {
+        this.recordDetail = recordDetail;
     }
 
     public String getEndorsementState() {
@@ -54,11 +71,19 @@ public class CriminalRecord {
     }
 
     public String getOwner() {
-        return owner;
+        return owner.substring(owner.indexOf("#") + 1);
     }
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public String getRecordNumber() {
+        return recordNumber;
+    }
+
+    public void setRecordNumber(String recordNumber) {
+        this.recordNumber = recordNumber;
     }
 
 }

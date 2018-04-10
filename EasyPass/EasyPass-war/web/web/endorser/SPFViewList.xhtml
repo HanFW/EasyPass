@@ -9,21 +9,21 @@
     <ui:define name="content">
         <h:form>
             <div align="center">
-                <p:dataTable var="citizen" id="citizenTable" value="#{sPFViewListManagedBean.citizens}" reflow="true" paginatorPosition="bottom">
+                <p:dataTable var="criminalRecord" id="citizenTable" value="#{sPFViewListManagedBean.criminalRecords}" reflow="true" paginatorPosition="bottom">
                     <f:facet name="header">
-                       List of Visa Applicants
+                       List of Criminal Records of Visa Applicants
                     </f:facet>
-
+                    
+                    <p:column headerText="Criminal Record ID">
+                        <h:outputText value="#{criminalRecord.criminalRecordId}"/>
+                    </p:column>
+                    
                     <p:column headerText="Passport number">
-                        <h:outputText value="#{citizen.passportNumber}"/>
+                        <h:outputText value="#{criminalRecord.owner}"/>
                     </p:column>
-
-                    <p:column headerText="Name of Visa Applicant">
-                        <h:outputText value="#{citizen.name}"/>
-                    </p:column>
-
-                    <p:column headerText="Endorse this citizen">
-                        <p:commandButton icon="ui-icon-document" action="#{sPFViewListManagedBean.redirectPage(citizen)}"/>
+                    
+                    <p:column headerText="Endorse Criminal Record">
+                        <p:commandButton icon="ui-icon-document" action="#{sPFViewListManagedBean.redirectPage(criminalRecord)}"/>
                     </p:column>
 
                 </p:dataTable>

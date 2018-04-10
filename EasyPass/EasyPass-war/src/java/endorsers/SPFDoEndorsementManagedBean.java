@@ -14,8 +14,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
-import objects.Citizen;
 import objects.CriminalRecord;
+import util.Constants;
 
 /**
  *
@@ -25,10 +25,11 @@ import objects.CriminalRecord;
 @ViewScoped
 public class SPFDoEndorsementManagedBean implements Serializable {
 
-    private Citizen citizen;
+    private CriminalRecord criminalRecord;
     private String decision;
     private Boolean showPanel;
-    private String recordDetails;
+    private String recordDetail;
+    private String recordNumber;
 
     /**
      * Creates a new instance of SPFDoEndorsementManagedBean
@@ -38,29 +39,35 @@ public class SPFDoEndorsementManagedBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        System.out.println("init!!!!!!");
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        citizen = (Citizen) ec.getFlash().get("citizen");
-        System.out.println("View citizen: " + citizen.getPassportNumber());
+        criminalRecord = (CriminalRecord) ec.getFlash().get("criminalRecord");
+        System.out.println("criminal record: " + criminalRecord);
+//        System.out.println("View criminalRecord: " + criminalRecord.getCriminalRecordId());
     }
 
-    public void submitCriminalRecord() throws IOException {
-        System.out.println("Criminal Record submitted");
+    public void updateCriminalRecord() throws IOException {
+        System.out.println("Criminal Record updated");
         ObjectMapper mapper = new ObjectMapper();
 
-        String owner = citizen.getPassportNumber();
+        String owner = criminalRecord.getOwner();
         if (decision.equals("Validated")) {
-            CriminalRecord record = new CriminalRecord("", "VERIFIED", owner);
-            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/post_response"+owner+".json"), record);
+//            CriminalRecord record = new CriminalRecord("", "VERIFIED", owner);
+//            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/post_response" + owner + ".json"), record);
         } else {
-            CriminalRecord record = new CriminalRecord(recordDetails, "INVALIDATE", owner);
-            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/post_response"+owner+".json"), record);
+            //$$$ValidateCriminalRecord transaction
+            System.out.println("Validate criminal Record: " + criminalRecord.getCriminalRecordId());
+            criminalRecord.setRecordNumber(recordNumber);
+            criminalRecord.setRecordDetail(recordDetail);
+            String state=Constants.STATUS_VALIDATED;
+            criminalRecord.setEndorsementState(state);
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/post_response" + owner + ".json"), criminalRecord);
         }
 
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
         //validate criminal record of visa applicant
-        System.out.println("Criminal Record:  " + citizen.getPassportNumber() + ": " + decision);
-
+//        System.out.println("Criminal Record:  " + citizen.getPassportNumber() + ": " + decision);
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/SPFViewList.xhtml?faces-redirect=true");
 
     }
@@ -74,12 +81,12 @@ public class SPFDoEndorsementManagedBean implements Serializable {
 
     }
 
-    public Citizen getCitizen() {
-        return citizen;
+    public CriminalRecord getCriminalRecord() {
+        return criminalRecord;
     }
 
-    public void setCitizen(Citizen citizen) {
-        this.citizen = citizen;
+    public void setCriminalRecord(CriminalRecord criminalRecord) {
+        this.criminalRecord = criminalRecord;
     }
 
     public String getDecision() {
@@ -98,12 +105,20 @@ public class SPFDoEndorsementManagedBean implements Serializable {
         this.showPanel = showPanel;
     }
 
-    public String getRecordDetails() {
-        return recordDetails;
+    public String getRecordDetail() {
+        return recordDetail;
     }
 
-    public void setRecordDetails(String recordDetails) {
-        this.recordDetails = recordDetails;
+    public void setRecordDetail(String recordDetail) {
+        this.recordDetail = recordDetail;
+    }
+
+    public String getRecordNumber() {
+        return recordNumber;
+    }
+
+    public void setRecordNumber(String recordNumber) {
+        this.recordNumber = recordNumber;
     }
 
 }
