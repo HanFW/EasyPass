@@ -5,6 +5,7 @@
  */
 package embassy;
 
+import entity.EmbassyEntity;
 import exception.AuthenticationFailException;
 import exception.NoSuchEntityException;
 import java.io.IOException;
@@ -38,10 +39,10 @@ public class EmbassyLoginManagedBean {
     
     public void embassyDoLogin(ActionEvent event) throws IOException {
         try {
-            Long embassyId = loginSessionBeanLocal.embassyDoLogin(accountNumber, password);
+            EmbassyEntity embassy = loginSessionBeanLocal.embassyDoLogin(accountNumber, password);
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            ec.getSessionMap().put("embassyId", embassyId);
-            System.out.println("Embassy " + embassyId + " logged in.");
+            ec.getSessionMap().put("embassy", embassy);
+            System.out.println("Embassy " + embassy.getCountryName() + " logged in.");
         } catch (NoSuchEntityException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Account does not exist.", " "));
         } catch (AuthenticationFailException ex) {
@@ -51,7 +52,7 @@ public class EmbassyLoginManagedBean {
     
     public void embassyDoLogout(ActionEvent event) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        ec.getSessionMap().remove("embassyId");
+        ec.getSessionMap().remove("embassy");
         ec.redirect(ec.getRequestContextPath() + "/web/embassy/embassyLogin.xhtml?faces-redirect=true");
     }
 

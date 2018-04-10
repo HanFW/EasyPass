@@ -43,7 +43,7 @@ public class LoginSessionBean implements LoginSessionBeanLocal {
     
     //check citizen password & login
     @Override
-    public Long citizenDoLogin(String accountNumber, String password) throws NoSuchEntityException, AuthenticationFailException{
+    public CitizenEntity citizenDoLogin(String accountNumber, String password) throws NoSuchEntityException, AuthenticationFailException{
         if(accountNumber == null || password == null) {
             LOGGER.log(Level.SEVERE, "Null field: accountNumber / password");
             return null;
@@ -64,14 +64,14 @@ public class LoginSessionBean implements LoginSessionBeanLocal {
         
         //authenticate citizen
         if(hashPassword(password, citizen.getPasswordSalt()).equals(citizen.getPassword())) { //password is correct
-            return citizen.getId();
+            return citizen;
         } else { //password is incorrect
             throw new AuthenticationFailException("Password incorrect");
         }
     }
     
     @Override
-    public Long embassyDoLogin(String accountNumber, String password) throws NoSuchEntityException, AuthenticationFailException{
+    public EmbassyEntity embassyDoLogin(String accountNumber, String password) throws NoSuchEntityException, AuthenticationFailException{
         if(accountNumber == null || password == null) {
             LOGGER.log(Level.SEVERE, "Null field: accountNumber / password");
             return null;
@@ -92,14 +92,14 @@ public class LoginSessionBean implements LoginSessionBeanLocal {
         
         //authenticate embassy
         if(hashPassword(password, embassy.getPasswordSalt()).equals(embassy.getPassword())) { //password is correct
-            return embassy.getId();
+            return embassy;
         } else { //password is incorrect
             throw new AuthenticationFailException("Password incorrect");
         }
     }
     
     @Override
-    public Long endorserDoLogin(String accountNumber, String password) throws NoSuchEntityException, AuthenticationFailException{
+    public EndorserEntity endorserDoLogin(String accountNumber, String password) throws NoSuchEntityException, AuthenticationFailException{
         if(accountNumber == null || password == null) {
             LOGGER.log(Level.SEVERE, "Null field: accountNumber / password");
             return null;
@@ -120,7 +120,7 @@ public class LoginSessionBean implements LoginSessionBeanLocal {
         
         //authenticate endorser
         if(hashPassword(password, endorser.getPasswordSalt()).equals(endorser.getPassword())) { //password is correct
-            return endorser.getId();
+            return endorser;
         } else { //password is incorrect
             throw new AuthenticationFailException("Password incorrect");
         }

@@ -5,6 +5,9 @@
  */
 package session;
 
+import entity.CitizenEntity;
+import entity.EmbassyEntity;
+import entity.EndorserEntity;
 import exception.AuthenticationFailException;
 import exception.NoSuchEntityException;
 import javax.ejb.Local;
@@ -15,7 +18,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface LoginSessionBeanLocal {
-    Long citizenDoLogin(String accountNumber, String password) throws NoSuchEntityException, AuthenticationFailException;
-    Long embassyDoLogin(String accountNumber, String password) throws NoSuchEntityException, AuthenticationFailException;
-    Long endorserDoLogin(String accountNumber, String password) throws NoSuchEntityException, AuthenticationFailException;
+    CitizenEntity citizenDoLogin(String accountNumber, String password) throws NoSuchEntityException, AuthenticationFailException;
+    EmbassyEntity embassyDoLogin(String accountNumber, String password) throws NoSuchEntityException, AuthenticationFailException;
+    EndorserEntity endorserDoLogin(String accountNumber, String password) throws NoSuchEntityException, AuthenticationFailException;
 }

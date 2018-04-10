@@ -5,6 +5,7 @@
  */
 package citizen;
 
+import entity.CitizenEntity;
 import exception.AuthenticationFailException;
 import exception.NoSuchEntityException;
 import java.io.IOException;
@@ -38,9 +39,9 @@ public class CitizenLoginManagedBean {
     
     public void citizenDoLogin(ActionEvent event) throws IOException {
         try {
-            Long citizenId = loginSessionBeanLocal.citizenDoLogin(accountNumber, password);
+            CitizenEntity citizen = loginSessionBeanLocal.citizenDoLogin(accountNumber, password);
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            ec.getSessionMap().put("citizenId", citizenId);
+            ec.getSessionMap().put("citizen", citizen);
             ec.redirect(ec.getRequestContextPath() + "/web/citizen/citizenPortalMainPage.xhtml?faces-redirect=true");
         } catch (NoSuchEntityException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Account does not exist.", " "));
@@ -51,7 +52,7 @@ public class CitizenLoginManagedBean {
     
     public void citizenDoLogout(ActionEvent event) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        ec.getSessionMap().remove("citizenId");
+        ec.getSessionMap().remove("citizen");
         ec.redirect(ec.getRequestContextPath() + "/web/citizen/citizenLogin.xhtml?faces-redirect=true");
     }
 
