@@ -6,7 +6,6 @@
 package objects;
 
 import java.util.UUID;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import util.Constants;
 
 /**
@@ -20,13 +19,13 @@ public class BankStatement {
     private String accountNumber;
     private String bankStatementImageURL;
     private String endorsementState;
-    private String owner;
-    private String endorseBy;
-    private String visaApplication;
+    private String owner; //citizenId
+    private String endorseBy; //bankId
+    private String visaApplication; //visaApplicationId
     
     public BankStatement() {
         this.$class = "org.acme.easypass.BankStatement";
-        this.bankStatementId = UUID.randomUUID().toString();
+        this.bankStatementId = "org.acme.easypass.BankStatement#" + UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
         this.owner = "CitizenId(TBC)";
     }
@@ -93,7 +92,7 @@ public class BankStatement {
     }
 
     public void setOwner(String owner) {
-        this.owner = owner;
+        this.owner = "org.acme.easypass.Citizen#" + owner;
     }
 
     public String getEndorseBy() {
@@ -101,7 +100,7 @@ public class BankStatement {
     }
 
     public void setEndorseBy(String endorseBy) {
-        this.endorseBy = endorseBy;
+        this.endorseBy = "org.acme.easypass.Bank#" + endorseBy;
     }
 
     public String getVisaApplication() {
@@ -109,7 +108,7 @@ public class BankStatement {
     }
 
     public void setVisaApplication(String visaApplication) {
-        this.visaApplication = visaApplication;
+        this.visaApplication = "org.acme.easypass.VisaApplication#" + visaApplication;
     }
 
 }

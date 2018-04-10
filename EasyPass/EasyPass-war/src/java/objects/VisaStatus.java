@@ -17,9 +17,9 @@ public class VisaStatus {
     private String visaStatusId;
     private String state;
     private String message;
-    private String owner; //Citizen
-    private String updatedBy; //Embassy
-    private String visaApplication;
+    private String owner; //citizenId
+    private String updatedBy; //embassyId
+    private String visaApplication; //visaApplicationId
     
     public VisaStatus() {
         this.$class = "org.acme.easypass.VisaStatus";
@@ -72,7 +72,7 @@ public class VisaStatus {
     }
 
     public void setOwner(String owner) {
-        this.owner = owner;
+        this.owner = "org.acme.easypass.Citizen#" + owner;
     }
 
     public String getUpdatedBy() {
@@ -80,7 +80,7 @@ public class VisaStatus {
     }
 
     public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
+        this.updatedBy = "org.acme.easypass.Embassy#" + updatedBy;
     }
 
     public String getVisaApplication() {
@@ -88,7 +88,7 @@ public class VisaStatus {
     }
 
     public void setVisaApplication(String visaApplication) {
-        this.visaApplication = visaApplication;
+        this.visaApplication = "org.acme.easypass.VisaApplication#" + visaApplication;
     }
     
     

@@ -20,13 +20,13 @@ public class Insurance {
     private String referenceNumber;
     private String insuranceContractImageURL;
     private String endorsementState;
-    private String owner;
-    private String endorseBy;
-    private String visaApplication;
+    private String owner; //citizenId
+    private String endorseBy; //insuranceCompanyId
+    private String visaApplication; //visaApplicationId
     
     public Insurance() {
         this.$class = "org.acme.easypass.Insurance";
-        this.insuranceId = UUID.randomUUID().toString();
+        this.insuranceId = "org.acme.easypass.Insurance#" + UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
         this.owner = "CitizenId(TBC)";
     }
@@ -93,7 +93,7 @@ public class Insurance {
     }
 
     public void setEndorseBy(String endorseBy) {
-        this.endorseBy = endorseBy;
+        this.endorseBy = "org.acme.easypass.InsuranceCompany#" + endorseBy;
     }
 
     public String getVisaApplication() {
@@ -101,7 +101,7 @@ public class Insurance {
     }
 
     public void setVisaApplication(String visaApplication) {
-        this.visaApplication = visaApplication;
+        this.visaApplication = "org.acme.easypass.VisaApplication#" + visaApplication;
     }
 
     public String getOwner() {
@@ -109,6 +109,6 @@ public class Insurance {
     }
 
     public void setOwner(String owner) {
-        this.owner = owner;
+        this.owner = "org.acme.easypass.Citizen#" + owner;
     }
 }

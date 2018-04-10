@@ -19,20 +19,20 @@ public class VisaApplication {
     private String endDate;
     private String purposeOfVisit;
     private String state;
-    private String visaStatus;
-    private String passport;
-    private String basicInfo;
-    private String bankStatement;
-    private String transportationReference;
-    private String accomodation;
-    private String insurance;
-    private String localContact;
-    private String criminalRecord;
-    private String owner;
+    private String visaStatus; //visaStatusId
+    private String passport; //passportId
+    private String basicInfo; //basicInfoId
+    private String bankStatement; //bankStatementId
+    private String transportationReference; //transportationReferenceId
+    private String accomodation; //accommodationId
+    private String insurance; //insuranceCompanyId
+    private String localContact; //localcontactId
+    private String criminalRecord; //criminalRecordId
+    private String owner; //citizenId
     
     public VisaApplication() {
         this.$class = "org.acme.easypass.VisaApplication";
-        this.visaApplicationId = UUID.randomUUID().toString();
+        this.visaApplicationId = "org.acme.easypass.VisaApplication#" + UUID.randomUUID().toString();
         this.state = Constants.STATUS_PENDING;
         this.owner = "CitizenId(TBC)";
     }
@@ -109,7 +109,7 @@ public class VisaApplication {
     }
 
     public void setVisaStatus(String visaStatus) {
-        this.visaStatus = visaStatus;
+        this.visaStatus = "org.acme.easypass.VisaStatus#" + visaStatus;
     }
 
     public String getPassport() {
@@ -117,7 +117,7 @@ public class VisaApplication {
     }
 
     public void setPassport(String passport) {
-        this.passport = passport;
+        this.passport = "org.acme.easypass.Passport#" + passport;
     }
 
     public String getBasicInfo() {
@@ -125,7 +125,7 @@ public class VisaApplication {
     }
 
     public void setBasicInfo(String basicInfo) {
-        this.basicInfo = basicInfo;
+        this.basicInfo = "org.acme.easypass.BasicInfo#" + basicInfo;
     }
 
     public String getBankStatement() {
@@ -133,7 +133,7 @@ public class VisaApplication {
     }
 
     public void setBankStatement(String bankStatement) {
-        this.bankStatement = bankStatement;
+        this.bankStatement = "org.acme.easypass.BankStatement#" + bankStatement;
     }
 
     public String getTransportationReference() {
@@ -141,7 +141,7 @@ public class VisaApplication {
     }
 
     public void setTransportationReference(String transportationReference) {
-        this.transportationReference = transportationReference;
+        this.transportationReference = "org.acme.easypass.TransportationReference#" + transportationReference;
     }
 
     public String getAccomodation() {
@@ -149,7 +149,7 @@ public class VisaApplication {
     }
 
     public void setAccomodation(String accomodation) {
-        this.accomodation = accomodation;
+        this.accomodation = "org.acme.easypass.Accomodation#" + accomodation;
     }
 
     public String getInsurance() {
@@ -157,7 +157,7 @@ public class VisaApplication {
     }
 
     public void setInsurance(String insurance) {
-        this.insurance = insurance;
+        this.insurance = "org.acme.easypass.Insurance#" + insurance;
     }
 
     public String getLocalContact() {
@@ -165,7 +165,7 @@ public class VisaApplication {
     }
 
     public void setLocalContact(String localContact) {
-        this.localContact = localContact;
+        this.localContact = "org.acme.easypass.LocalContact#" + localContact;
     }
 
     public String getCriminalRecord() {
@@ -173,7 +173,7 @@ public class VisaApplication {
     }
 
     public void setCriminalRecord(String criminalRecord) {
-        this.criminalRecord = criminalRecord;
+        this.criminalRecord = "org.acme.easypass.CriminalRecord#" + criminalRecord;
     }
 
     public String getOwner() {
@@ -181,6 +181,6 @@ public class VisaApplication {
     }
 
     public void setOwner(String owner) {
-        this.owner = owner;
+        this.owner = "org.acme.easypass.Citizen#" + owner;
     }
 }

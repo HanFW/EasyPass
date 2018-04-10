@@ -19,13 +19,13 @@ public class TransportationReference {
     private String reference;
     private String transportationReferenceImageURL;
     private String endorsementState;
-    private String owner;
-    private String endorseBy;
-    private String visaApplication;
+    private String owner; //citizenId
+    private String endorseBy; //tranportationproviderId
+    private String visaApplication; //visaApplicationId
     
     public TransportationReference() {
         this.$class = "org.acme.easypass.TransportationReference";
-        this.transportationReferenceId = UUID.randomUUID().toString();
+        this.transportationReferenceId = "org.acme.easypass.TransportationReference#" + UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
         this.owner = "CitizenId(TBC)";
     }
@@ -92,7 +92,7 @@ public class TransportationReference {
     }
 
     public void setOwner(String owner) {
-        this.owner = owner;
+        this.owner = "org.acme.easypass.Citizen#" + owner;
     }
 
     public String getEndorseBy() {
@@ -100,7 +100,7 @@ public class TransportationReference {
     }
 
     public void setEndorseBy(String endorseBy) {
-        this.endorseBy = endorseBy;
+        this.endorseBy = "org.acme.easypass.TransportationProvider#" + endorseBy;
     }
 
     public String getVisaApplication() {
@@ -108,7 +108,7 @@ public class TransportationReference {
     }
 
     public void setVisaApplication(String visaApplication) {
-        this.visaApplication = visaApplication;
+        this.visaApplication = "org.acme.easypass.VisaApplication#" + visaApplication;
     }
     
     

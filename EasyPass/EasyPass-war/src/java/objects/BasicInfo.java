@@ -26,13 +26,13 @@ public class BasicInfo {
     private String sex;
     private String nationality;
     private String endorsementState;
-    private String owner;
-    private String endorseBy;
-    private String visaApplication;
+    private String owner; //citizenId
+    private String endorseBy; //icaId
+    private String visaApplication; //visaApplicationId
     
     public BasicInfo() {
         this.$class = "org.acme.easypass.BasicInfo";
-        this.basicInfoId = UUID.randomUUID().toString();
+        this.basicInfoId = "org.acme.easypass.BasicInfo#" + UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
         this.owner = "CitizenId(TBC)";
         this.endorseBy = "ICAId(TBC)";
@@ -153,7 +153,7 @@ public class BasicInfo {
     }
 
     public void setOwner(String owner) {
-        this.owner = owner;
+        this.owner = "org.acme.easypass.Citizen#" + owner;
     }
 
     public String getEndorseBy() {
@@ -161,7 +161,7 @@ public class BasicInfo {
     }
 
     public void setEndorseBy(String endorseBy) {
-        this.endorseBy = endorseBy;
+        this.endorseBy = "org.acme.easypass.ICA#" + endorseBy;
     }
 
     public String getVisaApplication() {
@@ -169,7 +169,7 @@ public class BasicInfo {
     }
 
     public void setVisaApplication(String visaApplication) {
-        this.visaApplication = visaApplication;
+        this.visaApplication = "org.acme.easypass.VisaApplication#" + visaApplication;
     }
     
     

@@ -5,21 +5,15 @@
  */
 package objects;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-
 /**
  *
  * @author Jingyuan
  */
 public class Citizen {
-    @JsonIgnore
-    private String $class;
-    
+    private String $class;    
     private String passportNumber;
     private String name;
-    
-    @JsonIgnore
-    private String passport;
+    private String passport; //passportId
 
     public String getPassportNumber() {
         return passportNumber;

@@ -13,19 +13,19 @@ import util.Constants;
  * @author Jingyuan
  */
 public class Accomodation {
-    private String $class;
+    private String $class; 
     private String accomodationId;
     private String carrierName;
     private String referenceNumber;
     private String transportationReferenceImageURL;
     private String endorsementState;
-    private String owner;
-    private String endorseBy;
-    private String visaApplication;
+    private String owner; //citizenId
+    private String endorseBy; //hotelId
+    private String visaApplication; //visaApplicationId
     
     public Accomodation() {
         this.$class = "org.acme.easypass.Accomodation";
-        this.accomodationId = UUID.randomUUID().toString();
+        this.accomodationId = "org.acme.easypass.Accomodation#" + UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
         this.owner = "CitizenId(TBC)";
     }
@@ -52,7 +52,7 @@ public class Accomodation {
     }
 
     public void setOwner(String owner) {
-        this.owner = owner;
+        this.owner = "org.acme.easypass.Citizen#" + owner;
     }
 
     public String getAccomodationId() {
@@ -100,7 +100,7 @@ public class Accomodation {
     }
 
     public void setEndorseBy(String endorseBy) {
-        this.endorseBy = endorseBy;
+        this.endorseBy = "org.acme.easypass.Hotel#" + endorseBy;
     }
 
     public String getVisaApplication() {
@@ -108,7 +108,7 @@ public class Accomodation {
     }
 
     public void setVisaApplication(String visaApplication) {
-        this.visaApplication = visaApplication;
+        this.visaApplication = "org.acme.easypass.VisaApplication#" + visaApplication;
     }
     
     
