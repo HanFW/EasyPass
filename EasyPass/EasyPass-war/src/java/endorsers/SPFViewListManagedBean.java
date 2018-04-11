@@ -30,21 +30,61 @@ public class SPFViewListManagedBean {
      */
     public SPFViewListManagedBean() {
     }
-    
+
     //retrieve list visa applicants
-    public ArrayList<CriminalRecord> getCriminalRecords() throws IOException{
-        //---Retrieve list of criminal records of visa applicants
+    public ArrayList<CriminalRecord> getPendingCriminalRecords() throws IOException {
+        //---Retrieve list of pending criminal records of visa applicants
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<CriminalRecord> criminalRecords = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/get_response.json"), new TypeReference<List<CriminalRecord>>(){});
-        return criminalRecords;
+        ArrayList<CriminalRecord> criminalRecords = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/get_response.json"), new TypeReference<List<CriminalRecord>>() {
+        });
+
+        ArrayList<CriminalRecord> filteredCriminalRecords = new ArrayList<>();
+        for (int i = 0; i < criminalRecords.size(); i++) {
+            if (criminalRecords.get(i).getEndorsementState().equals("PENDING")) {
+                filteredCriminalRecords.add(criminalRecords.get(i));
+            }
+        }
+
+        return filteredCriminalRecords;
     }
-    
+
+    public ArrayList<CriminalRecord> getVaidatedCriminalRecords() throws IOException {
+        //---Retrieve list of validated criminal records of visa applicants
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<CriminalRecord> criminalRecords = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/get_response.json"), new TypeReference<List<CriminalRecord>>() {
+        });
+
+        ArrayList<CriminalRecord> filteredCriminalRecords = new ArrayList<>();
+        for (int i = 0; i < criminalRecords.size(); i++) {
+            if (criminalRecords.get(i).getEndorsementState().equals("VERIFIED")) {
+                filteredCriminalRecords.add(criminalRecords.get(i));
+            }
+        }
+
+        return filteredCriminalRecords;
+    }
+
+    public ArrayList<CriminalRecord> getRejectedCriminalRecords() throws IOException {
+        //---Retrieve list of rejected criminal records of visa applicants
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<CriminalRecord> criminalRecords = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/get_response.json"), new TypeReference<List<CriminalRecord>>() {
+        });
+
+        ArrayList<CriminalRecord> filteredCriminalRecords = new ArrayList<>();
+        for (int i = 0; i < criminalRecords.size(); i++) {
+            if (criminalRecords.get(i).getEndorsementState().equals("INVALIDATE")) {
+                filteredCriminalRecords.add(criminalRecords.get(i));
+            }
+        }
+
+        return filteredCriminalRecords;
+    }
+
     //redirect to  validate criminal record of individual visa applicant
-    public void redirectPage (CriminalRecord criminalRecord) throws IOException {
+    public void redirectPage(CriminalRecord criminalRecord) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getFlash().put("criminalRecord", criminalRecord);
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/SPFDoEndorsement.xhtml?faces-redirect=true");
     }
-    
 
 }

@@ -9,24 +9,65 @@
     <ui:define name="content">
         <h:form>
             <div align="center">
-                <p:dataTable var="criminalRecord" id="citizenTable" value="#{sPFViewListManagedBean.criminalRecords}" reflow="true" paginatorPosition="bottom">
-                    <f:facet name="header">
-                       List of Criminal Records of Visa Applicants
-                    </f:facet>
-                    
-                    <p:column headerText="Criminal Record ID">
-                        <h:outputText value="#{criminalRecord.criminalRecordId}"/>
-                    </p:column>
-                    
-                    <p:column headerText="Passport number">
-                        <h:outputText value="#{criminalRecord.owner}"/>
-                    </p:column>
-                    
-                    <p:column headerText="Endorse Criminal Record">
-                        <p:commandButton icon="ui-icon-document" action="#{sPFViewListManagedBean.redirectPage(criminalRecord)}"/>
-                    </p:column>
+                <p:tabView cache="false" dynamic="true"> 
+                    <p:tab title="Pending Criminal Records">
+                        <p:dataTable var="criminalRecord" id="citizenTable" value="#{sPFViewListManagedBean.pendingCriminalRecords}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                List of Criminal Records of Visa Applicants
+                            </f:facet>
 
-                </p:dataTable>
+                            <p:column headerText="Criminal Record ID">
+                                <h:outputText value="#{criminalRecord.criminalRecordId}"/>
+                            </p:column>
+
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{criminalRecord.owner}"/>
+                            </p:column>
+
+                            <p:column headerText="Endorse Criminal Record">
+                                <p:commandButton icon="ui-icon-document" action="#{sPFViewListManagedBean.redirectPage(criminalRecord)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="ValidatedCriminal Records">
+                        <p:dataTable var="criminalRecord" id="citizenTable1" value="#{sPFViewListManagedBean.vaidatedCriminalRecords}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                List of Criminal Records of Visa Applicants
+                            </f:facet>
+
+                            <p:column headerText="Criminal Record ID">
+                                <h:outputText value="#{criminalRecord.criminalRecordId}"/>
+                            </p:column>
+
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{criminalRecord.owner}"/>
+                            </p:column>
+
+                            <p:column headerText="Endorse Criminal Record">
+                                <p:commandButton icon="ui-icon-document" action="#{sPFViewListManagedBean.redirectPage(criminalRecord)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Rejected Criminal Records">
+                        <p:dataTable var="criminalRecord" id="citizenTable2" value="#{sPFViewListManagedBean.rejectedCriminalRecords}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                List of Criminal Records of Visa Applicants
+                            </f:facet>
+
+                            <p:column headerText="Criminal Record ID">
+                                <h:outputText value="#{criminalRecord.criminalRecordId}"/>
+                            </p:column>
+
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{criminalRecord.owner}"/>
+                            </p:column>
+
+                            <p:column headerText="Endorse Criminal Record">
+                                <p:commandButton icon="ui-icon-document" action="#{sPFViewListManagedBean.redirectPage(criminalRecord)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                </p:tabView>
             </div>
         </h:form>
     </ui:define>
