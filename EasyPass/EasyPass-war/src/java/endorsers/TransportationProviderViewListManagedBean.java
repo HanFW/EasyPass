@@ -31,19 +31,60 @@ public class TransportationProviderViewListManagedBean implements Serializable {
      */
     public TransportationProviderViewListManagedBean() {
     }
-    
-     public ArrayList<TransportationReference> getTransportationReferences() throws IOException{
-        //---Retrieve list of visa applicants
+
+    public ArrayList<TransportationReference> getPendingTransportationReferences() throws IOException {
+        //---Retrieve list of pending visa applicants
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<TransportationReference> transportationReferences = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/TransportationReference/get_response.json"), new TypeReference<List<TransportationReference>>(){});
-        return transportationReferences;
+        ArrayList<TransportationReference> transportationReferences = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/TransportationReference/get_response.json"), new TypeReference<List<TransportationReference>>() {
+        });
+
+        ArrayList<TransportationReference> filteredTransportationReferences = new ArrayList<>();
+        for (int i = 0; i < transportationReferences.size(); i++) {
+            if (transportationReferences.get(i).getEndorsementState().equals("PENDING")) {
+                filteredTransportationReferences.add(transportationReferences.get(i));
+            }
+        }
+
+        return filteredTransportationReferences;
     }
-    
-        //redirect to view & validate transportation reference of individual visa applicant
-    public void viewTransportationReference (TransportationReference transportationReference) throws IOException {
+
+    public ArrayList<TransportationReference> getValidatedTransportationReferences() throws IOException {
+        //---Retrieve list of validated visa applicants
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<TransportationReference> transportationReferences = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/TransportationReference/get_response.json"), new TypeReference<List<TransportationReference>>() {
+        });
+
+        ArrayList<TransportationReference> filteredTransportationReferences = new ArrayList<>();
+        for (int i = 0; i < transportationReferences.size(); i++) {
+            if (transportationReferences.get(i).getEndorsementState().equals("VERIFIED")) {
+                filteredTransportationReferences.add(transportationReferences.get(i));
+            }
+        }
+
+        return filteredTransportationReferences;
+    }
+
+    public ArrayList<TransportationReference> getRejectedTransportationReferences() throws IOException {
+        //---Retrieve list of rejected visa applicants
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<TransportationReference> transportationReferences = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/TransportationReference/get_response.json"), new TypeReference<List<TransportationReference>>() {
+        });
+
+        ArrayList<TransportationReference> filteredTransportationReferences = new ArrayList<>();
+        for (int i = 0; i < transportationReferences.size(); i++) {
+            if (transportationReferences.get(i).getEndorsementState().equals("INVALIDATE")) {
+                filteredTransportationReferences.add(transportationReferences.get(i));
+            }
+        }
+
+        return filteredTransportationReferences;
+    }
+
+    //redirect to view & validate transportation reference of individual visa applicant
+    public void viewTransportationReference(TransportationReference transportationReference) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getFlash().put("transportationReference", transportationReference);
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/TransportationProviderDoEndorsement.xhtml?faces-redirect=true");
     }
-    
+
 }

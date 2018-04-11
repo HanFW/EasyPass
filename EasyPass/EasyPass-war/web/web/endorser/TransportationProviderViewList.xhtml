@@ -9,24 +9,65 @@
     <ui:define name="content">
         <h:form>
             <div align="center">
-                <p:dataTable var="transportationReference" id="transportationReferenceTable" value="#{transportationProviderViewListManagedBean.transportationReferences}" reflow="true" paginatorPosition="bottom">
-                    <f:facet name="header">
-                        Transportation Reference of Visa Applicants
-                    </f:facet>
+                <p:tabView cache="false" dynamic="true"> 
+                    <p:tab title="Pending Transportation References">
+                        <p:dataTable var="transportationReference" id="transportationReferenceTable" value="#{transportationProviderViewListManagedBean.pendingTransportationReferences}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Transportation Reference of Visa Applicants
+                            </f:facet>
 
-                    <p:column headerText="Passport number">
-                        <h:outputText value="#{transportationReference.owner}"/>
-                    </p:column>
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{transportationReference.owner}"/>
+                            </p:column>
 
-                    <p:column headerText="Reference Number">
-                        <h:outputText value="#{transportationReference.reference}"/>
-                    </p:column>
-                    
-                    <p:column headerText="View Transportation Reference">
-                        <p:commandButton icon="ui-icon-document" action="#{transportationProviderViewListManagedBean.viewTransportationReference(transportationReference)}"/>
-                    </p:column>
+                            <p:column headerText="Reference Number">
+                                <h:outputText value="#{transportationReference.reference}"/>
+                            </p:column>
 
-                </p:dataTable>
+                            <p:column headerText="View Transportation Reference">
+                                <p:commandButton icon="ui-icon-document" action="#{transportationProviderViewListManagedBean.viewTransportationReference(transportationReference)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Validated Transportation References">
+                        <p:dataTable var="transportationReference" id="transportationReferenceTable1" value="#{transportationProviderViewListManagedBean.validatedTransportationReferences}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Transportation Reference of Visa Applicants
+                            </f:facet>
+
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{transportationReference.owner}"/>
+                            </p:column>
+
+                            <p:column headerText="Reference Number">
+                                <h:outputText value="#{transportationReference.reference}"/>
+                            </p:column>
+
+                            <p:column headerText="View Transportation Reference">
+                                <p:commandButton icon="ui-icon-document" action="#{transportationProviderViewListManagedBean.viewTransportationReference(transportationReference)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Rejected Transportation References">
+                        <p:dataTable var="transportationReference" id="transportationReferenceTable2" value="#{transportationProviderViewListManagedBean.rejectedTransportationReferences}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Transportation Reference of Visa Applicants
+                            </f:facet>
+
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{transportationReference.owner}"/>
+                            </p:column>
+
+                            <p:column headerText="Reference Number">
+                                <h:outputText value="#{transportationReference.reference}"/>
+                            </p:column>
+
+                            <p:column headerText="View Transportation Reference">
+                                <p:commandButton icon="ui-icon-document" action="#{transportationProviderViewListManagedBean.viewTransportationReference(transportationReference)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                </p:tabView>
             </div>
         </h:form>
     </ui:define>

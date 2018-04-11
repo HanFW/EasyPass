@@ -59,7 +59,7 @@ public class TransportationProviderDoEndorsementManagedBean implements Serializa
             transportationReference.setEndorsementState(Constants.STATUS_REJECTED);
         }
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/TransportationReference/post_response" + transportationReference.getOwner() + ".json"), transportationReference);
+        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/TransportationReference/post_request" + transportationReference.getOwner() + ".json"), transportationReference);
 
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/TransportationProviderViewList.xhtml?faces-redirect=true");
     }
