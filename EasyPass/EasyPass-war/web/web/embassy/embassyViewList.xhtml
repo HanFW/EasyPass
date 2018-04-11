@@ -9,11 +9,89 @@
     <ui:define name="content">
         <h:form>
             <div align="center">
-                <p:dataTable var="application" reflow="true" paginatorPosition="bottom">
-                    <f:facet name="header">
-                        PENDING Visa Applications
-                    </f:facet>
-                </p:dataTable>
+                <p:tabView cache="false" dynamic="true">
+                    <p:tab title="Pending Visa Applications">
+                        <p:dataTable var="visaApplication" id="visaApplicationTable" value="#{embassyViewListManagedBean.pendingVisaApplications}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Pending Visa Applications
+                            </f:facet>
+
+                            <p:column headerText="Visa Application ID">
+                                <h:outputText value="#{visaApplication.visaApplicationId}"/>
+                            </p:column>
+
+                            <p:column headerText="Start Date">
+                                <h:outputText value="#{visaApplication.startDate}"/>
+                            </p:column>
+
+                            <p:column headerText="End Date">
+                                <h:outputText value="#{visaApplication.endDate}"/>
+                            </p:column>
+
+                            <p:column headerText="Purpose of Visit">
+                                <h:outputText value="#{visaApplication.purposeOfVisit}"/>
+                            </p:column>
+
+                            <p:column headerText="View Detailed Information">
+                                <p:commandButton icon="ui-icon-document" action="#{embassyViewListManagedBean.viewVisaApplication(visaApplication)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Approved Visa Applications">
+                        <p:dataTable var="visaApplication" id="visaApplicationTable1" value="#{embassyViewListManagedBean.approvedVisaApplications}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Approved Visa Applications
+                            </f:facet>
+
+                            <p:column headerText="Visa Application ID">
+                                <h:outputText value="#{visaApplication.visaApplicationId}"/>
+                            </p:column>
+
+                            <p:column headerText="Start Date">
+                                <h:outputText value="#{visaApplication.startDate}"/>
+                            </p:column>
+
+                            <p:column headerText="End Date">
+                                <h:outputText value="#{visaApplication.endDate}"/>
+                            </p:column>
+
+                            <p:column headerText="Purpose of Visit">
+                                <h:outputText value="#{visaApplication.purposeOfVisit}"/>
+                            </p:column>
+
+                            <p:column headerText="View Detailed Information">
+                                <p:commandButton icon="ui-icon-document" action="#{embassyViewListManagedBean.viewVisaApplication(visaApplication)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Rejected Visa Applications">
+                        <p:dataTable var="visaApplication" id="visaApplicationTable2" value="#{embassyViewListManagedBean.rejectedVisaApplications}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Rejected Visa Applications
+                            </f:facet>
+
+                            <p:column headerText="Visa Application ID">
+                                <h:outputText value="#{visaApplication.visaApplicationId}"/>
+                            </p:column>
+
+                            <p:column headerText="Start Date">
+                                <h:outputText value="#{visaApplication.startDate}"/>
+                            </p:column>
+
+                            <p:column headerText="End Date">
+                                <h:outputText value="#{visaApplication.endDate}"/>
+                            </p:column>
+
+                            <p:column headerText="Purpose of Visit">
+                                <h:outputText value="#{visaApplication.purposeOfVisit}"/>
+                            </p:column>
+
+                            <p:column headerText="View Detailed Information">
+                                <p:commandButton icon="ui-icon-document" action="#{embassyViewListManagedBean.viewVisaApplication(visaApplication)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                </p:tabView>
             </div>
         </h:form>
     </ui:define>
