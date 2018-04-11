@@ -45,18 +45,55 @@ public class LocalContactViewListManagedBean implements Serializable {
     public void init() {
         System.out.println("INIT!!!!!!!");
         try {
-            localContacts = getLocalContacts();
+            localContacts = getPendingLocalContacts();
         } catch (IOException ex) {
             Logger.getLogger(LocalContactViewListManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public ArrayList<LocalContact> getLocalContacts() throws IOException {
-        //---Retrieve list of visa applicants of the local contact
+    public ArrayList<LocalContact> getPendingLocalContacts() throws IOException {
+        //---Retrieve list of pending visa applicants of the local contact
         ObjectMapper mapper = new ObjectMapper();
         localContacts = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/get_response.json"), new TypeReference<List<LocalContact>>() {
         });
-        return localContacts;
+        ArrayList<LocalContact> filteredLocalContacts = new ArrayList<>();
+        for (int i = 0; i < localContacts.size(); i++) {
+            if (localContacts.get(i).getEndorsementState().equals("PENDING")) {
+                filteredLocalContacts.add(localContacts.get(i));
+            }
+        }
+
+        return filteredLocalContacts;
+    }
+
+    public ArrayList<LocalContact> getRejectedLocalContacts() throws IOException {
+        //---Retrieve list of rejected visa applicants of the local contact
+        ObjectMapper mapper = new ObjectMapper();
+        localContacts = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/get_response.json"), new TypeReference<List<LocalContact>>() {
+        });
+        ArrayList<LocalContact> filteredLocalContacts = new ArrayList<>();
+        for (int i = 0; i < localContacts.size(); i++) {
+            if (localContacts.get(i).getEndorsementState().equals("INVALIDATE")) {
+                filteredLocalContacts.add(localContacts.get(i));
+            }
+        }
+
+        return filteredLocalContacts;
+    }
+
+    public ArrayList<LocalContact> getValidatedLocalContacts() throws IOException {
+        //---Retrieve list of validated visa applicants of the local contact
+        ObjectMapper mapper = new ObjectMapper();
+        localContacts = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/get_response.json"), new TypeReference<List<LocalContact>>() {
+        });
+        ArrayList<LocalContact> filteredLocalContacts = new ArrayList<>();
+        for (int i = 0; i < localContacts.size(); i++) {
+            if (localContacts.get(i).getEndorsementState().equals("VERIFIED")) {
+                filteredLocalContacts.add(localContacts.get(i));
+            }
+        }
+
+        return filteredLocalContacts;
     }
 
     //retrive the name of the citizen by citizenID (passportNumber)

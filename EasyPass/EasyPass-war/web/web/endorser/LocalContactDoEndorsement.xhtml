@@ -8,30 +8,79 @@
     <ui:define name="content">
         <h:form>
             <div align="center">
-                <p:dataTable var="localContact" id="localContactTable" value="#{localContactViewListManagedBean.localContacts}" reflow="true" paginatorPosition="bottom">
+                <p:tabView cache="false" dynamic="true">
+                    <p:tab title="Pending">
+                        <p:dataTable var="localContact" id="localContactTable" value="#{localContactViewListManagedBean.pendingLocalContacts}" reflow="true" paginatorPosition="bottom">
 
-                    <f:facet name="header">
-                        Local Contact of Visa Applicants
-                    </f:facet>
+                            <f:facet name="header">
+                                Local Contact of Visa Applicants
+                            </f:facet>
 
-                    <p:column headerText="Passport number">
-                        <h:outputText value="#{localContact.owner}"/>
-                    </p:column>
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{localContact.owner}"/>
+                            </p:column>
 
-                    <p:column headerText="Name of Visa Applicant">
-                        <h:outputText value="#{localContactViewListManagedBean.getCitizenNamebyID(localContact.owner)}"/>
-                    </p:column>
+                            <p:column headerText="Name of Visa Applicant">
+                                <h:outputText value="#{localContactViewListManagedBean.getCitizenNamebyID(localContact.owner)}"/>
+                            </p:column>
 
-                    
-                    <p:column>
-                        <p:commandButton value="Validate" action="#{localContactViewListManagedBean.validateVisaApplicant(localContact)}"/>
-                    </p:column>
 
-                    <p:column>
-                        <p:commandButton value="Reject" action="#{localContactViewListManagedBean.rejectVisaApplicant(localContact)}"/>
-                    </p:column>
+                            <p:column>
+                                <p:commandButton value="Validate" action="#{localContactViewListManagedBean.validateVisaApplicant(localContact)}"/>
+                            </p:column>
 
-                </p:dataTable>
+                            <p:column>
+                                <p:commandButton value="Reject" action="#{localContactViewListManagedBean.rejectVisaApplicant(localContact)}"/>
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Validated">
+                        <p:dataTable var="localContact" id="localContactTable1" value="#{localContactViewListManagedBean.validatedLocalContacts}" reflow="true" paginatorPosition="bottom">
+
+                            <f:facet name="header">
+                                Local Contact of Visa Applicants
+                            </f:facet>
+
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{localContact.owner}"/>
+                            </p:column>
+
+                            <p:column headerText="Name of Visa Applicant">
+                                <h:outputText value="#{localContactViewListManagedBean.getCitizenNamebyID(localContact.owner)}"/>
+                            </p:column>
+
+
+                            <p:column headerText="Status">
+                                <h:outputText value="Validated"/>
+                            </p:column>
+
+
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Rejected">
+                        <p:dataTable var="localContact" id="localContactTable2" value="#{localContactViewListManagedBean.rejectedLocalContacts}" reflow="true" paginatorPosition="bottom">
+
+                            <f:facet name="header">
+                                Local Contact of Visa Applicants
+                            </f:facet>
+
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{localContact.owner}"/>
+                            </p:column>
+
+                            <p:column headerText="Name of Visa Applicant">
+                                <h:outputText value="#{localContactViewListManagedBean.getCitizenNamebyID(localContact.owner)}"/>
+                            </p:column>
+
+
+                            <p:column headerText="Status">
+                                <h:outputText value="Rejected"/>
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:tab>
+                </p:tabView>
             </div>
         </h:form>
     </ui:define>
