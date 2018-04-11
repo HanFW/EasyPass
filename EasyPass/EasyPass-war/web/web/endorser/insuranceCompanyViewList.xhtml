@@ -9,24 +9,65 @@
     <ui:define name="content">
         <h:form>
             <div align="center">
-                <p:dataTable var="insurance" id="insuranceTable" value="#{insuranceCoViewListManagedBean.insurances}" reflow="true" paginatorPosition="bottom">
-                    <f:facet name="header">
-                        Insurance contract of visa applicants
-                    </f:facet>
+                <p:tabView cache="false" dynamic="true">
+                    <p:tab title="Pending Insurance Contracts">
+                        <p:dataTable var="insurance" id="insuranceTable" value="#{insuranceCoViewListManagedBean.pendingInsurances}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Insurance contract of visa applicants
+                            </f:facet>
 
-                    <p:column headerText="Passport number">
-                        <h:outputText value="#{insurance.owner}"/>
-                    </p:column>
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{insurance.owner}"/>
+                            </p:column>
 
-                    <p:column headerText="Insurance Reference Number">
-                        <h:outputText value="#{insurance.referenceNumber}"/>
-                    </p:column>
+                            <p:column headerText="Insurance Reference Number">
+                                <h:outputText value="#{insurance.referenceNumber}"/>
+                            </p:column>
 
-                    <p:column headerText="View Insurance Contract">
-                        <p:commandButton icon="ui-icon-document" action="#{insuranceCoViewListManagedBean.viewInsurance(insurance)}"/>
-                    </p:column>
+                            <p:column headerText="View Insurance Contract">
+                                <p:commandButton icon="ui-icon-document" action="#{insuranceCoViewListManagedBean.viewInsurance(insurance)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Validated Insurance Contracts">
+                        <p:dataTable var="insurance" id="insuranceTable1" value="#{insuranceCoViewListManagedBean.validatedInsurances}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Insurance contract of visa applicants
+                            </f:facet>
 
-                </p:dataTable>
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{insurance.owner}"/>
+                            </p:column>
+
+                            <p:column headerText="Insurance Reference Number">
+                                <h:outputText value="#{insurance.referenceNumber}"/>
+                            </p:column>
+
+                            <p:column headerText="View Insurance Contract">
+                                <p:commandButton icon="ui-icon-document" action="#{insuranceCoViewListManagedBean.viewInsurance(insurance)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Rejected Insurance Contracts">
+                        <p:dataTable var="insurance" id="insuranceTable2" value="#{insuranceCoViewListManagedBean.rejectedInsurances}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Insurance contract of visa applicants
+                            </f:facet>
+
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{insurance.owner}"/>
+                            </p:column>
+
+                            <p:column headerText="Insurance Reference Number">
+                                <h:outputText value="#{insurance.referenceNumber}"/>
+                            </p:column>
+
+                            <p:column headerText="View Insurance Contract">
+                                <p:commandButton icon="ui-icon-document" action="#{insuranceCoViewListManagedBean.viewInsurance(insurance)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                </p:tabView>
             </div>
         </h:form>
     </ui:define>

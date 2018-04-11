@@ -32,13 +32,53 @@ public class InsuranceCoViewListManagedBean implements Serializable {
     public InsuranceCoViewListManagedBean() {
     }
 
-    public ArrayList<Insurance> getInsurances() throws IOException {
-        //---Retrieve list of insurance contract of visa applicants
+    public ArrayList<Insurance> getPendingInsurances() throws IOException {
+        //---Retrieve list of pending insurance contract of visa applicants
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<Insurance> insurances = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Insurance/get_response.json"), new TypeReference<List<Insurance>>(){});
-        return insurances;
+        ArrayList<Insurance> insurances = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Insurance/get_response.json"), new TypeReference<List<Insurance>>() {
+        });
+
+        ArrayList<Insurance> filteredInsurances = new ArrayList<>();
+        for (int i = 0; i < insurances.size(); i++) {
+            if (insurances.get(i).getEndorsementState().equals("PENDING")) {
+                filteredInsurances.add(insurances.get(i));
+            }
+        }
+
+        return filteredInsurances;
     }
 
+    public ArrayList<Insurance> getValidatedInsurances() throws IOException {
+        //---Retrieve list of validated insurance contract of visa applicants
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<Insurance> insurances = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Insurance/get_response.json"), new TypeReference<List<Insurance>>() {
+        });
+
+        ArrayList<Insurance> filteredInsurances = new ArrayList<>();
+        for (int i = 0; i < insurances.size(); i++) {
+            if (insurances.get(i).getEndorsementState().equals("VERIFIED")) {
+                filteredInsurances.add(insurances.get(i));
+            }
+        }
+
+        return filteredInsurances;
+    }
+
+    public ArrayList<Insurance> getRejectedInsurances() throws IOException {
+        //---Retrieve list of rejected insurance contract of visa applicants
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<Insurance> insurances = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Insurance/get_response.json"), new TypeReference<List<Insurance>>() {
+        });
+
+        ArrayList<Insurance> filteredInsurances = new ArrayList<>();
+        for (int i = 0; i < insurances.size(); i++) {
+            if (insurances.get(i).getEndorsementState().equals("INVALIDATE")) {
+                filteredInsurances.add(insurances.get(i));
+            }
+        }
+
+        return filteredInsurances;
+    }
 
     //redirect to view & validate insurance contract of individual visa applicant
     public void viewInsurance(Insurance insurance) throws IOException {
