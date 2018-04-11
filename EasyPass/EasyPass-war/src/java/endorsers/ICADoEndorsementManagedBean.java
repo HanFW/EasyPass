@@ -58,7 +58,7 @@ public class ICADoEndorsementManagedBean implements Serializable{
             basicInfo.setEndorsementState(Constants.STATUS_REJECTED);
         }
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BasicInfo/post_response" + basicInfo.getOwner() + ".json"), basicInfo);
+        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BasicInfo/post_request" + basicInfo.getOwner() + ".json"), basicInfo);
         
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/ICAViewList.xhtml?faces-redirect=true");
     }

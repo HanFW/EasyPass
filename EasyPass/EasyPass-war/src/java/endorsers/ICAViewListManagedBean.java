@@ -31,21 +31,60 @@ public class ICAViewListManagedBean implements Serializable {
      */
     public ICAViewListManagedBean() {
     }
-    
-    public ArrayList<BasicInfo> getBasicInfos() throws IOException{
-        //---Retrieve list of visa applicants
+
+    public ArrayList<BasicInfo> getPendingBasicInfos() throws IOException {
+        //---Retrieve list of pending visa applicants
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<BasicInfo> basicInfos = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BasicInfo/get_response.json"), new TypeReference<List<BasicInfo>>(){});
-        return basicInfos;
+        ArrayList<BasicInfo> basicInfos = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BasicInfo/get_response.json"), new TypeReference<List<BasicInfo>>() {
+        });
+
+        ArrayList<BasicInfo> filteredBasicInfos = new ArrayList<>();
+        for (int i = 0; i < basicInfos.size(); i++) {
+            if (basicInfos.get(i).getEndorsementState().equals("PENDING")) {
+                filteredBasicInfos.add(basicInfos.get(i));
+            }
+        }
+
+        return filteredBasicInfos;
     }
-    
+
+    public ArrayList<BasicInfo> getValidatedBasicInfos() throws IOException {
+        //---Retrieve list of validated visa applicants
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<BasicInfo> basicInfos = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BasicInfo/get_response.json"), new TypeReference<List<BasicInfo>>() {
+        });
+
+        ArrayList<BasicInfo> filteredBasicInfos = new ArrayList<>();
+        for (int i = 0; i < basicInfos.size(); i++) {
+            if (basicInfos.get(i).getEndorsementState().equals("VERIFIED")) {
+                filteredBasicInfos.add(basicInfos.get(i));
+            }
+        }
+
+        return filteredBasicInfos;
+    }
+
+    public ArrayList<BasicInfo> getRejectedBasicInfos() throws IOException {
+        //---Retrieve list of rejected visa applicants
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<BasicInfo> basicInfos = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BasicInfo/get_response.json"), new TypeReference<List<BasicInfo>>() {
+        });
+
+        ArrayList<BasicInfo> filteredBasicInfos = new ArrayList<>();
+        for (int i = 0; i < basicInfos.size(); i++) {
+            if (basicInfos.get(i).getEndorsementState().equals("INVALIDATE")) {
+                filteredBasicInfos.add(basicInfos.get(i));
+            }
+        }
+
+        return filteredBasicInfos;
+    }
+
     //redirect to view & validate basic information of individual visa applicant
-    public void viewBasicInfo (BasicInfo basicInfo) throws IOException {
+    public void viewBasicInfo(BasicInfo basicInfo) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getFlash().put("basicInfo", basicInfo);
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/ICADoEndorsement.xhtml?faces-redirect=true");
     }
-    
-    
-    
+
 }

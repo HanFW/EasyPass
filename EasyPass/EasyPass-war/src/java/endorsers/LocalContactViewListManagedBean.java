@@ -115,7 +115,7 @@ public class LocalContactViewListManagedBean implements Serializable {
 
         localContact.setEndorsementState(Constants.STATUS_VALIDATED);
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_response" + localContact.getOwner() + ".json"), localContact);
+        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_request" + localContact.getOwner() + ".json"), localContact);
 
     }
 
@@ -131,7 +131,7 @@ public class LocalContactViewListManagedBean implements Serializable {
 
         localContact.setEndorsementState(Constants.STATUS_REJECTED);
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_response" + localContact.getOwner() + ".json"), localContact);
+        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_request" + localContact.getOwner() + ".json"), localContact);
     }
 
     public LocalContact getLocalContact() {
