@@ -59,7 +59,7 @@ public class HotelDoEndorsementManagedBean implements Serializable {
             accommodation.setEndorsementState(Constants.STATUS_REJECTED);
         }
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accommodation/post_response" + accommodation.getOwner() + ".json"), accommodation);
+        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accommodation/post_request" + accommodation.getOwner() + ".json"), accommodation);
         
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/hotelViewList.xhtml?faces-redirect=true");
     }

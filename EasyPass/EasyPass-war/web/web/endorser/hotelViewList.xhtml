@@ -9,24 +9,65 @@
     <ui:define name="content">
         <h:form>
             <div align="center">
-                <p:dataTable var="accommodation" id="accommodationTable" value="#{hotelViewListManagedBean.accommodations}" reflow="true" paginatorPosition="bottom">
-                    <f:facet name="header">
-                        Hotel Booking Reference of visa applicants
-                    </f:facet>
+                <p:tabView cache="false" dynamic="true">
+                    <p:tab title="Pending Accommodations">
+                        <p:dataTable var="accommodation" id="accommodationTable" value="#{hotelViewListManagedBean.pendingAccommodations}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Hotel Booking Reference of visa applicants
+                            </f:facet>
 
-                    <p:column headerText="Passport number">
-                        <h:outputText value="#{accommodation.owner}"/>
-                    </p:column>
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{accommodation.owner}"/>
+                            </p:column>
 
-                    <p:column headerText="Hotel Booking Reference Number">
-                        <h:outputText value="#{accommodation.referenceNumber}"/>
-                    </p:column>
+                            <p:column headerText="Hotel Booking Reference Number">
+                                <h:outputText value="#{accommodation.referenceNumber}"/>
+                            </p:column>
 
-                    <p:column headerText="View Booking Reference">
-                        <p:commandButton icon="ui-icon-document" action="#{hotelViewListManagedBean.viewAccommodation(accommodation)}"/>
-                    </p:column>
+                            <p:column headerText="View Booking Reference">
+                                <p:commandButton icon="ui-icon-document" action="#{hotelViewListManagedBean.viewAccommodation(accommodation)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Validated Accommodations">
+                        <p:dataTable var="accommodation" id="accommodationTable1" value="#{hotelViewListManagedBean.validtedAccommodations}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Hotel Booking Reference of visa applicants
+                            </f:facet>
 
-                </p:dataTable>
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{accommodation.owner}"/>
+                            </p:column>
+
+                            <p:column headerText="Hotel Booking Reference Number">
+                                <h:outputText value="#{accommodation.referenceNumber}"/>
+                            </p:column>
+
+                            <p:column headerText="View Booking Reference">
+                                <p:commandButton icon="ui-icon-document" action="#{hotelViewListManagedBean.viewAccommodation(accommodation)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Rejected Accommodations">
+                        <p:dataTable var="accommodation" id="accommodationTable2" value="#{hotelViewListManagedBean.rejectedAccommodations}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Hotel Booking Reference of visa applicants
+                            </f:facet>
+
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{accommodation.owner}"/>
+                            </p:column>
+
+                            <p:column headerText="Hotel Booking Reference Number">
+                                <h:outputText value="#{accommodation.referenceNumber}"/>
+                            </p:column>
+
+                            <p:column headerText="View Booking Reference">
+                                <p:commandButton icon="ui-icon-document" action="#{hotelViewListManagedBean.viewAccommodation(accommodation)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                </p:tabView>
             </div>
         </h:form>
     </ui:define>

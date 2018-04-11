@@ -31,19 +31,60 @@ public class HotelViewListManagedBean implements Serializable {
      */
     public HotelViewListManagedBean() {
     }
-    
-    public ArrayList<Accommodation> getAccommodations() throws IOException{
+
+    public ArrayList<Accommodation> getPendingAccommodations() throws IOException {
         //---Retrieve list of pending accommodation references of visa applicants
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<Accommodation> accommodations = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accommodation/get_response.json"), new TypeReference<List<Accommodation>>(){});
-        return accommodations;
+        ArrayList<Accommodation> accommodations = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accommodation/get_response.json"), new TypeReference<List<Accommodation>>() {
+        });
+
+        ArrayList<Accommodation> filteredAccommodations = new ArrayList<>();
+        for (int i = 0; i < accommodations.size(); i++) {
+            if (accommodations.get(i).getEndorsementState().equals("PENDING")) {
+                filteredAccommodations.add(accommodations.get(i));
+            }
+        }
+
+        return filteredAccommodations;
     }
-    
-        //redirect to view & validate hotel booking reference of individual visa applicant
-    public void viewAccommodation (Accommodation accommodation) throws IOException {
+
+    public ArrayList<Accommodation> getValidtedAccommodations() throws IOException {
+        //---Retrieve list of pending accommodation references of visa applicants
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<Accommodation> accommodations = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accommodation/get_response.json"), new TypeReference<List<Accommodation>>() {
+        });
+
+        ArrayList<Accommodation> filteredAccommodations = new ArrayList<>();
+        for (int i = 0; i < accommodations.size(); i++) {
+            if (accommodations.get(i).getEndorsementState().equals("VERIFIED")) {
+                filteredAccommodations.add(accommodations.get(i));
+            }
+        }
+
+        return filteredAccommodations;
+    }
+
+    public ArrayList<Accommodation> getRejectedAccommodations() throws IOException {
+        //---Retrieve list of pending accommodation references of visa applicants
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<Accommodation> accommodations = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accommodation/get_response.json"), new TypeReference<List<Accommodation>>() {
+        });
+
+        ArrayList<Accommodation> filteredAccommodations = new ArrayList<>();
+        for (int i = 0; i < accommodations.size(); i++) {
+            if (accommodations.get(i).getEndorsementState().equals("INVALIDATE")) {
+                filteredAccommodations.add(accommodations.get(i));
+            }
+        }
+
+        return filteredAccommodations;
+    }
+
+    //redirect to view & validate hotel booking reference of individual visa applicant
+    public void viewAccommodation(Accommodation accommodation) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getFlash().put("accommodation", accommodation);
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/hotelDoEndorsement.xhtml?faces-redirect=true");
     }
-    
+
 }
