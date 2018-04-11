@@ -24,23 +24,66 @@ import objects.BankStatement;
 @Named(value = "bankViewListManagedBean")
 @RequestScoped
 public class BankViewListManagedBean {
-    
+
     /**
      * Creates a new instance of bankViewListManagedBean
      */
     public BankViewListManagedBean() {
     }
-    
-    //retrieve list of bank statements submitted
-    public ArrayList<BankStatement> getBankStatements() throws IOException{
+
+    //retrieve list of pending bank statements submitted
+    public ArrayList<BankStatement> getPendingBankStatements() throws IOException {
         //---Retrieve list of pending bank statements
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<BankStatement> bankStatements = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BankStatement/get_response.json"), new TypeReference<List<BankStatement>>(){});
-        return bankStatements;
+        ArrayList<BankStatement> bankStatements = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BankStatement/get_response.json"), new TypeReference<List<BankStatement>>() {
+        });
+
+        ArrayList<BankStatement> filteredBankStatements = new ArrayList<>();
+        for (int i = 0; i < bankStatements.size(); i++) {
+            if (bankStatements.get(i).getEndorsementState().equals("PENDING")) {
+                filteredBankStatements.add(bankStatements.get(i));
+            }
+        }
+
+        return filteredBankStatements;
     }
     
+        //retrieve list of validted bank statements 
+    public ArrayList<BankStatement> getValidatedBankStatements() throws IOException {
+        //---Retrieve list of pending bank statements
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<BankStatement> bankStatements = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BankStatement/get_response.json"), new TypeReference<List<BankStatement>>() {
+        });
+
+        ArrayList<BankStatement> filteredBankStatements = new ArrayList<>();
+        for (int i = 0; i < bankStatements.size(); i++) {
+            if (bankStatements.get(i).getEndorsementState().equals("VERIFIED")) {
+                filteredBankStatements.add(bankStatements.get(i));
+            }
+        }
+
+        return filteredBankStatements;
+    }
+    
+        //retrieve list of rejected bank statements submitted
+    public ArrayList<BankStatement> getRejectedBankStatements() throws IOException {
+        //---Retrieve list of pending bank statements
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<BankStatement> bankStatements = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BankStatement/get_response.json"), new TypeReference<List<BankStatement>>() {
+        });
+
+        ArrayList<BankStatement> filteredBankStatements = new ArrayList<>();
+        for (int i = 0; i < bankStatements.size(); i++) {
+            if (bankStatements.get(i).getEndorsementState().equals("INVALIDATE")) {
+                filteredBankStatements.add(bankStatements.get(i));
+            }
+        }
+
+        return filteredBankStatements;
+    }
+
     //redirect to view & validate bank statment of individual visa applicant
-    public void viewBankStatement (BankStatement bankStatement) throws IOException {
+    public void viewBankStatement(BankStatement bankStatement) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getFlash().put("bankStatement", bankStatement);
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/bankDoEndorsement.xhtml?faces-redirect=true");

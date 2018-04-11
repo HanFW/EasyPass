@@ -9,24 +9,67 @@
     <ui:define name="content">
         <h:form>
             <div align="center">
-                <p:dataTable var="statement" id="bankDocumentTable" value="#{bankViewListManagedBean.bankStatements}" reflow="true" paginatorPosition="bottom">
-                    <f:facet name="header">
-                        Bank statements of visa applicants
-                    </f:facet>
+                <p:tabView cache="false" dynamic="true">
+                    <p:tab title="Pending Bank Statements">
+                        <p:dataTable var="statement" id="bankDocumentTable" value="#{bankViewListManagedBean.pendingBankStatements}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Bank statements of visa applicants
+                            </f:facet>
 
-                    <p:column headerText="Account number">
-                        <h:outputText value="#{statement.accountNumber}"/>
-                    </p:column>
+                            <p:column headerText="Account number">
+                                <h:outputText value="#{statement.accountNumber}"/>
+                            </p:column>
 
-                    <p:column headerText="Passport number">
-                        <h:outputText value="#{statement.owner}"/>
-                    </p:column>
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{statement.owner}"/>
+                            </p:column>
 
-                    <p:column headerText="View Statement">
-                        <p:commandButton icon="ui-icon-document" action="#{bankViewListManagedBean.viewBankStatement(statement)}"/>
-                    </p:column>
+                            <p:column headerText="View Statement">
+                                <p:commandButton icon="ui-icon-document" action="#{bankViewListManagedBean.viewBankStatement(statement)}" immediate="true"/>
+                            </p:column>
 
-                </p:dataTable>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Validated Bank Statements">
+                        <p:dataTable var="statement" id="bankDocumentTable1" value="#{bankViewListManagedBean.validatedBankStatements}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Bank statements of visa applicants
+                            </f:facet>
+
+                            <p:column headerText="Account number">
+                                <h:outputText value="#{statement.accountNumber}"/>
+                            </p:column>
+
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{statement.owner}"/>
+                            </p:column>
+
+                            <p:column headerText="View Statement">
+                                <p:commandButton icon="ui-icon-document" action="#{bankViewListManagedBean.viewBankStatement(statement)}" immediate="true"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Rejected Bank Statements">
+                        <p:dataTable var="statement" id="bankDocumentTable2" value="#{bankViewListManagedBean.rejectedBankStatements}" reflow="true" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                Bank statements of visa applicants
+                            </f:facet>
+
+                            <p:column headerText="Account number">
+                                <h:outputText value="#{statement.accountNumber}"/>
+                            </p:column>
+
+                            <p:column headerText="Passport number">
+                                <h:outputText value="#{statement.owner}"/>
+                            </p:column>
+
+                            <p:column headerText="View Statement">
+                                <p:commandButton icon="ui-icon-document" action="#{bankViewListManagedBean.viewBankStatement(statement)}" immediate="true"/>
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:tab>
+                </p:tabView>
             </div>
         </h:form>
     </ui:define>
