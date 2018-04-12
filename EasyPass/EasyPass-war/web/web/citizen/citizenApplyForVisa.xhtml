@@ -21,9 +21,8 @@
                     <p:panelGrid>
                         <p:outputLabel for="sex" value="Sex: "/>
                         <p:selectOneRadio id="sex" value="#{citizenApplyForVisaManagedBean.sex}" required="true" requiredMessage="Required Field">
-                            <f:selectItem itemLabel="Male" itemValue="Male" />
-                            <f:selectItem itemLabel="Female" itemValue="Female" />
-                            <f:selectItem itemLabel="Unspecified" itemValue="Unspecified" />
+                            <f:selectItem itemLabel="Male" itemValue="MALE" />
+                            <f:selectItem itemLabel="Female" itemValue="FEMALE" />
                         </p:selectOneRadio>
                         <p:message for="sex"/>
 
@@ -464,12 +463,9 @@
                         <p:outputLabel for="maritalStatus" value="Marital status: "/>
                         <p:selectOneMenu id="maritalStatus" value="#{citizenApplyForVisaManagedBean.maritalStatus}" required="true" requiredMessage="Required Field">
                             <f:selectItem itemLabel="" itemValue="" noSelectionOption="true"/>
-                            <f:selectItem itemLabel="Divorced" itemValue="Divorced" />
-                            <f:selectItem itemLabel="Married" itemValue="Married" />
-                            <f:selectItem itemLabel="Other" itemValue="Other" />
-                            <f:selectItem itemLabel="Separated" itemValue="Separated" />
-                            <f:selectItem itemLabel="Single" itemValue="Single" />
-                            <f:selectItem itemLabel="Widowed" itemValue="Widowed" />
+                            <f:selectItem itemLabel="Divorced" itemValue="DIVORCED" />
+                            <f:selectItem itemLabel="Married" itemValue="MARRIED" />
+                            <f:selectItem itemLabel="Single" itemValue="SINGLE" />
                         </p:selectOneMenu>
                         <p:message for="maritalStatus"/>
 

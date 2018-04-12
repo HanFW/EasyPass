@@ -11,8 +11,8 @@ package util;
  */
 public class Constants {
     public static final String STATUS_PENDING = "PENDING";
-    public static final String STATUS_VALIDATED = "VALIDATED";
-    public static final String STATUS_REJECTED = "REJECTED";
+    public static final String STATUS_VERIFIED = "VERIFIED";
+    public static final String STATUS_INVALIDATE = "INVALIDATE";
     
     public static final String ENDORSER_ROLE_BANK = "BANK";
     public static final String ENDORSER_ROLE_TRANSPORTATION = "TRANSPORTATION";

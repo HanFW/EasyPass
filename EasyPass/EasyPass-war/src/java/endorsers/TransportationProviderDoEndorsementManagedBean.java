@@ -54,9 +54,9 @@ public class TransportationProviderDoEndorsementManagedBean implements Serializa
         transportationReference.setEndorseBy(id);
 
         if (decision.equals("Validated")) {
-            transportationReference.setEndorsementState(Constants.STATUS_VALIDATED);
+            transportationReference.setEndorsementState(Constants.STATUS_VERIFIED);
         } else {
-            transportationReference.setEndorsementState(Constants.STATUS_REJECTED);
+            transportationReference.setEndorsementState(Constants.STATUS_INVALIDATE);
         }
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/TransportationReference/post_request" + transportationReference.getOwner() + ".json"), transportationReference);
