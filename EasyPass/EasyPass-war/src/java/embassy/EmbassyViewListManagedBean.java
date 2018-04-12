@@ -87,7 +87,7 @@ public class EmbassyViewListManagedBean {
             //get visa status by visa status id
             VisaStatus visaStatus = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_Jingyuan.json"), VisaStatus.class);
 
-            if (visaStatus.getState().equals("DENIED")) {
+            if (visaStatus.getState().equals("INVALIDATE")) {
                 filteredVisaApplications.add(visaApplications.get(i));
             }
         }

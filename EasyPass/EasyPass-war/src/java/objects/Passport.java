@@ -14,6 +14,7 @@ public class Passport {
      private String passportNumber;
      private String[] visaApplications;
      private String owner;
+     private String visaId;
 
     public String get$class() {
         return $class;
@@ -46,8 +47,13 @@ public class Passport {
     public void setOwner(String owner) {
         this.owner = owner;
     }
-    
-    
-     
+
+    public String getVisaId() {
+        return visaId;
+    }
+
+    public void setVisaId(String visaId) {
+        this.visaId = visaId;
+    }   
      
 }

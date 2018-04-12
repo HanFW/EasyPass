@@ -8,41 +8,46 @@
 
     <ui:define name="content">
         <h:form>
-            <h2 style="font-weight: bold;">Visa Application Overall Status:</h2>
-            <br/>
+            <div align="center">
+                <p:outputLabel style="font-weight: bolder;font-size: 26px;" value="Visa Application Overall Status:          "/>
+                <p:outputLabel style="font-weight: bolder;font-size: 26px;" value="#{citizenViewApplicationStatusManagedBean.visaStatus}"/>
+                <br/>
+                <br/>
+                <br/>
 
-            <p:outputLabel value="1. Basic Information Status:    "/>
-            <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.BIStatus}"/>
-            <br/>
-            <br/>
+                <p:outputLabel value="1. Basic Information Status:    "/>
+                <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.BIStatus}"/>
+                <br/>
+                <br/>
 
-            <p:outputLabel value="2. Bank Statement Status:    "/>
-            <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.BSStatus}"/>
-            <br/>
-            <br/>
+                <p:outputLabel value="2. Bank Statement Status:    "/>
+                <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.BSStatus}"/>
+                <br/>
+                <br/>
 
-            <p:outputLabel value="3. Transportation Reference Status:    "/>
-            <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.TRStatus}"/>
-            <br/>
-            <br/>
+                <p:outputLabel value="3. Transportation Reference Status:    "/>
+                <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.TRStatus}"/>
+                <br/>
+                <br/>
 
-            <p:outputLabel value="4. Accommodation Status:    "/>
-            <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.accommodationStatus}"/>
-            <br/>
-            <br/>
+                <p:outputLabel value="4. Accommodation Status:    "/>
+                <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.accommodationStatus}"/>
+                <br/>
+                <br/>
 
-            <p:outputLabel value="5. Local Contact Status:    "/>
-            <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.LCStatus}"/>
-            <br/>
-            <br/>
+                <p:outputLabel value="5. Local Contact Status:    "/>
+                <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.LCStatus}"/>
+                <br/>
+                <br/>
 
-            <p:outputLabel value="6. Travel Insurance Status:    "/>
-            <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.insuranceStatus}"/>
-            <br/>
-            <br/>
+                <p:outputLabel value="6. Travel Insurance Status:    "/>
+                <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.insuranceStatus}"/>
+                <br/>
+                <br/>
 
-            <p:outputLabel value="7. Criminal Record Status:    "/>
-            <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.CRStatus}"/>
+                <p:outputLabel value="7. Criminal Record Status:    "/>
+                <p:outputLabel value="#{citizenViewApplicationStatusManagedBean.CRStatus}"/>
+            </div>
         </h:form>
     </ui:define>
 

@@ -8,24 +8,40 @@
 
     <ui:define name="content">
         <h:form>
-            <h style="font-size: 28px;font-weight: bold;text-align: center;">Visa Application Status</h>
-            <br/>
-            <br/>
-            <h2 style="font-weight: bold;">Visa Application Overall Status:</h2>
+            <div align="center">
+                <p:panel visible="#{citizenViewEVisaManagedBean.showText}">
+                    <h2 style="font-weight: bold;">Your Visa is Still Pending. Click <a href="../citizen/citizenViewStatus.xhtml">here</a> to check your current visa application status.</h2>
+                    <br/>
+                    <br/>
+                </p:panel>
 
-            <h3 style="font-weight: bold;">1. Basic Information Status:</h3>
+                <p:panel visible="#{citizenViewEVisaManagedBean.showVisa}">
+                    <h2 style="font-weight: bold;">View My E-Visa:</h2>
+                    <br/>
+                    <br/>
 
-            <h3 style="font-weight: bold;">2. Bank Statement Status:</h3>
+                    <p:outputLabel value="Visa ID:    "/>
+                    <p:outputLabel value="#{citizenViewEVisaManagedBean.visa.visaId}"/>
+                    <br/>
+                    <br/>
 
-            <h3 style="font-weight: bold;">3. Transportation Reference Status:</h3>
+                    <p:outputLabel value="Visa Type:    "/>
+                    <p:outputLabel value="#{citizenViewEVisaManagedBean.visa.visaType}"/>
+                    <br/>
+                    <br/>
 
-            <h3 style="font-weight: bold;">4. Accommodation Status:</h3>
+                    <p:outputLabel value="Visa Issue Date:    "/>
+                    <p:outputLabel value="#{citizenViewEVisaManagedBean.visa.visaIssueDate}"/>
+                    <br/>
+                    <br/>
 
-            <h3 style="font-weight: bold;">5. Local Contact Status:</h3>
+                    <p:outputLabel value="Visa Expiry Date:    "/>
+                    <p:outputLabel value="#{citizenViewEVisaManagedBean.visa.visaValidTill}"/>
+                    <br/>
+                    <br/>
 
-            <h3 style="font-weight: bold;">6. Travel Insurance Status:</h3>
-
-            <h3 style="font-weight: bold;">7. Criminal Record Status:</h3>
+                </p:panel>
+            </div>
         </h:form>
     </ui:define>
 
