@@ -16,6 +16,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import objects.VisaApplication;
+import objects.VisaStatus;
 
 /**
  *
@@ -39,7 +40,12 @@ public class EmbassyViewListManagedBean {
 
         ArrayList<VisaApplication> filteredVisaApplications = new ArrayList<>();
         for (int i = 0; i < visaApplications.size(); i++) {
-            if (visaApplications.get(i).getState().equals("PENDING")) {
+            String visaStatusID = visaApplications.get(i).getVisaStatus();
+
+            //get visa status by visa status id
+            VisaStatus visaStatus = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_Jingyuan.json"), VisaStatus.class);
+
+            if (visaStatus.getState().equals("PENDING")) {
                 filteredVisaApplications.add(visaApplications.get(i));
             }
         }
@@ -55,12 +61,17 @@ public class EmbassyViewListManagedBean {
 
         ArrayList<VisaApplication> filteredVisaApplications = new ArrayList<>();
         for (int i = 0; i < visaApplications.size(); i++) {
-            if (visaApplications.get(i).getState().equals("APPROVED")) {
+            String visaStatusID = visaApplications.get(i).getVisaStatus();
+
+            //get visa status by visa status id
+            VisaStatus visaStatus = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_Jingyuan.json"), VisaStatus.class);
+
+            if (visaStatus.getState().equals("APPROVED")) {
                 filteredVisaApplications.add(visaApplications.get(i));
             }
         }
-
         return filteredVisaApplications;
+
     }
 
     public ArrayList<VisaApplication> getRejectedVisaApplications() throws IOException {
@@ -71,15 +82,20 @@ public class EmbassyViewListManagedBean {
 
         ArrayList<VisaApplication> filteredVisaApplications = new ArrayList<>();
         for (int i = 0; i < visaApplications.size(); i++) {
-            if (visaApplications.get(i).getState().equals("DENIED")) {
+            String visaStatusID = visaApplications.get(i).getVisaStatus();
+
+            //get visa status by visa status id
+            VisaStatus visaStatus = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_Jingyuan.json"), VisaStatus.class);
+
+            if (visaStatus.getState().equals("DENIED")) {
                 filteredVisaApplications.add(visaApplications.get(i));
             }
         }
-
         return filteredVisaApplications;
-    }
 
+    }
     //redirect to view & validate basic information of individual visa applicant
+
     public void viewVisaApplication(VisaApplication visaApplication) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getFlash().put("visaApplication", visaApplication);

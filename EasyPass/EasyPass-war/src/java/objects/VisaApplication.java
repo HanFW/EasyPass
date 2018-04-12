@@ -18,7 +18,6 @@ public class VisaApplication {
     private String startDate;
     private String endDate;
     private String purposeOfVisit;
-    private String state;//visaApplication status state
     private String visaStatus; //visaStatusId
     private String passport; //passportId
     private String basicInfo; //basicInfoId
@@ -174,13 +173,5 @@ public class VisaApplication {
     public void setOwner(String owner) {
         this.owner = owner;
     }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }  
     
 }
