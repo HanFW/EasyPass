@@ -22,6 +22,7 @@ import objects.LocalContact;
 import objects.Passport;
 import objects.TransportationReference;
 import objects.VisaApplication;
+import objects.VisaStatus;
 
 /**
  *
@@ -53,6 +54,18 @@ public class CitizenViewApplicationStatusManagedBean {
         //get visa application by visa Application ID
         VisaApplication visaApplication = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaApplication/post_request_Jingyuan.json"), VisaApplication.class);
         return visaApplication;
+
+    }
+
+    public String getVisaStatus() throws IOException {
+
+        //get visaStatusId 
+        String visaStatusId = getVisaApplication().getVisaStatus();
+
+        //get visaStatus by visaStatusId
+        ObjectMapper mapper = new ObjectMapper();
+        VisaStatus visaStatus = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_Jingyuan.json"), VisaStatus.class);
+        return visaStatus.getState();
     }
 
     //get basic information endorsement state
