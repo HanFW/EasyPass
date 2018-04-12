@@ -17,6 +17,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import objects.VisaApplication;
 import objects.VisaStatus;
+import util.Constants;
 
 /**
  *
@@ -35,7 +36,7 @@ public class EmbassyViewListManagedBean {
     public ArrayList<VisaApplication> getPendingVisaApplications() throws IOException {
         //---Retrieve list of pending visa applicants
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<VisaApplication> visaApplications = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaApplication/get_response.json"), new TypeReference<List<VisaApplication>>() {
+        ArrayList<VisaApplication> visaApplications = mapper.readValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaApplication/get_response.json"), new TypeReference<List<VisaApplication>>() {
         });
 
         ArrayList<VisaApplication> filteredVisaApplications = new ArrayList<>();
@@ -43,9 +44,9 @@ public class EmbassyViewListManagedBean {
             String visaStatusID = visaApplications.get(i).getVisaStatus();
 
             //get visa status by visa status id
-            VisaStatus visaStatus = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_Jingyuan.json"), VisaStatus.class);
+            VisaStatus visaStatus = mapper.readValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_Jingyuan.json"), VisaStatus.class);
 
-            if (visaStatus.getState().equals("PENDING")) {
+            if (visaStatus.getState().equals(Constants.APPLICATION_STATUS_PENDING)) {
                 filteredVisaApplications.add(visaApplications.get(i));
             }
         }
@@ -56,7 +57,7 @@ public class EmbassyViewListManagedBean {
     public ArrayList<VisaApplication> getApprovedVisaApplications() throws IOException {
         //---Retrieve list of approved visa applications
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<VisaApplication> visaApplications = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaApplication/get_response.json"), new TypeReference<List<VisaApplication>>() {
+        ArrayList<VisaApplication> visaApplications = mapper.readValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaApplication/get_response.json"), new TypeReference<List<VisaApplication>>() {
         });
 
         ArrayList<VisaApplication> filteredVisaApplications = new ArrayList<>();
@@ -64,20 +65,19 @@ public class EmbassyViewListManagedBean {
             String visaStatusID = visaApplications.get(i).getVisaStatus();
 
             //get visa status by visa status id
-            VisaStatus visaStatus = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_Jingyuan.json"), VisaStatus.class);
+            VisaStatus visaStatus = mapper.readValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_Jingyuan.json"), VisaStatus.class);
 
-            if (visaStatus.getState().equals("APPROVED")) {
+            if (visaStatus.getState().equals(Constants.APPLICATION_STATUS_APPROVED)) {
                 filteredVisaApplications.add(visaApplications.get(i));
             }
         }
         return filteredVisaApplications;
-
     }
 
     public ArrayList<VisaApplication> getRejectedVisaApplications() throws IOException {
         //---Retrieve list of rejected visa applications
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<VisaApplication> visaApplications = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaApplication/get_response.json"), new TypeReference<List<VisaApplication>>() {
+        ArrayList<VisaApplication> visaApplications = mapper.readValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaApplication/get_response.json"), new TypeReference<List<VisaApplication>>() {
         });
 
         ArrayList<VisaApplication> filteredVisaApplications = new ArrayList<>();
@@ -85,21 +85,28 @@ public class EmbassyViewListManagedBean {
             String visaStatusID = visaApplications.get(i).getVisaStatus();
 
             //get visa status by visa status id
-            VisaStatus visaStatus = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_Jingyuan.json"), VisaStatus.class);
+            VisaStatus visaStatus = mapper.readValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_Jingyuan.json"), VisaStatus.class);
 
-            if (visaStatus.getState().equals("DENIED")) {
+            if (visaStatus.getState().equals(Constants.APPLICATION_STATUS_DENIED)) {
                 filteredVisaApplications.add(visaApplications.get(i));
             }
         }
         return filteredVisaApplications;
 
     }
-    //redirect to view & validate basic information of individual visa applicant
-
+    
+    //redirect to review basic information of individual visa applicant & issue visa
+    public void reviewVisaApplication(VisaApplication visaApplication) throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.getFlash().put("visaApplication", visaApplication);
+        ec.redirect(ec.getRequestContextPath() + "/web/embassy/embassyReviewVisaApplication.xhtml?faces-redirect=true");
+    }
+    
+    //redirect to view visa application results
     public void viewVisaApplication(VisaApplication visaApplication) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getFlash().put("visaApplication", visaApplication);
-        ec.redirect(ec.getRequestContextPath() + "/web/embassy/embassyDoEndorsement.xhtml?faces-redirect=true");
+        ec.redirect(ec.getRequestContextPath() + "/web/embassy/embassyViewVisaApplication.xhtml?faces-redirect=true");
     }
 
 }
