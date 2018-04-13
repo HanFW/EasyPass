@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../templates/endorserTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="content">
+        <h:form>
+            <div class="ui-g-9">
+                <p:tabView>
+                    <p:tab title="Endorsement State">
+                        <center>
+                            <p:panelGrid columns="2">
+                                <p:outputLabel value="Bank Statement: "/>
+                                <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.bankStatement.endorsementState}"/>
+
+                                <p:outputLabel value="Accommodation: "/>
+                                <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.accommodation.endorsementState}"/>
+
+                                <p:outputLabel value="Transportation: "/>
+                                <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.transportation.endorsementState}"/>
+                                <p:outputLabel value="Insurance: "/>
+                                <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.insurance.endorsementState}"/>
+
+                                <p:outputLabel value="Local Contact: "/>
+                                <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.localContact.endorsementState}"/>
+                            </p:panelGrid>
+                        </center>
+                    </p:tab>
+                    <p:tab title="Application Information">
+                        <p:accordionPanel multiple="true">
+                            <p:tab title="Basic Information">
+                                <p:panelGrid columns="4">
+                                    <p:outputLabel value="First name: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.basicInfo.firstName}"/>
+                                    <p:outputLabel value="Last name: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.basicInfo.lastName}"/>
+
+                                    <p:outputLabel value="Sex: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.basicInfo.sex}"/>
+                                    <p:outputLabel value="Date of birth: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.basicInfo.birthday}"/>
+
+                                    <p:outputLabel value="Nationality: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.basicInfo.nationality}"/>
+                                    <p:outputLabel value="Country of residence: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.basicInfo.countryOfResidence}"/>
+
+                                    <p:outputLabel value="Identity number: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.basicInfo.identityNumber}"/>
+                                    <p:outputLabel value="Marital status: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.basicInfo.maritalStatus}"/>
+
+                                    <p:outputLabel value="Residential address: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.basicInfo.residentialAddress}"/>
+                                </p:panelGrid>
+                            </p:tab>
+                            <p:tab title="Plan of Visit">
+                                <p:panelGrid columns="4">
+                                    <p:outputLabel value="Planned date of arrival: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.visaApplication.startDate}"/>
+                                    <p:outputLabel value="Planned date of departure: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.visaApplication.endDate}"/>
+
+                                    <p:outputLabel value="Name of local contact: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.localContact.contactName}"/>
+                                    <p:outputLabel value="Identify number of local contact:  "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.localContact.identityNumber}"/>
+
+                                    <p:outputLabel value="Purpose of visit: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.visaApplication.purposeOfVisit}"/>
+                                </p:panelGrid>
+                            </p:tab>
+                        </p:accordionPanel>
+                    </p:tab>
+
+                    <p:tab title="Documents">
+                        <p:accordionPanel multiple="true">
+                            <p:tab title="Bank Statement">
+                                <p:media value="#{embassyReviewVisaApplicationManagedBean.bankStatement.bankStatementImageURL}" width="100%" height="300px"/>  
+                            </p:tab>
+                            <p:tab title="Accommodation Reference">
+                                <p:media value="#{embassyReviewVisaApplicationManagedBean.accommodation.accommodationImageURL}" width="100%" height="300px"/>  
+                            </p:tab>
+                            <p:tab title="Transportation Reference">
+                                <p:media value="#{embassyReviewVisaApplicationManagedBean.transportation.transportationReferenceImageURL}" width="100%" height="300px"/>  
+                            </p:tab>
+                            <p:tab title="Insurance Document">
+                                <p:media value="#{embassyReviewVisaApplicationManagedBean.insurance.insuranceContractImageURL}" width="100%" height="300px"/>  
+                            </p:tab>
+                        </p:accordionPanel>
+                    </p:tab>
+                </p:tabView>
+            </div>
+            <div class="ui-g-3">
+                <p:panelGrid id="decisionPanel">
+                    <p:outputLabel value="Decision: "/>
+                    <p:selectOneRadio id="decision" value="#{embassyReviewVisaApplicationManagedBean.decision}" required="true" requiredMessage="Please select to validate or reject ">
+                        <f:selectItem itemLabel="Approve" itemValue="APPROVED"/>
+                        <f:selectItem itemLabel="Reject" itemValue="DENIED" />
+                        <p:ajax event="change" update="approvePanel rejectPanel" listener="#{embassyReviewVisaApplicationManagedBean.changeDecisionPanel}"/>
+                    </p:selectOneRadio>
+                    <p:message for="decision"/>
+
+                    <p:panel style="height: 180px;" id="approvePanel" visible="#{embassyReviewVisaApplicationManagedBean.isApproved}">
+                        <p:outputLabel value="Visa Type: " for="visaType"/>
+                        <p:selectOneMenu id="visaType" value="#{embassyReviewVisaApplicationManagedBean.visaType}" required="#{embassyReviewVisaApplicationManagedBean.isApproved}" requiredMessage="Required Field">
+                            <f:selectItem itemLabel="Single Entry" itemValue="SINGLE_ENTRY" />
+                            <f:selectItem itemLabel="Multiple Entries" itemValue="MULTIPLE_JOURNEY" />
+                        </p:selectOneMenu>
+                        <p:message for="visaType"/>
+
+                        <p:outputLabel value="Visa Valid Ultil: " for="validUtil"/>
+                        <p:calendar id="validUtil" value="#{embassyReviewVisaApplicationManagedBean.validUtil}" 
+                                    showOn="button" locale="de" navigator="true" pattern="dd/MM/yyyy" 
+                                    yearRange="c-0:c+10" required="#{embassyReviewVisaApplicationManagedBean.isApproved}" requiredMessage="Required Field"/>
+                        <p:message for="validUtil"/>
+                    </p:panel>
+
+                    <p:panel style="height: 200px;" id="rejectPanel" visible="#{embassyReviewVisaApplicationManagedBean.isRejected}">
+                        <p:outputLabel value="Message for visa applicant: "/>
+                        <p:inputTextarea rows="10" cols="30" autoResize="true" value="#{embassyReviewVisaApplicationManagedBean.message}"/>
+                    </p:panel>
+                    
+                    <br/>
+                    <p:commandButton type="submit" update="approvePanel" value="Submit" oncomplete="if (!args.validationFailed) PF('confirmDialog').show();"/>
+                </p:panelGrid>
+            </div>
+        </h:form>
+
+        <h:form>
+            <p:confirmDialog widgetVar="confirmDialog" header="Confirmation" message="Are you sure to submit your decision?">
+                <p:commandButton value="Cancel" onclick="PF('confirmDialog').hide();" />
+                <p:commandButton value="Submit" actionListener="#{embassyReviewVisaApplicationManagedBean.makeDecision}"/>
+            </p:confirmDialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
