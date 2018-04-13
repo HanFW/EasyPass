@@ -59,7 +59,7 @@ public class AuthenticationFilter implements Filter {
             req.getRequestDispatcher("/web/embassy/embassyLogin.xhtml").forward(request, response);
         } else {
             EndorserEntity endorser = (EndorserEntity) httpSession.getAttribute("endorser");
-            if (requestServletPath.equals("/web/endorser/endorserLogin")) { //redirect endorser based on role
+            if (requestServletPath.equals("/web/endorser/endorserLogin") || requestServletPath.equals("/web/endorser/endorserViewList")) { //redirect endorser based on role
                 switch (endorser.getEndorserRole()) {
                     case Constants.ENDORSER_ROLE_BANK:
                         req.getRequestDispatcher("/web/endorser/bankViewList.xhtml").forward(request, response);

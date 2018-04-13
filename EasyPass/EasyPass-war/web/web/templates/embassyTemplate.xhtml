@@ -17,8 +17,9 @@
 
     <h:body styleClass="main-body">
         
-        <div class="layout-wrapper menu-layout-static menu-layout-horizontal">
+        <div class="layout-wrapper menu-layout-static">
             <ui:include src="embassyTopMenuComponent.xhtml" />
+            <ui:include src="embassyLeftMenuComponent.xhtml"/>
             
             <div class="layout-main">
                 <div class="ui-g ui-fluid">
@@ -30,16 +31,6 @@
                 </div>
             </div>
         </div>
-        
-        <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
-            <f:facet name="start">
-                <i class="fa fa-circle-o-notch fa-spin ajax-loader" aria-hidden="true"></i>
-            </f:facet>
-
-            <f:facet name="complete">
-                <h:outputText value="" />
-            </f:facet>
-        </p:ajaxStatus>
         
         <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout" />
         <h:outputStylesheet name="css/animate.css" library="ultima-layout" />
