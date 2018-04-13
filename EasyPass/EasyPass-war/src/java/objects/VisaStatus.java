@@ -30,7 +30,7 @@ public class VisaStatus {
     
     public VisaStatus(String visaApplication, String owner) {
         this();
-        this.visaApplication = visaApplication;
+        this.visaApplication = Constants.ASSET_VISAAPPLICATION + "#" + visaApplication;
         this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
 

@@ -5,6 +5,12 @@
  */
 package objects;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
+import util.Constants;
+
 /**
  *
  * @author Jingyuan
@@ -19,7 +25,23 @@ public class Visa {
     private String passport;
     private String issuedBy;
     private String visaApplication;
+    
+    public Visa() {
+        this.$class = Constants.ASSET_VISA;
+        this.visaId = UUID.randomUUID().toString();
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        this.visaIssueDate = df.format(new Date());
+    }
 
+    public Visa(String visaValidTill, String visaType, String passport, String issuedBy, String visaApplication) {
+        this();
+        this.visaValidTill = visaValidTill;
+        this.visaType = visaType;
+        this.passport = Constants.ASSET_PASSPORT + "#" + passport;
+        this.issuedBy = Constants.PARTICIPANT_EMBASSY + "#" + issuedBy;
+        this.visaApplication = Constants.ASSET_VISAAPPLICATION + "#" + visaApplication;
+    }
+    
     public String get$class() {
         return $class;
     }

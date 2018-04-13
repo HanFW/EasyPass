@@ -34,7 +34,7 @@ public class BankStatement {
         this.bankName = bankName;
         this.accountNumber = accountNumber;
         this.bankStatementImageURL = bankStatementImageURL;
-        this.visaApplication = visaApplication;
+        this.visaApplication = Constants.ASSET_VISAAPPLICATION + "#" + visaApplication;
         this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
         

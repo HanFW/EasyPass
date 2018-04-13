@@ -33,7 +33,7 @@ public class LocalContact {
         this();
         this.contactName = contactName;
         this.identityNumber = identityNumber;
-        this.visaApplication = visaApplication;
+        this.visaApplication = Constants.ASSET_VISAAPPLICATION + "#" + visaApplication;
         this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }    
 

@@ -34,7 +34,7 @@ public class TransportationReference {
         this.carrierName = carrierName;
         this.reference = reference;
         this.transportationReferenceImageURL = transportationReferenceImageURL;
-        this.visaApplication = visaApplication;
+        this.visaApplication = Constants.ASSET_VISAAPPLICATION + "#" + visaApplication;
         this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
     

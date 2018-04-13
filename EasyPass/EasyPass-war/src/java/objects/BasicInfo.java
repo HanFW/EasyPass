@@ -49,7 +49,7 @@ public class BasicInfo {
         this.passportNumber = passportNumber;
         this.sex = sex;
         this.nationality = nationality;
-        this.visaApplication = visaApplication;
+        this.visaApplication = Constants.ASSET_VISAAPPLICATION + "#" + visaApplication;
         this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
     

@@ -35,7 +35,7 @@ public class Insurance {
         this.companyName = companyName;
         this.referenceNumber = referenceNumber;
         this.insuranceContractImageURL = insuranceContractImageURL;
-        this.visaApplication = visaApplication;
+        this.visaApplication = Constants.ASSET_VISAAPPLICATION + "#" + visaApplication;
         this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
     

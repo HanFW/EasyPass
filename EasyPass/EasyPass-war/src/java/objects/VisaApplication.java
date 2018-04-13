@@ -42,16 +42,16 @@ public class VisaApplication {
     
     public void updateVisaApplicationReferences(String visaStatus, String passport, String owner, 
             String basicInfo, String bankStatement, String transportationReference, String accommodation, String insurance, String localContact, String criminalRecord){
-        this.visaStatus = visaStatus;
-        this.passport = passport;
-        this.basicInfo = basicInfo;
-        this.bankStatement = bankStatement;
-        this.transportationReference = transportationReference;
-        this.accommodation = accommodation;
-        this.insurance = insurance;
-        this.localContact = localContact;
+        this.visaStatus = Constants.ASSET_VISASTATUS + "#" + visaStatus;
+        this.passport = Constants.ASSET_PASSPORT + "#" + passport;
+        this.basicInfo = Constants.ASSET_BASICINFO + "#" + basicInfo;
+        this.bankStatement = Constants.ASSET_BANKSTATEMENT + "#" + bankStatement;
+        this.transportationReference = Constants.ASSET_TRANSPORTATION + "#" + transportationReference;
+        this.accommodation = Constants.ASSET_ACCOMMODATION + "#" + accommodation;
+        this.insurance = Constants.ASSET_INSURANCE + "#" + insurance;
+        this.localContact = Constants.ASSET_LOCALCONTACT + "#" + localContact;
         this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
-        this.criminalRecord = criminalRecord;
+        this.criminalRecord = Constants.ASSET_CRIMINALRECORD + "#" + criminalRecord;
     }
 
     public String get$class() {

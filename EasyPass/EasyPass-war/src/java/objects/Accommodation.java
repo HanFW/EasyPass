@@ -17,7 +17,7 @@ public class Accommodation {
     private String accommodationId;
     private String carrierName;
     private String referenceNumber;
-    private String transportationReferenceImageURL;
+    private String accommodationImageURL;
     private String endorsementState;
     private String owner; //citizenId
     private String endorseBy; //hotelId
@@ -29,12 +29,12 @@ public class Accommodation {
         this.endorsementState = Constants.STATUS_PENDING;
     }
 
-    public Accommodation(String carrierName, String referenceNumber, String transportationReferenceImageURL, String visaApplication, String owner) {
+    public Accommodation(String carrierName, String referenceNumber, String accommodationImageURL, String visaApplication, String owner) {
         this();
         this.carrierName = carrierName;
         this.referenceNumber = referenceNumber;
-        this.transportationReferenceImageURL = transportationReferenceImageURL;
-        this.visaApplication = visaApplication;
+        this.accommodationImageURL = accommodationImageURL;
+        this.visaApplication = Constants.ASSET_VISAAPPLICATION + "#" + visaApplication;
         this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
 
@@ -78,12 +78,12 @@ public class Accommodation {
         this.referenceNumber = referenceNumber;
     }
 
-    public String getTransportationReferenceImageURL() {
-        return transportationReferenceImageURL;
+    public String getAccommodationImageURL() {
+        return accommodationImageURL;
     }
 
-    public void setTransportationReferenceImageURL(String transportationReferenceImageURL) {
-        this.transportationReferenceImageURL = transportationReferenceImageURL;
+    public void setAccommodationImageURL(String accommodationImageURL) {
+        this.accommodationImageURL = accommodationImageURL;
     }
 
     public String getEndorsementState() {
