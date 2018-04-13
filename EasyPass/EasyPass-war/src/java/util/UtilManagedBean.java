@@ -13,16 +13,20 @@ import java.io.Serializable;
  *
  * @author hanfengwei
  */
-@Named(value = "themePreferences")
+@Named(value = "utilManagedBean")
 @SessionScoped
-public class themePreferences implements Serializable {
+public class UtilManagedBean implements Serializable {
     
     private String theme = "blue-grey";
 
     /**
-     * Creates a new instance of themePreferences
+     * Creates a new instance of utilManagedBean
      */
-    public themePreferences() {
+    public UtilManagedBean() {
+    }
+    
+    public String formatId(String originalId){
+        return originalId.substring(originalId.indexOf("#")+1);
     }
 
     public String getTheme() {
