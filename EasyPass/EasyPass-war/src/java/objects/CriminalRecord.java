@@ -25,7 +25,7 @@ public class CriminalRecord {
 
     public CriminalRecord() {
         this.$class = Constants.ASSET_CRIMINALRECORD;
-        this.criminalRecordId = Constants.ASSET_CRIMINALRECORD + "#" + UUID.randomUUID().toString();
+        this.criminalRecordId = UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
     }
     

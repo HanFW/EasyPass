@@ -25,7 +25,7 @@ public class Accommodation {
     
     public Accommodation() {
         this.$class = Constants.ASSET_ACCOMMODATION;
-        this.accommodationId = Constants.ASSET_ACCOMMODATION + "#" + UUID.randomUUID().toString();
+        this.accommodationId = UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
     }
 

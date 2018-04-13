@@ -25,7 +25,7 @@ public class LocalContact {
     
     public LocalContact() {
         this.$class = Constants.ASSET_LOCALCONTACT;
-        this.localContactId = Constants.ASSET_LOCALCONTACT + "#" + UUID.randomUUID().toString();
+        this.localContactId = UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
     }
 

@@ -25,7 +25,7 @@ public class TransportationReference {
     
     public TransportationReference() {
         this.$class = Constants.ASSET_TRANSPORTATION;
-        this.transportationReferenceId = Constants.ASSET_TRANSPORTATION + "#" + UUID.randomUUID().toString();
+        this.transportationReferenceId = UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
     }
 

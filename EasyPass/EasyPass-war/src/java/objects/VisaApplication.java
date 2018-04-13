@@ -31,7 +31,7 @@ public class VisaApplication {
     
     public VisaApplication() {
         this.$class = Constants.ASSET_VISAAPPLICATION;
-        this.visaApplicationId = Constants.ASSET_VISAAPPLICATION + "#" + UUID.randomUUID().toString();
+        this.visaApplicationId = UUID.randomUUID().toString();
     }
     
     public void updateVisaApplicationInfo(String startDate, String endDate, String purposeOfVisit){

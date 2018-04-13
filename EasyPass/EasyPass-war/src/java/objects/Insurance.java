@@ -26,7 +26,7 @@ public class Insurance {
     
     public Insurance() {
         this.$class = Constants.ASSET_INSURANCE;
-        this.insuranceId = Constants.ASSET_INSURANCE + "#" + UUID.randomUUID().toString();
+        this.insuranceId = UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
     }
 

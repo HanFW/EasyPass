@@ -23,7 +23,7 @@ public class VisaStatus {
     
     public VisaStatus() {
         this.$class = Constants.ASSET_VISASTATUS;
-        this.visaStatusId = Constants.ASSET_VISASTATUS + "#" + UUID.randomUUID().toString();
+        this.visaStatusId = UUID.randomUUID().toString();
         this.state = Constants.STATUS_PENDING;
         this.message = "";
     }

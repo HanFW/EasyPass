@@ -14,6 +14,10 @@ public class Constants {
     public static final String STATUS_VERIFIED = "VERIFIED";
     public static final String STATUS_INVALIDATE = "INVALIDATE";
     
+    public static final String APPLICATION_STATUS_PENDING = "PENDING";
+    public static final String APPLICATION_STATUS_APPROVED = "APPROVED";
+    public static final String APPLICATION_STATUS_DENIED = "DENIED";
+    
     public static final String ENDORSER_ROLE_BANK = "BANK";
     public static final String ENDORSER_ROLE_TRANSPORTATION = "TRANSPORTATION";
     public static final String ENDORSER_ROLE_ACCOMMODATION = "ACCOMMODATION";

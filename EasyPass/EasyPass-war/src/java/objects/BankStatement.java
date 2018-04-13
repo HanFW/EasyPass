@@ -25,7 +25,7 @@ public class BankStatement {
     
     public BankStatement() {
         this.$class = Constants.ASSET_BANKSTATEMENT;
-        this.bankStatementId = Constants.ASSET_BANKSTATEMENT + "#" + UUID.randomUUID().toString();
+        this.bankStatementId = UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
     }
 

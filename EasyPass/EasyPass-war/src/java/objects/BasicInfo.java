@@ -33,7 +33,7 @@ public class BasicInfo {
     
     public BasicInfo() {
         this.$class = Constants.ASSET_BASICINFO;
-        this.basicInfoId = Constants.ASSET_BASICINFO + "#" + UUID.randomUUID().toString();
+        this.basicInfoId = UUID.randomUUID().toString();
         this.endorsementState = Constants.STATUS_PENDING;
     }
 
