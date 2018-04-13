@@ -8,7 +8,7 @@
     <ui:define name="content">
         <h:form>
             <p:outputLabel value="Passport Number: " />
-            <p:outputLabel value="#{transportationProviderDoEndorsementManagedBean.transportationReference.owner}" />
+            <p:outputLabel value="#{utilManagedBean.formatId(transportationProviderDoEndorsementManagedBean.transportationReference.owner)}" />
             <p:outputLabel value="Transportation Reference Number: " />
             <p:outputLabel value="#{transportationProviderDoEndorsementManagedBean.transportationReference.reference}" />
             <br/>

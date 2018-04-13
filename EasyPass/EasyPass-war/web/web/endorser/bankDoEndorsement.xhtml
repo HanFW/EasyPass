@@ -8,7 +8,7 @@
     <ui:define name="content">
         <h:form>
             <p:outputLabel value="Passport number: " />
-            <p:outputLabel value="#{bankDoEndorsementManagedBean.bankStatement.owner}" />
+            <p:outputLabel value="#{utilManagedBean.formatId(bankDoEndorsementManagedBean.bankStatement.owner)}" />
             <p:outputLabel value="Account number: " />
             <p:outputLabel value="#{bankDoEndorsementManagedBean.bankStatement.accountNumber}" />
             <br/>
