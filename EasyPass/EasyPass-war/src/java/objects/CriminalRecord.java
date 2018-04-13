@@ -30,6 +30,7 @@ public class CriminalRecord {
     }
     
     public CriminalRecord(String visaApplication, String owner) {
+        this();
         this.visaApplication = Constants.ASSET_VISAAPPLICATION + "#" + visaApplication;
         this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
