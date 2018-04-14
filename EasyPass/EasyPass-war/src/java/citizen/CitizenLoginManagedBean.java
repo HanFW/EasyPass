@@ -5,6 +5,9 @@
  */
 package citizen;
 
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import entity.CitizenEntity;
 import exception.AuthenticationFailException;
 import exception.NoSuchEntityException;
@@ -25,9 +28,10 @@ import session.LoginSessionBeanLocal;
 @Named(value = "citizenLoginManagedBean")
 @RequestScoped
 public class CitizenLoginManagedBean {
+
     @EJB
     private LoginSessionBeanLocal loginSessionBeanLocal;
-    
+
     private String accountNumber;
     private String password;
 
@@ -36,7 +40,31 @@ public class CitizenLoginManagedBean {
      */
     public CitizenLoginManagedBean() {
     }
-    
+
+    public void http() {
+        try {
+            HttpResponse<JsonNode> jsonResponse2 = Unirest.post("http://localhost:3000/api/org.acme.easypass.Accommodation")
+                    .header("accept", "application/json")
+                    .field("$class", "org.acme.easypass.Accommodation")
+                    .field("accommodationId", "001")
+                    .field("carrierName", "abc")
+                    .field("referenceNumber", "abc")
+                    .field("accommodationReferenceImageURL", "abc")
+                    .field("endorseStatus", "PENDING")
+                    .field("owner", "resource:org.acme.easypass.Citizen#5804")
+                    .asJson();
+            System.out.println(jsonResponse2.getBody());
+
+            HttpResponse<JsonNode> jsonResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Accommodation")
+                    .header("accept", "application/json")
+                    .asJson();
+            System.out.println(jsonResponse.getBody());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void citizenDoLogin(ActionEvent event) throws IOException {
         try {
             CitizenEntity citizen = loginSessionBeanLocal.citizenDoLogin(accountNumber, password);
@@ -49,7 +77,7 @@ public class CitizenLoginManagedBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Incorrect password.", " "));
         }
     }
-    
+
     public void citizenDoLogout(ActionEvent event) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.getSessionMap().remove("citizen");

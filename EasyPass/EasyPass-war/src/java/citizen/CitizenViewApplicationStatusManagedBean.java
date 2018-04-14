@@ -6,6 +6,9 @@
 package citizen;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import entity.CitizenEntity;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +26,7 @@ import objects.Passport;
 import objects.TransportationReference;
 import objects.VisaApplication;
 import objects.VisaStatus;
+import util.Constants;
 
 /**
  *
@@ -31,6 +35,8 @@ import objects.VisaStatus;
 @Named(value = "citizenViewApplicationStatusManagedBean")
 @RequestScoped
 public class CitizenViewApplicationStatusManagedBean {
+
+    private VisaApplication visaApplication;
 
     /**
      * Creates a new instance of CitizenViewApplicationStatusManagedBean
@@ -43,18 +49,48 @@ public class CitizenViewApplicationStatusManagedBean {
         CitizenEntity citizen = (CitizenEntity) ec.getSessionMap().get("citizen");
         String id = citizen.getCitizenId();//get citizenID (passport number)
 
-        //get passport by passport number
-        ObjectMapper mapper = new ObjectMapper();
-        Passport passport = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Passport/get_response.json"), Passport.class);
+        if (Constants.localTesting) {
+            //get passport by passport number
+            ObjectMapper mapper = new ObjectMapper();
+            Passport passport = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Passport/get_response.json"), Passport.class);
 
-        //get visa application id, assume there is only one visa application for one citizen
-        String[] visaApplications = passport.getVisaApplications();
-        String visaApplicationID = visaApplications[0];
+            //get visa application id, assume there is only one visa application for one citizen
+            String[] visaApplications = passport.getVisaApplications();
+            String visaApplicationID = visaApplications[0];
 
-        //get visa application by visa Application ID
-        VisaApplication visaApplication = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaApplication/post_request_Jingyuan.json"), VisaApplication.class);
-        return visaApplication;
+            //get visa application by visa Application ID
+            VisaApplication visaApplication = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/VisaApplication/post_request_Jingyuan.json"), VisaApplication.class);
+            return visaApplication;
 
+        } else {
+            //get passport by passport number
+            ObjectMapper mapper = new ObjectMapper();
+            String visaApplicationID = "";
+
+            try {
+                HttpResponse<JsonNode> passportResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Passport/" + citizen.getCitizenId())
+                        .header("accept", "application/json")
+                        .asJson();
+                Passport passport = mapper.readValue(passportResponse.getBody().getObject().toString(), Passport.class);
+
+                //get visa application id, assume there is only one visa application for one citizen
+                String[] visaApplications = passport.getVisaApplications();
+                visaApplicationID = visaApplications[0];
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            //get visa application by visa Application ID
+            try {
+                HttpResponse<JsonNode> visaApplicationResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.VisaApplication/" + visaApplicationID)
+                        .header("accept", "application/json")
+                        .asJson();
+                visaApplication = mapper.readValue(visaApplicationResponse.getBody().getObject().toString(), VisaApplication.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return visaApplication;
+        }
     }
 
     public String getVisaStatus() throws IOException {

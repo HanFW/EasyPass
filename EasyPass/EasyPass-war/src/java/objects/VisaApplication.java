@@ -41,7 +41,8 @@ public class VisaApplication {
     }
     
     public void updateVisaApplicationReferences(String visaStatus, String passport, String owner, 
-            String basicInfo, String bankStatement, String transportationReference, String accommodation, String insurance, String localContact, String criminalRecord){
+            String basicInfo, String bankStatement, String transportationReference, 
+            String accommodation, String insurance, String localContact, String criminalRecord){
         this.visaStatus = Constants.ASSET_VISASTATUS + "#" + visaStatus;
         this.passport = Constants.ASSET_PASSPORT + "#" + passport;
         this.basicInfo = Constants.ASSET_BASICINFO + "#" + basicInfo;

@@ -6,6 +6,9 @@
 package citizen;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import entity.CitizenEntity;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,6 +39,7 @@ import objects.VisaStatus;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.UploadedFile;
+import util.Constants;
 
 /**
  *
@@ -43,8 +47,8 @@ import org.primefaces.model.UploadedFile;
  */
 @Named(value = "citizenApplyForVisaManagedBean")
 @ViewScoped
-public class CitizenApplyForVisaManagedBean implements Serializable{
-    
+public class CitizenApplyForVisaManagedBean implements Serializable {
+
     private VisaApplication visaApplication;
     private String applicationId;
     //basic info
@@ -84,7 +88,6 @@ public class CitizenApplyForVisaManagedBean implements Serializable{
     private String insuranceReference;
     private String insuranceURL;
     private UploadedFile insuranceFile;
-    
     private boolean confirmation;
 
     /**
@@ -92,96 +95,276 @@ public class CitizenApplyForVisaManagedBean implements Serializable{
      */
     public CitizenApplyForVisaManagedBean() {
     }
-    
+
     @PostConstruct
     public void init() {
         visaApplication = new VisaApplication();
         applicationId = visaApplication.getVisaApplicationId();
     }
-    
+
     //control the flow of application tabs
     public String onFlowProcess(FlowEvent event) {
         String nextStep = event.getNewStep();
-        
+
         //documents validation
-        if(event.getOldStep().equals("documents")) {
-            if(bankStatementFile == null) {
+        if (event.getOldStep().equals("documents")) {
+            if (bankStatementFile == null) {
                 FacesContext.getCurrentInstance().addMessage("bankStatement", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please upload your bank statement.", " "));
                 nextStep = event.getOldStep();
             }
-            if(transportationFile == null) {
+            if (transportationFile == null) {
                 FacesContext.getCurrentInstance().addMessage("transportationFile", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please upload your transportation document.", " "));
                 nextStep = event.getOldStep();
             }
-            if(accommodationFile == null) {
+            if (accommodationFile == null) {
                 FacesContext.getCurrentInstance().addMessage("accommodationFile", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please upload your accommodation document.", " "));
                 nextStep = event.getOldStep();
             }
-            if(insuranceFile == null) {
+            if (insuranceFile == null) {
                 FacesContext.getCurrentInstance().addMessage("insuranceFile", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please upload your Insurance document.", " "));
                 nextStep = event.getOldStep();
             }
         }
         return nextStep;
     }
-    
-    public void submitNewApplication (ActionEvent event) throws IOException {
-        if(!confirmation){
+
+    public void submitNewApplication(ActionEvent event) throws IOException {
+        if (!confirmation) {
             //ask citizen to confirm before submitting application
-            FacesContext.getCurrentInstance().addMessage("confirmation", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please confirm before submitting the application", " "));        
+            FacesContext.getCurrentInstance().addMessage("confirmation", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please confirm before submitting the application", " "));
         } else {
             CitizenEntity citizen = (CitizenEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("citizen");
 
-            //create new visa application
-            ObjectMapper mapper = new ObjectMapper();
-                        
-            // - create new visa status
-            VisaStatus visaStatus = new VisaStatus(applicationId, citizen.getCitizenId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_" + firstName + ".json"), visaStatus);
-            // - create new basic info
-            BasicInfo basicInfo = new BasicInfo(firstName,lastName, formatDate(birthday), countryOfResidence, identityNumber, residentialAddress, maritalStatus, citizen.getCitizenId(), sex, nationality, applicationId, citizen.getCitizenId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BasicInfo/post_request_" + firstName + ".json"), basicInfo);
-            // - create bank statement
-            BankStatement bankStatement = new BankStatement(bankName, accountNumber, bankStatementURL, applicationId, citizen.getCitizenId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BankStatement/post_request_" + firstName + ".json"), bankStatement);
-            // - create transportation reference
-            TransportationReference transportation = new TransportationReference(carrierName, transportationReference, transportationURL, applicationId, citizen.getCitizenId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/TransportationReference/post_request_" + firstName + ".json"), transportation);
-            // - create accommodation reference
-            Accommodation accommodation = new Accommodation(accommodationName, accommodationReference, accommodationURL, applicationId, citizen.getCitizenId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Accommodation/post_request_" + firstName + ".json"), accommodation);
-            // - create insurance reference
-            Insurance insurance = new Insurance(insuranceCompanyName, insuranceReference, insuranceURL, applicationId, citizen.getCitizenId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Insurance/post_request_" + firstName + ".json"), insurance);
-            // - create local contact
-            LocalContact localContact = new LocalContact(localContactName, localContactIdentityNumber, applicationId, citizen.getCitizenId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/LocalContact/post_request_" + firstName + ".json"), localContact);
-            // - create criminal record
-            CriminalRecord criminalRecord = new CriminalRecord(applicationId, citizen.getCitizenId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/CriminalRecord/post_request_" + firstName + ".json"), criminalRecord);
-            // - update visa application
-            visaApplication.updateVisaApplicationInfo(formatDate(startDate), formatDate(endDate), purposeOfVisit);
-            visaApplication.updateVisaApplicationReferences(visaStatus.getVisaStatusId(), 
-                    citizen.getCitizenId(), citizen.getCitizenId(), 
-                    basicInfo.getBasicInfoId(), bankStatement.getBankStatementId(), 
-                    transportation.getTransportationReferenceId(), accommodation.getAccommodationId(), 
-                    insurance.getInsuranceId(), localContact.getLocalContactId(), criminalRecord.getCriminalRecordId());
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaApplication/post_request_" + firstName + ".json"), visaApplication);
-            
+            if (Constants.localTesting) {
+                //create new visa application
+                ObjectMapper mapper = new ObjectMapper();
+
+                // - create new visa status
+                VisaStatus visaStatus = new VisaStatus(applicationId, citizen.getCitizenId());
+                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_" + firstName + ".json"), visaStatus);
+                // - create new basic info
+                BasicInfo basicInfo = new BasicInfo(firstName, lastName, formatDate(birthday), countryOfResidence, identityNumber, residentialAddress, maritalStatus, citizen.getCitizenId(), sex, nationality, applicationId, citizen.getCitizenId());
+                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BasicInfo/post_request_" + firstName + ".json"), basicInfo);
+                // - create bank statement
+                BankStatement bankStatement = new BankStatement(bankName, accountNumber, bankStatementURL, applicationId, citizen.getCitizenId());
+                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BankStatement/post_request_" + firstName + ".json"), bankStatement);
+                // - create transportation reference
+                TransportationReference transportation = new TransportationReference(carrierName, transportationReference, transportationURL, applicationId, citizen.getCitizenId());
+                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/TransportationReference/post_request_" + firstName + ".json"), transportation);
+                // - create accommodation reference
+                Accommodation accommodation = new Accommodation(accommodationName, accommodationReference, accommodationURL, applicationId, citizen.getCitizenId());
+                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Accommodation/post_request_" + firstName + ".json"), accommodation);
+                // - create insurance reference
+                Insurance insurance = new Insurance(insuranceCompanyName, insuranceReference, insuranceURL, applicationId, citizen.getCitizenId());
+                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Insurance/post_request_" + firstName + ".json"), insurance);
+                // - create local contact
+                LocalContact localContact = new LocalContact(localContactName, localContactIdentityNumber, applicationId, citizen.getCitizenId());
+                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/LocalContact/post_request_" + firstName + ".json"), localContact);
+                // - create criminal record
+                CriminalRecord criminalRecord = new CriminalRecord(applicationId, citizen.getCitizenId());
+                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/CriminalRecord/post_request_" + firstName + ".json"), criminalRecord);
+                // - update visa application
+                visaApplication.updateVisaApplicationInfo(formatDate(startDate), formatDate(endDate), purposeOfVisit);
+                visaApplication.updateVisaApplicationReferences(visaStatus.getVisaStatusId(),
+                        citizen.getCitizenId(), citizen.getCitizenId(),
+                        basicInfo.getBasicInfoId(), bankStatement.getBankStatementId(),
+                        transportation.getTransportationReferenceId(), accommodation.getAccommodationId(),
+                        insurance.getInsuranceId(), localContact.getLocalContactId(), criminalRecord.getCriminalRecordId());
+                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaApplication/post_request_" + firstName + ".json"), visaApplication);
+
+            } else {
+                // http request;
+                //create new visa application
+                ObjectMapper mapper = new ObjectMapper();
+
+                // - create new visa status
+                VisaStatus visaStatus = new VisaStatus(applicationId, citizen.getCitizenId());
+                try {
+                    HttpResponse<JsonNode> visaStatusResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.VisaStatus")
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_VISASTATUS)
+                            .field("visaStatusId", visaStatus.getVisaStatusId())
+                            .field("message", visaStatus.getMessage())
+                            .field("statusState", visaStatus.getState())
+                            .field("owner", visaStatus.getOwner())
+                            .field("visaApplication", visaStatus.getVisaApplication())
+                            .asJson();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
+                // - create new basic info
+                BasicInfo basicInfo = new BasicInfo(firstName, lastName, formatDate(birthday), countryOfResidence, identityNumber, residentialAddress, maritalStatus, citizen.getCitizenId(), sex, nationality, applicationId, citizen.getCitizenId());
+                try {
+                    HttpResponse<JsonNode> basicInfoResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.BasicInfo")
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_BASICINFO)
+                            .field("basicInfoId", basicInfo.getBasicInfoId())
+                            .field("firstName", basicInfo.getFirstName())
+                            .field("lastName", basicInfo.getLastName())
+                            .field("birthday", basicInfo.getBirthday())
+                            .field("identityNumber", basicInfo.getIdentityNumber())
+                            .field("residentialAddress", basicInfo.getResidentialAddress())
+                            .field("countryOfResident", basicInfo.getCountryOfResidence())
+                            .field("maritalStatus", basicInfo.getMaritalStatus())
+                            .field("passportNumber", basicInfo.getPassportNumber())
+                            .field("sex", basicInfo.getSex())
+                            .field("nationality", basicInfo.getNationality())
+                            .field("endorseStatus", basicInfo.getEndorsementState())
+                            .field("owner", basicInfo.getOwner())
+                            .field("visaApplication", basicInfo.getVisaApplication())
+                            .asJson();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // - create bank statement
+                BankStatement bankStatement = new BankStatement(bankName, accountNumber, bankStatementURL, applicationId, citizen.getCitizenId());
+                try {
+                    HttpResponse<JsonNode> bankStatementResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.BankStatement")
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_BANKSTATEMENT)
+                            .field("bankStatementId", bankStatement.getBankStatementId())
+                            .field("bankName", bankStatement.getBankName())
+                            .field("accountNumber", bankStatement.getAccountNumber())
+                            .field("bankStatementImageURL", bankStatement.getBankStatementImageURL())
+                            .field("endorseStatus", bankStatement.getEndorsementState())
+                            .field("owner", bankStatement.getOwner())
+                            .field("visaApplication", bankStatement.getVisaApplication())
+                            .asJson();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // - create transportation reference
+                TransportationReference transportation = new TransportationReference(carrierName, transportationReference, transportationURL, applicationId, citizen.getCitizenId());
+                try {
+                    HttpResponse<JsonNode> transportationResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.TransportationReference")
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_TRANSPORTATION)
+                            .field("transportationReferenceId", transportation.getTransportationReferenceId())
+                            .field("carrierName", transportation.getCarrierName())
+                            .field("reference", transportation.getReference())
+                            .field("transportationReferenceImageURL", transportation.getTransportationReferenceImageURL())
+                            .field("endorseStatus", transportation.getEndorsementState())
+                            .field("owner", transportation.getOwner())
+                            .field("visaApplication", transportation.getVisaApplication())
+                            .asJson();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // - create accommodation reference
+                Accommodation accommodation = new Accommodation(accommodationName, accommodationReference, accommodationURL, applicationId, citizen.getCitizenId());
+                try {
+                    HttpResponse<JsonNode> accommodationResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.Accommodation")
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_ACCOMMODATION)
+                            .field("accommodationId", accommodation.getAccommodationId())
+                            .field("carrierName", accommodation.getCarrierName())
+                            .field("referenceNumber", accommodation.getReferenceNumber())
+                            .field("accommodationReferenceImageURL", accommodation.getAccommodationImageURL())
+                            .field("endorseStatus", accommodation.getEndorsementState())
+                            .field("owner", accommodation.getOwner())
+                            .field("visaApplication", accommodation.getVisaApplication())
+                            .asJson();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // - create insurance reference
+                Insurance insurance = new Insurance(insuranceCompanyName, insuranceReference, insuranceURL, applicationId, citizen.getCitizenId());
+                try {
+                    HttpResponse<JsonNode> insuranceResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.Insurance")
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_INSURANCE)
+                            .field("insuranceId", insurance.getInsuranceId())
+                            .field("companyName", insurance.getCompanyName())
+                            .field("referenceNumber", insurance.getReferenceNumber())
+                            .field("insuranceContractImageURL", insurance.getInsuranceContractImageURL())
+                            .field("endorseStatus", insurance.getEndorsementState())
+                            .field("owner", insurance.getOwner())
+                            .field("visaApplication", insurance.getVisaApplication())
+                            .asJson();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // - create local contact
+                LocalContact localContact = new LocalContact(localContactName, localContactIdentityNumber, applicationId, citizen.getCitizenId());
+                try {
+                    HttpResponse<JsonNode> localContactResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.LocalContact")
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_LOCALCONTACT)
+                            .field("localContactId", localContact.getLocalContactId())
+                            .field("contactName", localContact.getContactName())
+                            .field("identityNumber", localContact.getIdentityNumber())
+                            .field("endorseStatus", localContact.getEndorsementState())
+                            .field("owner", localContact.getOwner())
+                            .field("visaApplication", localContact.getVisaApplication())
+                            .asJson();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // - create criminal record
+                CriminalRecord criminalRecord = new CriminalRecord(applicationId, citizen.getCitizenId());
+                try {
+                    HttpResponse<JsonNode> criminalRecordResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.CriminalRecord")
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_CRIMINALRECORD)
+                            .field("criminalRecordId", criminalRecord.getCriminalRecordId())
+                            .field("recordNumber", criminalRecord.getRecordNumber())
+                            .field("recordDetail", criminalRecord.getRecordDetail())
+                            .field("endorseStatus", criminalRecord.getEndorsementState())
+                            .field("owner", criminalRecord.getOwner())
+                            .field("visaApplication", criminalRecord.getVisaApplication())
+                            .asJson();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // - update visa application
+                visaApplication.updateVisaApplicationInfo(formatDate(startDate), formatDate(endDate), purposeOfVisit);
+                visaApplication.updateVisaApplicationReferences(visaStatus.getVisaStatusId(),
+                        citizen.getCitizenId(), citizen.getCitizenId(),
+                        basicInfo.getBasicInfoId(), bankStatement.getBankStatementId(),
+                        transportation.getTransportationReferenceId(), accommodation.getAccommodationId(),
+                        insurance.getInsuranceId(), localContact.getLocalContactId(), criminalRecord.getCriminalRecordId());
+                try {
+                    HttpResponse<JsonNode> visaApplicationResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.VisaApplication/" + visaApplication.getVisaApplicationId())
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_VISAAPPLICATION)
+                            .field("visaStatus", visaStatus.getVisaStatusId())
+                            .field("passport", citizen.getCitizenId())
+                            .field("basicInfo", basicInfo.getBasicInfoId())
+                            .field("bankStatement", bankStatement.getBankStatementId())
+                            .field("transportationReference", transportation.getTransportationReferenceId())
+                            .field("accommodation", accommodation.getAccommodationId())
+                            .field("insurance", insurance.getInsuranceId())
+                            .field("localContact", localContact.getLocalContactId())
+                            .field("criminalRecord", criminalRecord.getCriminalRecordId())
+                            .field("owner", citizen.getCitizenId())
+                            .asJson();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
             //redirect to view application status
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             ec.redirect(ec.getRequestContextPath() + "/web/citizen/citizenViewStatus.xhtml?faces-redirect=true");
         }
     }
-    
+
     private String formatDate(Date dateOriginal) {
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         return df.format(dateOriginal);
     }
-    
-    public void bankStatementUpload (FileUploadEvent event) throws FileNotFoundException, IOException {
+
+    public void bankStatementUpload(FileUploadEvent event) throws FileNotFoundException, IOException {
         this.bankStatementFile = event.getFile();
-        
+
         if (bankStatementFile != null) {
             String filename = applicationId + "-bankStatement.pdf";
             bankStatementURL = "https://localhost:8181/" + filename;
@@ -210,10 +393,10 @@ public class CitizenApplyForVisaManagedBean implements Serializable{
             FacesContext.getCurrentInstance().addMessage("bankStatement", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot find file, please upload again.", " "));
         }
     }
-    
-    public void transportationFileUpload (FileUploadEvent event) throws FileNotFoundException, IOException {
+
+    public void transportationFileUpload(FileUploadEvent event) throws FileNotFoundException, IOException {
         this.transportationFile = event.getFile();
-        
+
         if (transportationFile != null) {
             String filename = applicationId + "-transportation.pdf";
             transportationURL = "https://localhost:8181/" + filename;
@@ -242,10 +425,10 @@ public class CitizenApplyForVisaManagedBean implements Serializable{
             FacesContext.getCurrentInstance().addMessage("transportationFile", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot find file, please upload again.", " "));
         }
     }
-    
-    public void accommodationFileUpload (FileUploadEvent event) throws FileNotFoundException, IOException {
+
+    public void accommodationFileUpload(FileUploadEvent event) throws FileNotFoundException, IOException {
         this.accommodationFile = event.getFile();
-        
+
         if (accommodationFile != null) {
             String filename = applicationId + "-accommodation.pdf";
             accommodationURL = "https://localhost:8181/" + filename;
@@ -274,10 +457,10 @@ public class CitizenApplyForVisaManagedBean implements Serializable{
             FacesContext.getCurrentInstance().addMessage("accommodationFile", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot find file, please upload again.", " "));
         }
     }
-    
-    public void insuranceFileUpload (FileUploadEvent event) throws FileNotFoundException, IOException {
+
+    public void insuranceFileUpload(FileUploadEvent event) throws FileNotFoundException, IOException {
         this.insuranceFile = event.getFile();
-        
+
         if (insuranceFile != null) {
             String filename = applicationId + "-insurance.pdf";
             insuranceURL = "https://localhost:8181/" + filename;
@@ -314,7 +497,7 @@ public class CitizenApplyForVisaManagedBean implements Serializable{
     public void setVisaApplication(VisaApplication visaApplication) {
         this.visaApplication = visaApplication;
     }
-    
+
     public String getApplicationId() {
         return applicationId;
     }
