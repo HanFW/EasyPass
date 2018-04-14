@@ -41,30 +41,6 @@ public class CitizenLoginManagedBean {
     public CitizenLoginManagedBean() {
     }
 
-    public void http() {
-        try {
-            HttpResponse<JsonNode> jsonResponse2 = Unirest.post("http://localhost:3000/api/org.acme.easypass.Accommodation")
-                    .header("accept", "application/json")
-                    .field("$class", "org.acme.easypass.Accommodation")
-                    .field("accommodationId", "001")
-                    .field("carrierName", "abc")
-                    .field("referenceNumber", "abc")
-                    .field("accommodationReferenceImageURL", "abc")
-                    .field("endorseStatus", "PENDING")
-                    .field("owner", "resource:org.acme.easypass.Citizen#5804")
-                    .asJson();
-            System.out.println(jsonResponse2.getBody());
-
-            HttpResponse<JsonNode> jsonResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Accommodation")
-                    .header("accept", "application/json")
-                    .asJson();
-            System.out.println(jsonResponse.getBody());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void citizenDoLogin(ActionEvent event) throws IOException {
         try {
             CitizenEntity citizen = loginSessionBeanLocal.citizenDoLogin(accountNumber, password);
