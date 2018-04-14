@@ -14,13 +14,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import objects.Passport;
 import objects.Visa;
-import objects.VisaApplication;
 
 /**
  *
@@ -45,7 +43,7 @@ public class CitizenViewEVisaManagedBean implements Serializable {
             System.out.println("init citizen view eVisa!!!!!!");
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             CitizenEntity citizen = (CitizenEntity) ec.getSessionMap().get("citizen");
-            String id = citizen.getId();//get citizenID (passport number)
+            String id = citizen.getCitizenId();//get citizenID (passport number)
             
             //get passport by passport number
             ObjectMapper mapper = new ObjectMapper();
@@ -66,7 +64,7 @@ public class CitizenViewEVisaManagedBean implements Serializable {
     public Visa getVisa() throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         CitizenEntity citizen = (CitizenEntity) ec.getSessionMap().get("citizen");
-        String id = citizen.getId();//get citizenID (passport number)
+        String id = citizen.getCitizenId();//get citizenID (passport number)
 
         //get passport by passport number
         ObjectMapper mapper = new ObjectMapper();

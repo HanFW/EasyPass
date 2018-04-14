@@ -136,33 +136,33 @@ public class CitizenApplyForVisaManagedBean implements Serializable{
             ObjectMapper mapper = new ObjectMapper();
                         
             // - create new visa status
-            VisaStatus visaStatus = new VisaStatus(applicationId, citizen.getId());
+            VisaStatus visaStatus = new VisaStatus(applicationId, citizen.getCitizenId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/post_request_" + firstName + ".json"), visaStatus);
             // - create new basic info
-            BasicInfo basicInfo = new BasicInfo(firstName,lastName, formatDate(birthday), countryOfResidence, identityNumber, residentialAddress, maritalStatus, citizen.getId(), sex, nationality, applicationId, citizen.getId());
+            BasicInfo basicInfo = new BasicInfo(firstName,lastName, formatDate(birthday), countryOfResidence, identityNumber, residentialAddress, maritalStatus, citizen.getCitizenId(), sex, nationality, applicationId, citizen.getCitizenId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BasicInfo/post_request_" + firstName + ".json"), basicInfo);
             // - create bank statement
-            BankStatement bankStatement = new BankStatement(bankName, accountNumber, bankStatementURL, applicationId, citizen.getId());
+            BankStatement bankStatement = new BankStatement(bankName, accountNumber, bankStatementURL, applicationId, citizen.getCitizenId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/BankStatement/post_request_" + firstName + ".json"), bankStatement);
             // - create transportation reference
-            TransportationReference transportation = new TransportationReference(carrierName, transportationReference, transportationURL, applicationId, citizen.getId());
+            TransportationReference transportation = new TransportationReference(carrierName, transportationReference, transportationURL, applicationId, citizen.getCitizenId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/TransportationReference/post_request_" + firstName + ".json"), transportation);
             // - create accommodation reference
-            Accommodation accommodation = new Accommodation(accommodationName, accommodationReference, accommodationURL, applicationId, citizen.getId());
+            Accommodation accommodation = new Accommodation(accommodationName, accommodationReference, accommodationURL, applicationId, citizen.getCitizenId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Accommodation/post_request_" + firstName + ".json"), accommodation);
             // - create insurance reference
-            Insurance insurance = new Insurance(insuranceCompanyName, insuranceReference, insuranceURL, applicationId, citizen.getId());
+            Insurance insurance = new Insurance(insuranceCompanyName, insuranceReference, insuranceURL, applicationId, citizen.getCitizenId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Insurance/post_request_" + firstName + ".json"), insurance);
             // - create local contact
-            LocalContact localContact = new LocalContact(localContactName, localContactIdentityNumber, applicationId, citizen.getId());
+            LocalContact localContact = new LocalContact(localContactName, localContactIdentityNumber, applicationId, citizen.getCitizenId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/LocalContact/post_request_" + firstName + ".json"), localContact);
             // - create criminal record
-            CriminalRecord criminalRecord = new CriminalRecord(applicationId, citizen.getId());
+            CriminalRecord criminalRecord = new CriminalRecord(applicationId, citizen.getCitizenId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/CriminalRecord/post_request_" + firstName + ".json"), criminalRecord);
             // - update visa application
             visaApplication.updateVisaApplicationInfo(formatDate(startDate), formatDate(endDate), purposeOfVisit);
             visaApplication.updateVisaApplicationReferences(visaStatus.getVisaStatusId(), 
-                    citizen.getId(), citizen.getId(), 
+                    citizen.getCitizenId(), citizen.getCitizenId(), 
                     basicInfo.getBasicInfoId(), bankStatement.getBankStatementId(), 
                     transportation.getTransportationReferenceId(), accommodation.getAccommodationId(), 
                     insurance.getInsuranceId(), localContact.getLocalContactId(), criminalRecord.getCriminalRecordId());

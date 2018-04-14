@@ -102,7 +102,7 @@ public class EmbassyReviewVisaApplicationManagedBean implements Serializable {
         //set updatedBy (embassyId)
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         EmbassyEntity embassy = (EmbassyEntity) ec.getSessionMap().get("embassy");
-        visaStatus.setUpdatedBy(Constants.PARTICIPANT_EMBASSY + "#" + embassy.getId());
+        visaStatus.setUpdatedBy(Constants.PARTICIPANT_EMBASSY + "#" + embassy.getEmbassyId());
         
         //update visa status & issue visa
         ObjectMapper mapper = new ObjectMapper();
@@ -114,7 +114,7 @@ public class EmbassyReviewVisaApplicationManagedBean implements Serializable {
             //create new visa
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
             String validUtilString = df.format(validUtil);
-            Visa visa = new Visa(validUtilString, visaType, citizen.getPassportNumber(), embassy.getId(), visaApplication.getVisaApplicationId());
+            Visa visa = new Visa(validUtilString, visaType, citizen.getPassportNumber(), embassy.getEmbassyId(), visaApplication.getVisaApplicationId());
             mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Visa/post_request_" + basicInfo.getFirstName() + ".json"), visa);
         } else { //reject visa application & update message
             visaStatus.setState(Constants.APPLICATION_STATUS_DENIED);

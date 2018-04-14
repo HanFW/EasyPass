@@ -110,7 +110,7 @@ public class LocalContactViewListManagedBean implements Serializable {
         System.out.println("Validate LocalContact: " + localContact.getLocalContactId());
 
         EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
-        String id = endorser.getId();
+        String id = endorser.getEndorserId();
         localContact.setEndorseBy(id);
 
         localContact.setEndorsementState(Constants.STATUS_VERIFIED);
@@ -126,7 +126,7 @@ public class LocalContactViewListManagedBean implements Serializable {
         System.out.println("Reject LocalContact: " + localContact.getLocalContactId());
 
         EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
-        String id = endorser.getId();
+        String id = endorser.getEndorserId();
         localContact.setEndorseBy(id);
 
         localContact.setEndorsementState(Constants.STATUS_INVALIDATE);

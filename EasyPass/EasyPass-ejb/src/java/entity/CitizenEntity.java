@@ -7,8 +7,6 @@ package entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -17,20 +15,20 @@ import javax.persistence.Id;
  */
 @Entity
 public class CitizenEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private String citizenId;
     private String accountNumber;
     private String password;
     private String passwordSalt;
 
-    public String getId() {
-        return id;
+    public String getCitizenId() {
+        return citizenId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCitizenId(String citizenId) {
+        this.citizenId = citizenId;
     }
 
     public String getAccountNumber() {

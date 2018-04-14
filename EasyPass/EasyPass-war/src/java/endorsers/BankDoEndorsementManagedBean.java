@@ -48,7 +48,7 @@ public class BankDoEndorsementManagedBean implements Serializable {
 
         //$$$ValidateBankStatement transaction
         EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
-        String id = endorser.getId();
+        String id = endorser.getEndorserId();
         bankStatement.setEndorseBy(id);
 
         if (decision.equals("Validated")) {

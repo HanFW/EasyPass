@@ -54,7 +54,7 @@ public class SPFDoEndorsementManagedBean implements Serializable {
         //get endorserID 
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
-        String endorserID = endorser.getId();
+        String endorserID = endorser.getEndorserId();
 
         String owner = criminalRecord.getOwner();
         if (decision.equals("Validated")) {

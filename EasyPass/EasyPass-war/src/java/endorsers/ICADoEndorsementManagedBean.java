@@ -48,7 +48,7 @@ public class ICADoEndorsementManagedBean implements Serializable{
         System.out.println("BasicInfo " + basicInfo.getBasicInfoId() + ": " + decision);
         
         EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
-        String id = endorser.getId();
+        String id = endorser.getEndorserId();
         basicInfo.setEndorseBy(id);
         
         

@@ -50,7 +50,7 @@ public class TransportationProviderDoEndorsementManagedBean implements Serializa
         System.out.println("TransportationReference " + transportationReference.getTransportationReferenceId() + ": " + decision);
 
         EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
-        String id = endorser.getId();
+        String id = endorser.getEndorserId();
         transportationReference.setEndorseBy(id);
 
         if (decision.equals("Validated")) {

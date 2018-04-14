@@ -41,7 +41,7 @@ public class CitizenViewApplicationStatusManagedBean {
     public VisaApplication getVisaApplication() throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         CitizenEntity citizen = (CitizenEntity) ec.getSessionMap().get("citizen");
-        String id = citizen.getId();//get citizenID (passport number)
+        String id = citizen.getCitizenId();//get citizenID (passport number)
 
         //get passport by passport number
         ObjectMapper mapper = new ObjectMapper();

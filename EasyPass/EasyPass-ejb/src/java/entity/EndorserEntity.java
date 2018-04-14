@@ -7,8 +7,6 @@ package entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -17,22 +15,22 @@ import javax.persistence.Id;
  */
 @Entity
 public class EndorserEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private String endorserId;
     private String accountNumber;
     private String password;
     private String passwordSalt;
     private String endorserRole;
     private String endorserName;
 
-    public String getId() {
-        return id;
+    public String getEndorserId() {
+        return endorserId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEndorserId(String endorserId) {
+        this.endorserId = endorserId;
     }
 
     public String getAccountNumber() {

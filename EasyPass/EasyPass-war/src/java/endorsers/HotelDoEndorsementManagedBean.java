@@ -50,7 +50,7 @@ public class HotelDoEndorsementManagedBean implements Serializable {
         System.out.println("Accommodation " + accommodation.getAccommodationId() + ": " + decision);
 
         EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
-        String id = endorser.getId();
+        String id = endorser.getEndorserId();
         accommodation.setEndorseBy(id);
 
         if (decision.equals("Validated")) {
