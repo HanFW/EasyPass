@@ -73,6 +73,7 @@ public class CitizenViewEVisaManagedBean implements Serializable {
                             .header("accept", "application/json")
                             .asJson();
                     passport = mapper.readValue(passportResponse.getBody().getObject().toString(), Passport.class);
+                    System.out.println(passportResponse.getBody().getObject().toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -116,6 +117,7 @@ public class CitizenViewEVisaManagedBean implements Serializable {
                         .header("accept", "application/json")
                         .asJson();
                 passport = mapper.readValue(passportResponse.getBody().getObject().toString(), Passport.class);
+                System.out.println(passportResponse.getBody().getObject().toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -129,6 +131,7 @@ public class CitizenViewEVisaManagedBean implements Serializable {
                         .header("accept", "application/json")
                         .asJson();
                 visa = mapper.readValue(visaResponse.getBody().getObject().toString(), Visa.class);
+                System.out.println(visaResponse.getBody().getObject().toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -6,6 +6,9 @@
 package endorsers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import entity.EndorserEntity;
 import java.io.File;
 import java.io.IOException;
@@ -46,21 +49,53 @@ public class BankDoEndorsementManagedBean implements Serializable {
     public void validateDocument() throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
-        //$$$ValidateBankStatement transaction
-        EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
-        String id = endorser.getEndorserId();
-        bankStatement.setEndorseBy(id);
+        if (Constants.localTesting) {
 
-        if (decision.equals("Validated")) {
-            bankStatement.setEndorseStatus(Constants.STATUS_VERIFIED);
+            //$$$ValidateBankStatement transaction
+            EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+            String id = endorser.getEndorserId();
+            bankStatement.setEndorseBy(id);
+
+            if (decision.equals("Validated")) {
+                bankStatement.setEndorseStatus(Constants.STATUS_VERIFIED);
+            } else {
+                bankStatement.setEndorseStatus(Constants.STATUS_INVALIDATE);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BankStatement/post_request" + bankStatement.getOwner() + ".json"), bankStatement);
         } else {
-            bankStatement.setEndorseStatus(Constants.STATUS_INVALIDATE);
+
+            //$$$ValidateBankStatement transaction
+            EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+            String id = endorser.getEndorserId();
+            bankStatement.setEndorseBy(id);
+
+            if (decision.equals("Validated")) {
+                bankStatement.setEndorseStatus(Constants.STATUS_VERIFIED);
+            } else {
+                bankStatement.setEndorseStatus(Constants.STATUS_INVALIDATE);
+            }
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            try {
+                HttpResponse<JsonNode> bankStatementResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.BankStatement/" + bankStatement.getBankStatementId())
+                        .field("$class", Constants.ASSET_BANKSTATEMENT)
+                        .field("bankStatementId", bankStatement.getBankStatementId())
+                        .field("bankName", bankStatement.getBankName())
+                        .field("accountNumber", bankStatement.getAccountNumber())
+                        .field("bankStatementImageURL", bankStatement.getBankStatementImageURL())
+                        .field("endorseStatus", bankStatement.getEndorseStatus())
+                        .field("owner", bankStatement.getOwner())
+                        .field("visaApplication", bankStatement.getVisaApplication())
+                        .asJson();
+                System.out.println(bankStatementResponse.getBody());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BankStatement/post_request" + bankStatement.getOwner() + ".json"), bankStatement);
 
         System.out.println("Bank Statement " + bankStatement.getBankStatementId() + ": " + decision);
-
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/bankViewList.xhtml?faces-redirect=true");
     }
 

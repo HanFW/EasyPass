@@ -6,6 +6,9 @@
 package endorsers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import entity.EndorserEntity;
 import java.io.File;
 import java.io.IOException;
@@ -49,18 +52,49 @@ public class HotelDoEndorsementManagedBean implements Serializable {
         //$$$ValidateAccommodation transaction
         System.out.println("Accommodation " + accommodation.getAccommodationId() + ": " + decision);
 
-        EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
-        String id = endorser.getEndorserId();
-        accommodation.setEndorseBy(id);
+        if (Constants.localTesting) {
 
-        if (decision.equals("Validated")) {
-            accommodation.setEndorseStatus(Constants.STATUS_VERIFIED);
+            EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+            String id = endorser.getEndorserId();
+            accommodation.setEndorseBy(id);
+
+            if (decision.equals("Validated")) {
+                accommodation.setEndorseStatus(Constants.STATUS_VERIFIED);
+            } else {
+                accommodation.setEndorseStatus(Constants.STATUS_INVALIDATE);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accommodation/post_request" + accommodation.getOwner() + ".json"), accommodation);
+
         } else {
-            accommodation.setEndorseStatus(Constants.STATUS_INVALIDATE);
+
+            EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+            String id = endorser.getEndorserId();
+            accommodation.setEndorseBy(id);
+
+            if (decision.equals("Validated")) {
+                accommodation.setEndorseStatus(Constants.STATUS_VERIFIED);
+            } else {
+                accommodation.setEndorseStatus(Constants.STATUS_INVALIDATE);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                HttpResponse<JsonNode> accommodationResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.Accommodation/" + accommodation.getAccommodationId())
+                        .header("accept", "application/json")
+                        .field("$class", Constants.ASSET_ACCOMMODATION)
+                        .field("accommodationId", accommodation.getAccommodationId())
+                        .field("carrierName", accommodation.getCarrierName())
+                        .field("referenceNumber", accommodation.getReferenceNumber())
+                        .field("accommodationReferenceImageURL", accommodation.getAccommodationReferenceImageURL())
+                        .field("endorseStatus", accommodation.getEndorseStatus())
+                        .field("owner", accommodation.getOwner())
+                        .field("visaApplication", accommodation.getVisaApplication())
+                        .asJson();
+                System.out.println(accommodationResponse.getBody());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accommodation/post_request" + accommodation.getOwner() + ".json"), accommodation);
-        
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/hotelViewList.xhtml?faces-redirect=true");
     }
 
