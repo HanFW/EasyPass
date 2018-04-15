@@ -19,7 +19,7 @@ public class Insurance {
     private String companyName;
     private String referenceNumber;
     private String insuranceContractImageURL;
-    private String endorsementState;
+    private String endorseStatus;
     private String owner; //citizenId
     private String endorseBy; //insuranceCompanyId
     private String visaApplication; //visaApplicationId
@@ -27,7 +27,7 @@ public class Insurance {
     public Insurance() {
         this.$class = Constants.ASSET_INSURANCE;
         this.insuranceId = UUID.randomUUID().toString();
-        this.endorsementState = Constants.STATUS_PENDING;
+        this.endorseStatus = Constants.STATUS_PENDING;
     }
 
     public Insurance(String companyName, String referenceNumber, String insuranceContractImageURL, String visaApplication, String owner) {
@@ -79,12 +79,12 @@ public class Insurance {
         this.insuranceContractImageURL = insuranceContractImageURL;
     }
 
-    public String getEndorsementState() {
-        return endorsementState;
+    public String getEndorseStatus() {
+        return endorseStatus;
     }
 
-    public void setEndorsementState(String endorsementState) {
-        this.endorsementState = endorsementState;
+    public void setEndorseStatus(String endorseStatus) {
+        this.endorseStatus = endorseStatus;
     }
 
     public String getEndorseBy() {

@@ -18,7 +18,7 @@ public class CriminalRecord {
     private String criminalRecordId;
     private String recordNumber;
     private String recordDetail;
-    private String endorsementState;
+    private String endorseStatus;
     private String owner;
     private String endorseBy;
     private String visaApplication;
@@ -26,9 +26,11 @@ public class CriminalRecord {
     public CriminalRecord() {
         this.$class = Constants.ASSET_CRIMINALRECORD;
         this.criminalRecordId = UUID.randomUUID().toString();
-        this.endorsementState = Constants.STATUS_PENDING;
+        this.endorseStatus = Constants.STATUS_PENDING;
+        this.recordNumber = " ";
+        this.recordDetail = " ";
     }
-    
+
     public CriminalRecord(String visaApplication, String owner) {
         this();
         this.visaApplication = Constants.ASSET_VISAAPPLICATION + "#" + visaApplication;
@@ -59,12 +61,12 @@ public class CriminalRecord {
         this.recordDetail = recordDetail;
     }
 
-    public String getEndorsementState() {
-        return endorsementState;
+    public String getEndorseStatus() {
+        return endorseStatus;
     }
 
-    public void setEndorsementState(String endorsementState) {
-        this.endorsementState = endorsementState;
+    public void setEndorseStatus(String endorseStatus) {
+        this.endorseStatus = endorseStatus;
     }
 
     public String getOwner() {
@@ -98,5 +100,5 @@ public class CriminalRecord {
     public void setVisaApplication(String visaApplication) {
         this.visaApplication = visaApplication;
     }
-    
+
 }

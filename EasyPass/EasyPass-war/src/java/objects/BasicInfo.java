@@ -26,7 +26,7 @@ public class BasicInfo {
     private String passportNumber;
     private String sex;
     private String nationality;
-    private String endorsementState;
+    private String endorseStatus;
     private String owner; //citizenId
     private String endorseBy; //icaId
     private String visaApplication; //visaApplicationId
@@ -34,7 +34,7 @@ public class BasicInfo {
     public BasicInfo() {
         this.$class = Constants.ASSET_BASICINFO;
         this.basicInfoId = UUID.randomUUID().toString();
-        this.endorsementState = Constants.STATUS_PENDING;
+        this.endorseStatus = Constants.STATUS_PENDING;
     }
 
     public BasicInfo(String firstName, String lastName, String birthday, String countryOfResidence, String identityNumber, String residentialAddress, String maritalStatus, String passportNumber, String sex, String nationality, String visaApplication, String owner) {
@@ -149,12 +149,12 @@ public class BasicInfo {
         this.nationality = nationality;
     }
 
-    public String getEndorsementState() {
-        return endorsementState;
+    public String getEndorseStatus() {
+        return endorseStatus;
     }
 
-    public void setEndorsementState(String endorsementState) {
-        this.endorsementState = endorsementState;
+    public void setEndorseStatus(String endorseStatus) {
+        this.endorseStatus = endorseStatus;
     }
 
     public String getOwner() {

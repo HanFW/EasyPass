@@ -40,7 +40,7 @@ public class HotelViewListManagedBean implements Serializable {
 
         ArrayList<Accommodation> filteredAccommodations = new ArrayList<>();
         for (int i = 0; i < accommodations.size(); i++) {
-            if (accommodations.get(i).getEndorsementState().equals("PENDING")) {
+            if (accommodations.get(i).getEndorseStatus().equals("PENDING")) {
                 filteredAccommodations.add(accommodations.get(i));
             }
         }
@@ -56,7 +56,7 @@ public class HotelViewListManagedBean implements Serializable {
 
         ArrayList<Accommodation> filteredAccommodations = new ArrayList<>();
         for (int i = 0; i < accommodations.size(); i++) {
-            if (accommodations.get(i).getEndorsementState().equals("VERIFIED")) {
+            if (accommodations.get(i).getEndorseStatus().equals("VERIFIED")) {
                 filteredAccommodations.add(accommodations.get(i));
             }
         }
@@ -72,7 +72,7 @@ public class HotelViewListManagedBean implements Serializable {
 
         ArrayList<Accommodation> filteredAccommodations = new ArrayList<>();
         for (int i = 0; i < accommodations.size(); i++) {
-            if (accommodations.get(i).getEndorsementState().equals("INVALIDATE")) {
+            if (accommodations.get(i).getEndorseStatus().equals("INVALIDATE")) {
                 filteredAccommodations.add(accommodations.get(i));
             }
         }

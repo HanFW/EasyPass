@@ -185,14 +185,15 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
                             .field("$class", Constants.ASSET_VISASTATUS)
                             .field("visaStatusId", visaStatus.getVisaStatusId())
                             .field("message", visaStatus.getMessage())
-                            .field("statusState", visaStatus.getState())
+                            .field("statusState", visaStatus.getStatusState())
                             .field("owner", visaStatus.getOwner())
                             .field("visaApplication", visaStatus.getVisaApplication())
                             .asJson();
+                    System.out.println(visaStatusResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                
+
                 // - create new basic info
                 BasicInfo basicInfo = new BasicInfo(firstName, lastName, formatDate(birthday), countryOfResidence, identityNumber, residentialAddress, maritalStatus, citizen.getCitizenId(), sex, nationality, applicationId, citizen.getCitizenId());
                 try {
@@ -205,15 +206,16 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
                             .field("birthday", basicInfo.getBirthday())
                             .field("identityNumber", basicInfo.getIdentityNumber())
                             .field("residentialAddress", basicInfo.getResidentialAddress())
-                            .field("countryOfResident", basicInfo.getCountryOfResidence())
+                            .field("countryOfResidence", basicInfo.getCountryOfResidence())
                             .field("maritalStatus", basicInfo.getMaritalStatus())
                             .field("passportNumber", basicInfo.getPassportNumber())
                             .field("sex", basicInfo.getSex())
                             .field("nationality", basicInfo.getNationality())
-                            .field("endorseStatus", basicInfo.getEndorsementState())
+                            .field("endorseStatus", basicInfo.getEndorseStatus())
                             .field("owner", basicInfo.getOwner())
                             .field("visaApplication", basicInfo.getVisaApplication())
                             .asJson();
+                    System.out.println(basicInfoResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -228,10 +230,11 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
                             .field("bankName", bankStatement.getBankName())
                             .field("accountNumber", bankStatement.getAccountNumber())
                             .field("bankStatementImageURL", bankStatement.getBankStatementImageURL())
-                            .field("endorseStatus", bankStatement.getEndorsementState())
+                            .field("endorseStatus", bankStatement.getEndorseStatus())
                             .field("owner", bankStatement.getOwner())
                             .field("visaApplication", bankStatement.getVisaApplication())
                             .asJson();
+                    System.out.println(bankStatementResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -246,10 +249,11 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
                             .field("carrierName", transportation.getCarrierName())
                             .field("reference", transportation.getReference())
                             .field("transportationReferenceImageURL", transportation.getTransportationReferenceImageURL())
-                            .field("endorseStatus", transportation.getEndorsementState())
+                            .field("endorseStatus", transportation.getEndorseStatus())
                             .field("owner", transportation.getOwner())
                             .field("visaApplication", transportation.getVisaApplication())
                             .asJson();
+                    System.out.println(transportationResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -263,11 +267,12 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
                             .field("accommodationId", accommodation.getAccommodationId())
                             .field("carrierName", accommodation.getCarrierName())
                             .field("referenceNumber", accommodation.getReferenceNumber())
-                            .field("accommodationReferenceImageURL", accommodation.getAccommodationImageURL())
-                            .field("endorseStatus", accommodation.getEndorsementState())
+                            .field("accommodationReferenceImageURL", accommodation.getAccommodationReferenceImageURL())
+                            .field("endorseStatus", accommodation.getEndorseStatus())
                             .field("owner", accommodation.getOwner())
                             .field("visaApplication", accommodation.getVisaApplication())
                             .asJson();
+                    System.out.println(accommodationResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -282,10 +287,11 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
                             .field("companyName", insurance.getCompanyName())
                             .field("referenceNumber", insurance.getReferenceNumber())
                             .field("insuranceContractImageURL", insurance.getInsuranceContractImageURL())
-                            .field("endorseStatus", insurance.getEndorsementState())
+                            .field("endorseStatus", insurance.getEndorseStatus())
                             .field("owner", insurance.getOwner())
                             .field("visaApplication", insurance.getVisaApplication())
                             .asJson();
+                    System.out.println(insuranceResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -299,10 +305,11 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
                             .field("localContactId", localContact.getLocalContactId())
                             .field("contactName", localContact.getContactName())
                             .field("identityNumber", localContact.getIdentityNumber())
-                            .field("endorseStatus", localContact.getEndorsementState())
+                            .field("endorseStatus", localContact.getEndorseStatus())
                             .field("owner", localContact.getOwner())
                             .field("visaApplication", localContact.getVisaApplication())
                             .asJson();
+                    System.out.println(localContactResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -316,25 +323,24 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
                             .field("criminalRecordId", criminalRecord.getCriminalRecordId())
                             .field("recordNumber", criminalRecord.getRecordNumber())
                             .field("recordDetail", criminalRecord.getRecordDetail())
-                            .field("endorseStatus", criminalRecord.getEndorsementState())
+                            .field("endorseStatus", criminalRecord.getEndorseStatus())
                             .field("owner", criminalRecord.getOwner())
                             .field("visaApplication", criminalRecord.getVisaApplication())
                             .asJson();
+                    System.out.println(criminalRecordResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                // - update visa application
-                visaApplication.updateVisaApplicationInfo(formatDate(startDate), formatDate(endDate), purposeOfVisit);
-                visaApplication.updateVisaApplicationReferences(visaStatus.getVisaStatusId(),
-                        citizen.getCitizenId(), citizen.getCitizenId(),
-                        basicInfo.getBasicInfoId(), bankStatement.getBankStatementId(),
-                        transportation.getTransportationReferenceId(), accommodation.getAccommodationId(),
-                        insurance.getInsuranceId(), localContact.getLocalContactId(), criminalRecord.getCriminalRecordId());
                 try {
-                    HttpResponse<JsonNode> visaApplicationResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.VisaApplication/" + visaApplication.getVisaApplicationId())
+                    HttpResponse<JsonNode> visaApplicationResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.VisaApplication")
                             .header("accept", "application/json")
                             .field("$class", Constants.ASSET_VISAAPPLICATION)
+                            .field("visaApplicationId", visaApplication.getVisaApplicationId())
+                            .field("startDate", formatDate(startDate))
+                            .field("endDate", formatDate(endDate))
+                            .field("purposeOfVisit", purposeOfVisit)
+                            .field("state", "PENDING")
                             .field("visaStatus", visaStatus.getVisaStatusId())
                             .field("passport", citizen.getCitizenId())
                             .field("basicInfo", basicInfo.getBasicInfoId())
@@ -346,6 +352,17 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
                             .field("criminalRecord", criminalRecord.getCriminalRecordId())
                             .field("owner", citizen.getCitizenId())
                             .asJson();
+                    System.out.println("post" + visaApplicationResponse.getBody());
+
+                    HttpResponse<JsonNode> passportResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.Passport/" + citizen.getCitizenId())
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_PASSPORT)
+                            .field("passportNumber", citizen.getCitizenId())
+                            .field("fullName", firstName + " " + lastName)
+                            .field("visaApplications", visaApplicationResponse.getBody().getArray())
+                            .field("owner", citizen.getCitizenId())
+                            .asJson();
+                    System.out.println(passportResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -353,7 +370,9 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
 
             //redirect to view application status
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            ec.redirect(ec.getRequestContextPath() + "/web/citizen/citizenViewStatus.xhtml?faces-redirect=true");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successfully Submitted!", " "));
+            ec.getFlash().setKeepMessages(true);
+            ec.redirect(ec.getRequestContextPath() + "/web/citizen/citizenPortalMainPage.xhtml?faces-redirect=true");
         }
     }
 

@@ -5,16 +5,20 @@
  */
 package objects;
 
+import java.util.List;
+
 /**
  *
  * @author Jingyuan
  */
 public class Passport {
-     private String $class;
-     private String passportNumber;
-     private String[] visaApplications;
-     private String owner;
-     private String visaId;
+
+    private String $class;
+    private String passportNumber;
+    private List<VisaApplication> visaApplications;
+    private String owner;
+    private List<Visa> visas;
+    private String fullName;
 
     public String get$class() {
         return $class;
@@ -32,12 +36,20 @@ public class Passport {
         this.passportNumber = passportNumber;
     }
 
-    public String[] getVisaApplications() {
+    public List<VisaApplication> getVisaApplications() {
         return visaApplications;
     }
 
-    public void setVisaApplications(String[] visaApplications) {
+    public void setVisaApplications(List<VisaApplication> visaApplications) {
         this.visaApplications = visaApplications;
+    }
+
+    public List<Visa> getVisas() {
+        return visas;
+    }
+
+    public void setVisas(List<Visa> visas) {
+        this.visas = visas;
     }
 
     public String getOwner() {
@@ -48,12 +60,12 @@ public class Passport {
         this.owner = owner;
     }
 
-    public String getVisaId() {
-        return visaId;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setVisaId(String visaId) {
-        this.visaId = visaId;
-    }   
-     
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
 }

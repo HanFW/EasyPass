@@ -18,7 +18,7 @@ public class BankStatement {
     private String bankName;
     private String accountNumber;
     private String bankStatementImageURL;
-    private String endorsementState;
+    private String endorseStatus;
     private String owner; //citizenId
     private String endorseBy; //bankId
     private String visaApplication; //visaApplicationId
@@ -26,7 +26,7 @@ public class BankStatement {
     public BankStatement() {
         this.$class = Constants.ASSET_BANKSTATEMENT;
         this.bankStatementId = UUID.randomUUID().toString();
-        this.endorsementState = Constants.STATUS_PENDING;
+        this.endorseStatus = Constants.STATUS_PENDING;
     }
 
     public BankStatement(String bankName, String accountNumber, String bankStatementImageURL, String visaApplication, String owner) {
@@ -78,12 +78,12 @@ public class BankStatement {
         this.bankStatementImageURL = bankStatementImageURL;
     }
 
-    public String getEndorsementState() {
-        return endorsementState;
+    public String getEndorseStatus() {
+        return endorseStatus;
     }
 
-    public void setEndorsementState(String endorsementState) {
-        this.endorsementState = endorsementState;
+    public void setEndorseStatus(String endorseStatus) {
+        this.endorseStatus = endorseStatus;
     }
 
     public String getOwner() {

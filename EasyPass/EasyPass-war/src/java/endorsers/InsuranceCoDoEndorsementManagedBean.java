@@ -54,9 +54,9 @@ public class InsuranceCoDoEndorsementManagedBean implements Serializable {
         insurance.setEndorseBy(id);
 
         if (decision.equals("Validated")) {
-            insurance.setEndorsementState(Constants.STATUS_VERIFIED);
+            insurance.setEndorseStatus(Constants.STATUS_VERIFIED);
         } else {
-            insurance.setEndorsementState(Constants.STATUS_INVALIDATE);
+            insurance.setEndorseStatus(Constants.STATUS_INVALIDATE);
         }
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Insurance/post_request" + insurance.getOwner() + ".json"), insurance);

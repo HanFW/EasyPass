@@ -53,9 +53,9 @@ public class ICADoEndorsementManagedBean implements Serializable{
         
         
         if (decision.equals("Validated")) {
-            basicInfo.setEndorsementState(Constants.STATUS_VERIFIED);
+            basicInfo.setEndorseStatus(Constants.STATUS_VERIFIED);
         } else {
-            basicInfo.setEndorsementState(Constants.STATUS_INVALIDATE);
+            basicInfo.setEndorseStatus(Constants.STATUS_INVALIDATE);
         }
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BasicInfo/post_request" + basicInfo.getOwner() + ".json"), basicInfo);

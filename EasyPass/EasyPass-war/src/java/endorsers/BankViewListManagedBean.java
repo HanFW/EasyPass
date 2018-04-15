@@ -40,7 +40,7 @@ public class BankViewListManagedBean {
 
         ArrayList<BankStatement> filteredBankStatements = new ArrayList<>();
         for (int i = 0; i < bankStatements.size(); i++) {
-            if (bankStatements.get(i).getEndorsementState().equals("PENDING")) {
+            if (bankStatements.get(i).getEndorseStatus().equals("PENDING")) {
                 filteredBankStatements.add(bankStatements.get(i));
             }
         }
@@ -57,7 +57,7 @@ public class BankViewListManagedBean {
 
         ArrayList<BankStatement> filteredBankStatements = new ArrayList<>();
         for (int i = 0; i < bankStatements.size(); i++) {
-            if (bankStatements.get(i).getEndorsementState().equals("VERIFIED")) {
+            if (bankStatements.get(i).getEndorseStatus().equals("VERIFIED")) {
                 filteredBankStatements.add(bankStatements.get(i));
             }
         }
@@ -74,7 +74,7 @@ public class BankViewListManagedBean {
 
         ArrayList<BankStatement> filteredBankStatements = new ArrayList<>();
         for (int i = 0; i < bankStatements.size(); i++) {
-            if (bankStatements.get(i).getEndorsementState().equals("INVALIDATE")) {
+            if (bankStatements.get(i).getEndorseStatus().equals("INVALIDATE")) {
                 filteredBankStatements.add(bankStatements.get(i));
             }
         }

@@ -8,6 +8,8 @@
 
     <ui:define name="content">
         <h:form enctype="multipart/form-data">
+            <p:messages id="message" globalOnly="true"/>
+
             <p:wizard widgetVar ="visaApplicationWizard" flowListener="#{citizenApplyForVisaManagedBean.onFlowProcess}" showNavBar="false">
                 <p:tab id="basic">
                     <h:panelGrid columns="1">
@@ -247,7 +249,7 @@
                             <f:selectItem itemLabel="Zimbabwe" itemValue="Zimbabwe" />
                         </p:selectOneMenu>
                         <p:message for="nationality"/>
-                        
+
                         <p:outputLabel for="countryOfResidence" value="Country of residence: " />
                         <p:selectOneMenu id="countryOfResidence" value="#{citizenApplyForVisaManagedBean.countryOfResidence}" required="true" requiredMessage="Required Field">
                             <f:selectItem itemLabel="" itemValue="" noSelectionOption="true"/>

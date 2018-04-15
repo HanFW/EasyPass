@@ -40,7 +40,7 @@ public class ICAViewListManagedBean implements Serializable {
 
         ArrayList<BasicInfo> filteredBasicInfos = new ArrayList<>();
         for (int i = 0; i < basicInfos.size(); i++) {
-            if (basicInfos.get(i).getEndorsementState().equals("PENDING")) {
+            if (basicInfos.get(i).getEndorseStatus().equals("PENDING")) {
                 filteredBasicInfos.add(basicInfos.get(i));
             }
         }
@@ -56,7 +56,7 @@ public class ICAViewListManagedBean implements Serializable {
 
         ArrayList<BasicInfo> filteredBasicInfos = new ArrayList<>();
         for (int i = 0; i < basicInfos.size(); i++) {
-            if (basicInfos.get(i).getEndorsementState().equals("VERIFIED")) {
+            if (basicInfos.get(i).getEndorseStatus().equals("VERIFIED")) {
                 filteredBasicInfos.add(basicInfos.get(i));
             }
         }
@@ -72,7 +72,7 @@ public class ICAViewListManagedBean implements Serializable {
 
         ArrayList<BasicInfo> filteredBasicInfos = new ArrayList<>();
         for (int i = 0; i < basicInfos.size(); i++) {
-            if (basicInfos.get(i).getEndorsementState().equals("INVALIDATE")) {
+            if (basicInfos.get(i).getEndorseStatus().equals("INVALIDATE")) {
                 filteredBasicInfos.add(basicInfos.get(i));
             }
         }

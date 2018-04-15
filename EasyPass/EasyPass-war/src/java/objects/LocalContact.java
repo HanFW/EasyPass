@@ -18,7 +18,7 @@ public class LocalContact {
     private String localContactId;
     private String contactName;
     private String identityNumber;
-    private String endorsementState;
+    private String endorseStatus;
     private String owner; //citizenId
     private String endorseBy; //localContactPersonId
     private String visaApplication; //visaApplicationId
@@ -26,7 +26,7 @@ public class LocalContact {
     public LocalContact() {
         this.$class = Constants.ASSET_LOCALCONTACT;
         this.localContactId = UUID.randomUUID().toString();
-        this.endorsementState = Constants.STATUS_PENDING;
+        this.endorseStatus = Constants.STATUS_PENDING;
     }
 
     public LocalContact(String contactName, String identityNumber, String visaApplication, String owner) {
@@ -69,12 +69,12 @@ public class LocalContact {
         this.identityNumber = identityNumber;
     }
 
-    public String getEndorsementState() {
-        return endorsementState;
+    public String getEndorseStatus() {
+        return endorseStatus;
     }
 
-    public void setEndorsementState(String endorsementState) {
-        this.endorsementState = endorsementState;
+    public void setEndorseStatus(String endorseStatus) {
+        this.endorseStatus = endorseStatus;
     }
 
     public String getEndorseBy() {

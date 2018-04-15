@@ -40,7 +40,7 @@ public class InsuranceCoViewListManagedBean implements Serializable {
 
         ArrayList<Insurance> filteredInsurances = new ArrayList<>();
         for (int i = 0; i < insurances.size(); i++) {
-            if (insurances.get(i).getEndorsementState().equals("PENDING")) {
+            if (insurances.get(i).getEndorseStatus().equals("PENDING")) {
                 filteredInsurances.add(insurances.get(i));
             }
         }
@@ -56,7 +56,7 @@ public class InsuranceCoViewListManagedBean implements Serializable {
 
         ArrayList<Insurance> filteredInsurances = new ArrayList<>();
         for (int i = 0; i < insurances.size(); i++) {
-            if (insurances.get(i).getEndorsementState().equals("VERIFIED")) {
+            if (insurances.get(i).getEndorseStatus().equals("VERIFIED")) {
                 filteredInsurances.add(insurances.get(i));
             }
         }
@@ -72,7 +72,7 @@ public class InsuranceCoViewListManagedBean implements Serializable {
 
         ArrayList<Insurance> filteredInsurances = new ArrayList<>();
         for (int i = 0; i < insurances.size(); i++) {
-            if (insurances.get(i).getEndorsementState().equals("INVALIDATE")) {
+            if (insurances.get(i).getEndorseStatus().equals("INVALIDATE")) {
                 filteredInsurances.add(insurances.get(i));
             }
         }

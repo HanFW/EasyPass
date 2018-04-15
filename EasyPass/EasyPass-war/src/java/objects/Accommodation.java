@@ -17,8 +17,8 @@ public class Accommodation {
     private String accommodationId;
     private String carrierName;
     private String referenceNumber;
-    private String accommodationImageURL;
-    private String endorsementState;
+    private String accommodationReferenceImageURL;
+    private String endorseStatus;
     private String owner; //citizenId
     private String endorseBy; //hotelId
     private String visaApplication; //visaApplicationId
@@ -26,14 +26,14 @@ public class Accommodation {
     public Accommodation() {
         this.$class = Constants.ASSET_ACCOMMODATION;
         this.accommodationId = UUID.randomUUID().toString();
-        this.endorsementState = Constants.STATUS_PENDING;
+        this.endorseStatus = Constants.STATUS_PENDING;
     }
 
     public Accommodation(String carrierName, String referenceNumber, String accommodationImageURL, String visaApplication, String owner) {
         this();
         this.carrierName = carrierName;
         this.referenceNumber = referenceNumber;
-        this.accommodationImageURL = accommodationImageURL;
+        this.accommodationReferenceImageURL = accommodationImageURL;
         this.visaApplication = Constants.ASSET_VISAAPPLICATION + "#" + visaApplication;
         this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
     }
@@ -78,20 +78,20 @@ public class Accommodation {
         this.referenceNumber = referenceNumber;
     }
 
-    public String getAccommodationImageURL() {
-        return accommodationImageURL;
+    public String getAccommodationReferenceImageURL() {
+        return accommodationReferenceImageURL;
     }
 
-    public void setAccommodationImageURL(String accommodationImageURL) {
-        this.accommodationImageURL = accommodationImageURL;
+    public void setAccommodationReferenceImageURL(String accommodationReferenceImageURL) {
+        this.accommodationReferenceImageURL = accommodationReferenceImageURL;
     }
 
-    public String getEndorsementState() {
-        return endorsementState;
+    public String getEndorseStatus() {
+        return endorseStatus;
     }
 
-    public void setEndorsementState(String endorsementState) {
-        this.endorsementState = endorsementState;
+    public void setEndorseStatus(String endorseStatus) {
+        this.endorseStatus = endorseStatus;
     }
 
     public String getEndorseBy() {

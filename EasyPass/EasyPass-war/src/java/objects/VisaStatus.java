@@ -15,7 +15,7 @@ import util.Constants;
 public class VisaStatus {
     private String $class;
     private String visaStatusId;
-    private String state;
+    private String statusState;
     private String message;
     private String owner; //citizenId
     private String updatedBy; //embassyId
@@ -24,8 +24,8 @@ public class VisaStatus {
     public VisaStatus() {
         this.$class = Constants.ASSET_VISASTATUS;
         this.visaStatusId = UUID.randomUUID().toString();
-        this.state = Constants.STATUS_PENDING;
-        this.message = "";
+        this.statusState = Constants.STATUS_PENDING;
+        this.message = " ";
     }
     
     public VisaStatus(String visaApplication, String owner) {
@@ -50,12 +50,12 @@ public class VisaStatus {
         this.visaStatusId = visaStatusId;
     }
 
-    public String getState() {
-        return state;
+    public String getStatusState() {
+        return statusState;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatusState(String statusState) {
+        this.statusState = statusState;
     }
 
     public String getMessage() {
@@ -89,6 +89,4 @@ public class VisaStatus {
     public void setVisaApplication(String visaApplication) {
         this.visaApplication = visaApplication;
     }
-    
-    
 }

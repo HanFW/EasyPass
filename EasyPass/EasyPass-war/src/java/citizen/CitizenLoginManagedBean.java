@@ -5,9 +5,6 @@
  */
 package citizen;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
 import entity.CitizenEntity;
 import exception.AuthenticationFailException;
 import exception.NoSuchEntityException;

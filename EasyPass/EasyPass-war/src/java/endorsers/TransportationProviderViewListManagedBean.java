@@ -40,7 +40,7 @@ public class TransportationProviderViewListManagedBean implements Serializable {
 
         ArrayList<TransportationReference> filteredTransportationReferences = new ArrayList<>();
         for (int i = 0; i < transportationReferences.size(); i++) {
-            if (transportationReferences.get(i).getEndorsementState().equals("PENDING")) {
+            if (transportationReferences.get(i).getEndorseStatus().equals("PENDING")) {
                 filteredTransportationReferences.add(transportationReferences.get(i));
             }
         }
@@ -56,7 +56,7 @@ public class TransportationProviderViewListManagedBean implements Serializable {
 
         ArrayList<TransportationReference> filteredTransportationReferences = new ArrayList<>();
         for (int i = 0; i < transportationReferences.size(); i++) {
-            if (transportationReferences.get(i).getEndorsementState().equals("VERIFIED")) {
+            if (transportationReferences.get(i).getEndorseStatus().equals("VERIFIED")) {
                 filteredTransportationReferences.add(transportationReferences.get(i));
             }
         }
@@ -72,7 +72,7 @@ public class TransportationProviderViewListManagedBean implements Serializable {
 
         ArrayList<TransportationReference> filteredTransportationReferences = new ArrayList<>();
         for (int i = 0; i < transportationReferences.size(); i++) {
-            if (transportationReferences.get(i).getEndorsementState().equals("INVALIDATE")) {
+            if (transportationReferences.get(i).getEndorseStatus().equals("INVALIDATE")) {
                 filteredTransportationReferences.add(transportationReferences.get(i));
             }
         }

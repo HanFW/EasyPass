@@ -54,9 +54,9 @@ public class HotelDoEndorsementManagedBean implements Serializable {
         accommodation.setEndorseBy(id);
 
         if (decision.equals("Validated")) {
-            accommodation.setEndorsementState(Constants.STATUS_VERIFIED);
+            accommodation.setEndorseStatus(Constants.STATUS_VERIFIED);
         } else {
-            accommodation.setEndorsementState(Constants.STATUS_INVALIDATE);
+            accommodation.setEndorseStatus(Constants.STATUS_INVALIDATE);
         }
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accommodation/post_request" + accommodation.getOwner() + ".json"), accommodation);

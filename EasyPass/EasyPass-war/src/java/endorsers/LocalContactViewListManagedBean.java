@@ -58,7 +58,7 @@ public class LocalContactViewListManagedBean implements Serializable {
         });
         ArrayList<LocalContact> filteredLocalContacts = new ArrayList<>();
         for (int i = 0; i < localContacts.size(); i++) {
-            if (localContacts.get(i).getEndorsementState().equals("PENDING")) {
+            if (localContacts.get(i).getEndorseStatus().equals("PENDING")) {
                 filteredLocalContacts.add(localContacts.get(i));
             }
         }
@@ -73,7 +73,7 @@ public class LocalContactViewListManagedBean implements Serializable {
         });
         ArrayList<LocalContact> filteredLocalContacts = new ArrayList<>();
         for (int i = 0; i < localContacts.size(); i++) {
-            if (localContacts.get(i).getEndorsementState().equals("INVALIDATE")) {
+            if (localContacts.get(i).getEndorseStatus().equals("INVALIDATE")) {
                 filteredLocalContacts.add(localContacts.get(i));
             }
         }
@@ -88,7 +88,7 @@ public class LocalContactViewListManagedBean implements Serializable {
         });
         ArrayList<LocalContact> filteredLocalContacts = new ArrayList<>();
         for (int i = 0; i < localContacts.size(); i++) {
-            if (localContacts.get(i).getEndorsementState().equals("VERIFIED")) {
+            if (localContacts.get(i).getEndorseStatus().equals("VERIFIED")) {
                 filteredLocalContacts.add(localContacts.get(i));
             }
         }
@@ -113,7 +113,7 @@ public class LocalContactViewListManagedBean implements Serializable {
         String id = endorser.getEndorserId();
         localContact.setEndorseBy(id);
 
-        localContact.setEndorsementState(Constants.STATUS_VERIFIED);
+        localContact.setEndorseStatus(Constants.STATUS_VERIFIED);
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_request" + localContact.getOwner() + ".json"), localContact);
 
@@ -129,7 +129,7 @@ public class LocalContactViewListManagedBean implements Serializable {
         String id = endorser.getEndorserId();
         localContact.setEndorseBy(id);
 
-        localContact.setEndorsementState(Constants.STATUS_INVALIDATE);
+        localContact.setEndorseStatus(Constants.STATUS_INVALIDATE);
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_request" + localContact.getOwner() + ".json"), localContact);
     }

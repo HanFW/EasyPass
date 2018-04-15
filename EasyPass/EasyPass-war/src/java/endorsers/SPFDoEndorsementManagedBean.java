@@ -58,7 +58,7 @@ public class SPFDoEndorsementManagedBean implements Serializable {
 
         String owner = criminalRecord.getOwner();
         if (decision.equals("Validated")) {
-            criminalRecord.setEndorsementState(Constants.STATUS_VERIFIED);
+            criminalRecord.setEndorseStatus(Constants.STATUS_VERIFIED);
             criminalRecord.setEndorseBy(endorserID);
             mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_request" + owner + ".json"), criminalRecord);
         } else {
@@ -67,7 +67,7 @@ public class SPFDoEndorsementManagedBean implements Serializable {
             criminalRecord.setRecordNumber(recordNumber);
             criminalRecord.setRecordDetail(recordDetail);
             String state = Constants.STATUS_INVALIDATE;
-            criminalRecord.setEndorsementState(state);
+            criminalRecord.setEndorseStatus(state);
             criminalRecord.setEndorseBy(endorserID);
             mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_request" + owner + ".json"), criminalRecord);
         }

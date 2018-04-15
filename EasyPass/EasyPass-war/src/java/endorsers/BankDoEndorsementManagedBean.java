@@ -52,9 +52,9 @@ public class BankDoEndorsementManagedBean implements Serializable {
         bankStatement.setEndorseBy(id);
 
         if (decision.equals("Validated")) {
-            bankStatement.setEndorsementState(Constants.STATUS_VERIFIED);
+            bankStatement.setEndorseStatus(Constants.STATUS_VERIFIED);
         } else {
-            bankStatement.setEndorsementState(Constants.STATUS_INVALIDATE);
+            bankStatement.setEndorseStatus(Constants.STATUS_INVALIDATE);
         }
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BankStatement/post_request" + bankStatement.getOwner() + ".json"), bankStatement);

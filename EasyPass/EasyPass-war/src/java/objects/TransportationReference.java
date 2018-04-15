@@ -18,7 +18,7 @@ public class TransportationReference {
     private String carrierName;
     private String reference;
     private String transportationReferenceImageURL;
-    private String endorsementState;
+    private String endorseStatus;
     private String owner; //citizenId
     private String endorseBy; //tranportationproviderId
     private String visaApplication; //visaApplicationId
@@ -26,7 +26,7 @@ public class TransportationReference {
     public TransportationReference() {
         this.$class = Constants.ASSET_TRANSPORTATION;
         this.transportationReferenceId = UUID.randomUUID().toString();
-        this.endorsementState = Constants.STATUS_PENDING;
+        this.endorseStatus = Constants.STATUS_PENDING;
     }
 
     public TransportationReference(String carrierName, String reference, String transportationReferenceImageURL, String visaApplication, String owner) {
@@ -78,12 +78,12 @@ public class TransportationReference {
         this.transportationReferenceImageURL = transportationReferenceImageURL;
     }
 
-    public String getEndorsementState() {
-        return endorsementState;
+    public String getEndorseStatus() {
+        return endorseStatus;
     }
 
-    public void setEndorsementState(String endorsementState) {
-        this.endorsementState = endorsementState;
+    public void setEndorseStatus(String endorseStatus) {
+        this.endorseStatus = endorseStatus;
     }
 
     public String getOwner() {

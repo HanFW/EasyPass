@@ -40,7 +40,7 @@ public class SPFViewListManagedBean {
 
         ArrayList<CriminalRecord> filteredCriminalRecords = new ArrayList<>();
         for (int i = 0; i < criminalRecords.size(); i++) {
-            if (criminalRecords.get(i).getEndorsementState().equals("PENDING")) {
+            if (criminalRecords.get(i).getEndorseStatus().equals("PENDING")) {
                 filteredCriminalRecords.add(criminalRecords.get(i));
             }
         }
@@ -56,7 +56,7 @@ public class SPFViewListManagedBean {
 
         ArrayList<CriminalRecord> filteredCriminalRecords = new ArrayList<>();
         for (int i = 0; i < criminalRecords.size(); i++) {
-            if (criminalRecords.get(i).getEndorsementState().equals("VERIFIED")) {
+            if (criminalRecords.get(i).getEndorseStatus().equals("VERIFIED")) {
                 filteredCriminalRecords.add(criminalRecords.get(i));
             }
         }
@@ -72,7 +72,7 @@ public class SPFViewListManagedBean {
 
         ArrayList<CriminalRecord> filteredCriminalRecords = new ArrayList<>();
         for (int i = 0; i < criminalRecords.size(); i++) {
-            if (criminalRecords.get(i).getEndorsementState().equals("INVALIDATE")) {
+            if (criminalRecords.get(i).getEndorseStatus().equals("INVALIDATE")) {
                 filteredCriminalRecords.add(criminalRecords.get(i));
             }
         }
