@@ -6,6 +6,9 @@
 package endorsers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import entity.EndorserEntity;
 import java.io.File;
 import java.io.IOException;
@@ -49,18 +52,48 @@ public class InsuranceCoDoEndorsementManagedBean implements Serializable {
         //$$$ValidateInsurance transaction
         System.out.println("Insurance " + insurance.getInsuranceId() + ": " + decision);
 
-        EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
-        String id = endorser.getEndorserId();
-        insurance.setEndorseBy(id);
+        if (Constants.localTesting) {
+            EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+            String id = endorser.getEndorserId();
+            insurance.setEndorseBy(id);
 
-        if (decision.equals("Validated")) {
-            insurance.setEndorseStatus(Constants.STATUS_VERIFIED);
+            if (decision.equals("Validated")) {
+                insurance.setEndorseStatus(Constants.STATUS_VERIFIED);
+            } else {
+                insurance.setEndorseStatus(Constants.STATUS_INVALIDATE);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Insurance/post_request" + insurance.getOwner() + ".json"), insurance);
         } else {
-            insurance.setEndorseStatus(Constants.STATUS_INVALIDATE);
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Insurance/post_request" + insurance.getOwner() + ".json"), insurance);
+            EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+            String id = endorser.getEndorserId();
+            insurance.setEndorseBy(id);
 
+            if (decision.equals("Validated")) {
+                insurance.setEndorseStatus(Constants.STATUS_VERIFIED);
+            } else {
+                insurance.setEndorseStatus(Constants.STATUS_INVALIDATE);
+            }
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            try {
+                HttpResponse<JsonNode> insuranceResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.Insurance/" + insurance.getInsuranceId())
+                        .header("accept", "application/json")
+                        .field("$class", Constants.ASSET_INSURANCE)
+                        .field("insuranceId", insurance.getInsuranceId())
+                        .field("companyName", insurance.getCompanyName())
+                        .field("referenceNumber", insurance.getReferenceNumber())
+                        .field("insuranceContractImageURL", insurance.getInsuranceContractImageURL())
+                        .field("endorseStatus", insurance.getEndorseStatus())
+                        .field("owner", insurance.getOwner())
+                        .field("visaApplication", insurance.getVisaApplication())
+                        .asJson();
+                System.out.println(insuranceResponse.getBody());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/insuranceCompanyViewList.xhtml?faces-redirect=true");
     }
 

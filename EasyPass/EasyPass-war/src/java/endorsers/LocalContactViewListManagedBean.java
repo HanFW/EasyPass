@@ -7,6 +7,9 @@ package endorsers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import entity.EndorserEntity;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +23,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import objects.BasicInfo;
 import objects.Citizen;
 import objects.LocalContact;
 import util.Constants;
@@ -34,6 +38,7 @@ public class LocalContactViewListManagedBean implements Serializable {
 
     private ArrayList<LocalContact> localContacts = new ArrayList();
     private LocalContact localContact;
+    private Citizen citizen;
 
     /**
      * Creates a new instance of LocalContactViewListManagedBean
@@ -54,8 +59,22 @@ public class LocalContactViewListManagedBean implements Serializable {
     public ArrayList<LocalContact> getPendingLocalContacts() throws IOException {
         //---Retrieve list of pending visa applicants of the local contact
         ObjectMapper mapper = new ObjectMapper();
-        localContacts = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/get_response.json"), new TypeReference<List<LocalContact>>() {
-        });
+        if (Constants.localTesting) {
+            localContacts = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/get_response.json"), new TypeReference<List<LocalContact>>() {
+            });
+        } else {
+            try {
+                HttpResponse<JsonNode> localContactResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.LocalContact")
+                        .header("accept", "application/json")
+                        .asJson();
+                System.out.println(localContactResponse.getBody().toString());
+                localContacts = mapper.readValue(localContactResponse.getBody().toString(), new TypeReference<List<LocalContact>>() {
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         ArrayList<LocalContact> filteredLocalContacts = new ArrayList<>();
         for (int i = 0; i < localContacts.size(); i++) {
             if (localContacts.get(i).getEndorseStatus().equals("PENDING")) {
@@ -69,8 +88,22 @@ public class LocalContactViewListManagedBean implements Serializable {
     public ArrayList<LocalContact> getRejectedLocalContacts() throws IOException {
         //---Retrieve list of rejected visa applicants of the local contact
         ObjectMapper mapper = new ObjectMapper();
-        localContacts = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/get_response.json"), new TypeReference<List<LocalContact>>() {
-        });
+        if (Constants.localTesting) {
+            localContacts = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/get_response.json"), new TypeReference<List<LocalContact>>() {
+            });
+        } else {
+            try {
+                HttpResponse<JsonNode> localContactResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.LocalContact")
+                        .header("accept", "application/json")
+                        .asJson();
+                System.out.println(localContactResponse.getBody().toString());
+                localContacts = mapper.readValue(localContactResponse.getBody().toString(), new TypeReference<List<LocalContact>>() {
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         ArrayList<LocalContact> filteredLocalContacts = new ArrayList<>();
         for (int i = 0; i < localContacts.size(); i++) {
             if (localContacts.get(i).getEndorseStatus().equals("INVALIDATE")) {
@@ -84,8 +117,22 @@ public class LocalContactViewListManagedBean implements Serializable {
     public ArrayList<LocalContact> getValidatedLocalContacts() throws IOException {
         //---Retrieve list of validated visa applicants of the local contact
         ObjectMapper mapper = new ObjectMapper();
-        localContacts = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/get_response.json"), new TypeReference<List<LocalContact>>() {
-        });
+        if (Constants.localTesting) {
+            localContacts = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/get_response.json"), new TypeReference<List<LocalContact>>() {
+            });
+        } else {
+            try {
+                HttpResponse<JsonNode> localContactResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.LocalContact")
+                        .header("accept", "application/json")
+                        .asJson();
+                System.out.println(localContactResponse.getBody().toString());
+                localContacts = mapper.readValue(localContactResponse.getBody().toString(), new TypeReference<List<LocalContact>>() {
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         ArrayList<LocalContact> filteredLocalContacts = new ArrayList<>();
         for (int i = 0; i < localContacts.size(); i++) {
             if (localContacts.get(i).getEndorseStatus().equals("VERIFIED")) {
@@ -98,8 +145,23 @@ public class LocalContactViewListManagedBean implements Serializable {
 
     //retrive the name of the citizen by citizenID (passportNumber)
     public String getCitizenNamebyID(String citizenID) throws IOException {
+        String[] citizenIdArray = citizenID.split("#");
+
         ObjectMapper mapper = new ObjectMapper();
-        Citizen citizen = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Participant/Citizen/get_response_byID.json"), Citizen.class);
+        if (Constants.localTesting) {
+            citizen = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Participant/Citizen/get_response_byID.json"), Citizen.class);
+        } else {
+            try {
+                HttpResponse<JsonNode> citizenResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Citizen/" + citizenIdArray[1])
+                        .header("accept", "application/json")
+                        .asJson();
+                System.out.println(citizenResponse.getBody().toString());
+                citizen = mapper.readValue(citizenResponse.getBody().getObject().toString(), Citizen.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
         return citizen.getName();
     }
 
@@ -109,14 +171,38 @@ public class LocalContactViewListManagedBean implements Serializable {
         //$$$ValidateLocalContact transaction
         System.out.println("Validate LocalContact: " + localContact.getLocalContactId());
 
-        EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
-        String id = endorser.getEndorserId();
-        localContact.setEndorseBy(id);
+        if (Constants.localTesting) {
+            EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+            String id = endorser.getEndorserId();
+            localContact.setEndorseBy(id);
 
-        localContact.setEndorseStatus(Constants.STATUS_VERIFIED);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_request" + localContact.getOwner() + ".json"), localContact);
+            localContact.setEndorseStatus(Constants.STATUS_VERIFIED);
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_request" + localContact.getOwner() + ".json"), localContact);
+        } else {
+            EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+            String id = endorser.getEndorserId();
+            localContact.setEndorseBy(id);
 
+            localContact.setEndorseStatus(Constants.STATUS_VERIFIED);
+            ObjectMapper mapper = new ObjectMapper();
+
+            try {
+                HttpResponse<JsonNode> localContactResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.LocalContact/" + localContact.getLocalContactId())
+                        .header("accept", "application/json")
+                        .field("$class", Constants.ASSET_LOCALCONTACT)
+                        .field("localContactId", localContact.getLocalContactId())
+                        .field("contactName", localContact.getContactName())
+                        .field("identityNumber", localContact.getIdentityNumber())
+                        .field("endorseStatus", localContact.getEndorseStatus())
+                        .field("owner", localContact.getOwner())
+                        .field("visaApplication", localContact.getVisaApplication())
+                        .asJson();
+                System.out.println(localContactResponse.getBody());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void rejectVisaApplicant(LocalContact localContact) throws IOException {
@@ -125,13 +211,38 @@ public class LocalContactViewListManagedBean implements Serializable {
         //$$$RejectLocalContact transaction
         System.out.println("Reject LocalContact: " + localContact.getLocalContactId());
 
-        EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
-        String id = endorser.getEndorserId();
-        localContact.setEndorseBy(id);
+        if (Constants.localTesting) {
+            EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+            String id = endorser.getEndorserId();
+            localContact.setEndorseBy(id);
 
-        localContact.setEndorseStatus(Constants.STATUS_INVALIDATE);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_request" + localContact.getOwner() + ".json"), localContact);
+            localContact.setEndorseStatus(Constants.STATUS_INVALIDATE);
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_request" + localContact.getOwner() + ".json"), localContact);
+        } else {
+            EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+            String id = endorser.getEndorserId();
+            localContact.setEndorseBy(id);
+
+            localContact.setEndorseStatus(Constants.STATUS_INVALIDATE);
+            ObjectMapper mapper = new ObjectMapper();
+
+            try {
+                HttpResponse<JsonNode> localContactResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.LocalContact/" + localContact.getLocalContactId())
+                        .header("accept", "application/json")
+                        .field("$class", Constants.ASSET_LOCALCONTACT)
+                        .field("localContactId", localContact.getLocalContactId())
+                        .field("contactName", localContact.getContactName())
+                        .field("identityNumber", localContact.getIdentityNumber())
+                        .field("endorseStatus", localContact.getEndorseStatus())
+                        .field("owner", localContact.getOwner())
+                        .field("visaApplication", localContact.getVisaApplication())
+                        .asJson();
+                System.out.println(localContactResponse.getBody());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public LocalContact getLocalContact() {
