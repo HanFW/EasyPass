@@ -25,7 +25,7 @@ public class Visa {
     private String passport;
     private String issuedBy;
     private String visaApplication;
-    
+
     public Visa() {
         this.$class = Constants.ASSET_VISA;
         this.visaId = UUID.randomUUID().toString();
@@ -41,7 +41,7 @@ public class Visa {
         this.issuedBy = Constants.PARTICIPANT_EMBASSY + "#" + issuedBy;
         this.visaApplication = Constants.ASSET_VISAAPPLICATION + "#" + visaApplication;
     }
-    
+
     public String get$class() {
         return $class;
     }
@@ -105,7 +105,5 @@ public class Visa {
     public void setVisaApplication(String visaApplication) {
         this.visaApplication = visaApplication;
     }
-    
-    
 
 }

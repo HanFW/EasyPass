@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -183,6 +184,9 @@ public class EmbassyReviewVisaApplicationManagedBean implements Serializable {
         ObjectMapper mapper = new ObjectMapper();
         if (isApproved) { //crete visa for approved application
 
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Approval Submitted", " "));
+            ec.getFlash().setKeepMessages(true);
+
             if (Constants.localTesting) {
 
                 //update visa status
@@ -240,6 +244,9 @@ public class EmbassyReviewVisaApplicationManagedBean implements Serializable {
                 }
             }
         } else {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rejection Submitted", " "));
+            ec.getFlash().setKeepMessages(true);
 
             //reject visa application & update message
             visaStatus.setStatusState(Constants.APPLICATION_STATUS_DENIED);
