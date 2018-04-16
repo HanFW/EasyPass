@@ -152,7 +152,7 @@ public class EmbassyReviewVisaApplicationManagedBean implements Serializable {
                                 .header("accept", "application/json")
                                 .asJson();
                         passport = mapper.readValue(passportResponse.getBody().getObject().toString(), Passport.class);
-                        visaApplications = passport.getVisaApplications();
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -197,16 +197,13 @@ public class EmbassyReviewVisaApplicationManagedBean implements Serializable {
 
             } else {
                 //update visa status
-
                 try {
-                    HttpResponse<JsonNode> visaStatusResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.VisaStatus/" + visaStatus.getVisaStatusId())
-                            .header("accept", "application/json")
-                            .field("$class", Constants.ASSET_VISASTATUS)
-                            .field("visaStatusId", visaStatus.getVisaStatusId())
-                            .field("message", visaStatus.getMessage())
-                            .field("statusState", Constants.APPLICATION_STATUS_APPROVED)
-                            .field("owner", visaStatus.getOwner())
-                            .field("visaApplication", visaStatus.getVisaApplication())
+                    HttpResponse<JsonNode> visaStatusResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.UpdateVisaStatus")
+                            .field("$class", Constants.TRANSACTION_UPDATEVISASTATUS)
+                            .field("status", Constants.APPLICATION_STATUS_APPROVED)
+                            .field("message", "Successful")
+                            .field("visaStatus", Constants.ASSET_VISASTATUS + "#" + visaStatus.getVisaStatusId())
+                            .field("embassy", Constants.PARTICIPANT_EMBASSY + "#" + embassy.getEmbassyId())
                             .asJson();
                     System.out.println(visaStatusResponse.getBody());
 
@@ -252,16 +249,15 @@ public class EmbassyReviewVisaApplicationManagedBean implements Serializable {
                 mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/put_request_" + basicInfo.getFirstName() + ".json"), visaStatus);
             } else {
                 try {
-                    HttpResponse<JsonNode> visaStatusResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.VisaStatus/" + visaStatus.getVisaStatusId())
-                            .header("accept", "application/json")
-                            .field("$class", Constants.ASSET_VISASTATUS)
-                            .field("visaStatusId", visaStatus.getVisaStatusId())
-                            .field("message", visaStatus.getMessage())
-                            .field("statusState", Constants.APPLICATION_STATUS_APPROVED)
-                            .field("owner", visaStatus.getOwner())
-                            .field("visaApplication", visaStatus.getVisaApplication())
+                    HttpResponse<JsonNode> visaStatusResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.UpdateVisaStatus")
+                            .field("$class", Constants.TRANSACTION_UPDATEVISASTATUS)
+                            .field("status", Constants.APPLICATION_STATUS_DENIED)
+                            .field("message", message)
+                            .field("visaStatus", Constants.ASSET_VISASTATUS + "#" + visaStatus.getVisaStatusId())
+                            .field("embassy", Constants.PARTICIPANT_EMBASSY + "#" + embassy.getEmbassyId())
                             .asJson();
                     System.out.println(visaStatusResponse.getBody());
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
