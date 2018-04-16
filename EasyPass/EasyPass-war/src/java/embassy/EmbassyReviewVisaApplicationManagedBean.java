@@ -89,47 +89,56 @@ public class EmbassyReviewVisaApplicationManagedBean implements Serializable {
                     criminalRecord = mapper.readValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/CriminalRecord/get_response_byId.json"), CriminalRecord.class);
                 } else {
                     try {
-                        HttpResponse<JsonNode> citizenResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Citizen/" + visaApplication.getPassport())
+                        String[] citizenIdArray = visaApplication.getPassport().split("#");
+                        HttpResponse<JsonNode> citizenResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Citizen/" + citizenIdArray[1])
                                 .header("accept", "application/json")
                                 .asJson();
                         citizen = mapper.readValue(citizenResponse.getBody().getObject().toString(), Citizen.class);
 
-                        HttpResponse<JsonNode> visaStatusResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.VisaStatus/" + visaApplication.getVisaStatus())
+                        String[] visaStatusIdArray = visaApplication.getVisaStatus().split("#");
+                        HttpResponse<JsonNode> visaStatusResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.VisaStatus/" + visaStatusIdArray[1])
                                 .header("accept", "application/json")
                                 .asJson();
                         visaStatus = mapper.readValue(visaStatusResponse.getBody().getObject().toString(), VisaStatus.class);
 
-                        HttpResponse<JsonNode> basicInfoResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Citizen/" + visaApplication.getBasicInfo())
+                        String[] basicInfoIdArray = visaApplication.getBasicInfo().split("#");
+                        HttpResponse<JsonNode> basicInfoResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.BasicInfo/" + basicInfoIdArray[1])
                                 .header("accept", "application/json")
                                 .asJson();
                         basicInfo = mapper.readValue(basicInfoResponse.getBody().getObject().toString(), BasicInfo.class);
 
-                        HttpResponse<JsonNode> bankStatementResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.BankStatement/" + visaApplication.getBankStatement())
+                        String[] bankStatementIdArray = visaApplication.getBankStatement().split("#");
+                        HttpResponse<JsonNode> bankStatementResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.BankStatement/" + bankStatementIdArray[1])
                                 .header("accept", "application/json")
                                 .asJson();
                         bankStatement = mapper.readValue(bankStatementResponse.getBody().getObject().toString(), BankStatement.class);
 
-                        HttpResponse<JsonNode> transportationResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.TransportationReference/" + visaApplication.getTransportationReference())
+                        String[] transportationIdArray = visaApplication.getTransportationReference().split("#");
+                        HttpResponse<JsonNode> transportationResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.TransportationReference/" + transportationIdArray[1])
                                 .header("accept", "application/json")
                                 .asJson();
                         transportation = mapper.readValue(transportationResponse.getBody().getObject().toString(), TransportationReference.class);
 
-                        HttpResponse<JsonNode> accommodationResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Accommodation/" + visaApplication.getAccommodation())
+                        String[] accommodationIdArray = visaApplication.getAccommodation().split("#");
+                        HttpResponse<JsonNode> accommodationResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Accommodation/" + accommodationIdArray[1])
                                 .header("accept", "application/json")
                                 .asJson();
                         accommodation = mapper.readValue(accommodationResponse.getBody().getObject().toString(), Accommodation.class);
 
-                        HttpResponse<JsonNode> insuranceResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Insurance/" + visaApplication.getInsurance())
+                        String[] insuranceIdArrayId = visaApplication.getInsurance().split("#");
+                        HttpResponse<JsonNode> insuranceResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Insurance/" + insuranceIdArrayId[1])
                                 .header("accept", "application/json")
                                 .asJson();
                         insurance = mapper.readValue(insuranceResponse.getBody().getObject().toString(), Insurance.class);
 
-                        HttpResponse<JsonNode> localContactResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.LocalContact/" + visaApplication.getLocalContact())
+                        String[] localContactIdArray = visaApplication.getLocalContact().split("#");
+                        HttpResponse<JsonNode> localContactResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.LocalContact/" + localContactIdArray[1])
                                 .header("accept", "application/json")
                                 .asJson();
                         localContact = mapper.readValue(localContactResponse.getBody().getObject().toString(), LocalContact.class);
 
-                        HttpResponse<JsonNode> criminalRecordResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.CriminalRecord/" + visaApplication.getCriminalRecord())
+                        String[] criminalRecordIdArray = visaApplication.getCriminalRecord().split("#");
+                        HttpResponse<JsonNode> criminalRecordResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.CriminalRecord/" + criminalRecordIdArray[1])
                                 .header("accept", "application/json")
                                 .asJson();
                         criminalRecord = mapper.readValue(criminalRecordResponse.getBody().getObject().toString(), CriminalRecord.class);
@@ -164,6 +173,18 @@ public class EmbassyReviewVisaApplicationManagedBean implements Serializable {
         if (isApproved) { //crete visa for approved application
 
             if (Constants.localTesting) {
+
+                //update visa status
+                visaStatus.setStatusState(Constants.APPLICATION_STATUS_APPROVED);
+                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/put_request_" + basicInfo.getFirstName() + ".json"), visaStatus);
+
+                //create new visa
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                String validUtilString = df.format(validUtil);
+                Visa visa = new Visa(validUtilString, visaType, citizen.getPassportNumber(), embassy.getEmbassyId(), visaApplication.getVisaApplicationId());
+                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Visa/post_request_" + basicInfo.getFirstName() + ".json"), visa);
+
+            } else {
                 //update visa status
 
                 try {
@@ -182,28 +203,48 @@ public class EmbassyReviewVisaApplicationManagedBean implements Serializable {
                     DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                     String validUtilString = df.format(validUtil);
                     Visa visa = new Visa(validUtilString, visaType, citizen.getPassportNumber(), embassy.getEmbassyId(), visaApplication.getVisaApplicationId());
-                    
-                    
-                    mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Visa/post_request_" + basicInfo.getFirstName() + ".json"), visa);
+
+                    HttpResponse<JsonNode> visaResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.Visa")
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_VISA)
+                            .field("visaId", visa.getVisaId())
+                            .field("visaIssueDate", visa.getVisaIssueDate())
+                            .field("visaValidTill", visa.getVisaValidTill())
+                            .field("visaType", visa.getVisaType())
+                            .field("passport", visa.getPassport())
+                            .field("issuedBy", visa.getIssuedBy())
+                            .field("visaApplication", visa.getVisaApplication())
+                            .asJson();
+                    System.out.println(visaResponse.getBody());
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-            } else {
-                //update visa status
-                visaStatus.setStatusState(Constants.APPLICATION_STATUS_APPROVED);
-                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/put_request_" + basicInfo.getFirstName() + ".json"), visaStatus);
-
-                //create new visa
-                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-                String validUtilString = df.format(validUtil);
-                Visa visa = new Visa(validUtilString, visaType, citizen.getPassportNumber(), embassy.getEmbassyId(), visaApplication.getVisaApplicationId());
-                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/Visa/post_request_" + basicInfo.getFirstName() + ".json"), visa);
             }
-        } else { //reject visa application & update message
+        } else {
+            
+            //reject visa application & update message
             visaStatus.setStatusState(Constants.APPLICATION_STATUS_DENIED);
             visaStatus.setMessage(message);
-            mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/put_request_" + basicInfo.getFirstName() + ".json"), visaStatus);
+
+            if (Constants.localTesting) {
+                mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/VisaStatus/put_request_" + basicInfo.getFirstName() + ".json"), visaStatus);
+            } else {
+                try {
+                    HttpResponse<JsonNode> visaStatusResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.VisaStatus/" + visaStatus.getVisaStatusId())
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_VISASTATUS)
+                            .field("visaStatusId", visaStatus.getVisaStatusId())
+                            .field("message", visaStatus.getMessage())
+                            .field("statusState", Constants.APPLICATION_STATUS_APPROVED)
+                            .field("owner", visaStatus.getOwner())
+                            .field("visaApplication", visaStatus.getVisaApplication())
+                            .asJson();
+                    System.out.println(visaStatusResponse.getBody());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         ec.redirect(ec.getRequestContextPath() + "/web/embassy/embassyViewList.xhtml?faces-redirect=true");

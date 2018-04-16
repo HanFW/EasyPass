@@ -11,7 +11,7 @@
                 <p:tab title="Application Result">
                     <center>
                         <p:outputLabel value="Decision: "/>
-                        <p:outputLabel value="#{embassyViewVisaApplicationManagedBean.visaStatus.state}"/>
+                        <p:outputLabel value="#{embassyViewVisaApplicationManagedBean.visaStatus.statusState}"/>
                         <br/>
                         <p:panel style="height: 100px; border: none;" rendered="#{!embassyViewVisaApplicationManagedBean.hasVisa}">
                             <p:outputLabel value="Message: "/>
@@ -82,7 +82,7 @@
                             <p:media value="#{embassyViewVisaApplicationManagedBean.bankStatement.bankStatementImageURL}" width="100%" height="300px"/>  
                         </p:tab>
                         <p:tab title="Accommodation Reference">
-                            <p:media value="#{embassyViewVisaApplicationManagedBean.accommodation.accommodationImageURL}" width="100%" height="300px"/>  
+                            <p:media value="#{embassyViewVisaApplicationManagedBean.accommodation.accommodationReferenceImageURL}" width="100%" height="300px"/>  
                         </p:tab>
                         <p:tab title="Transportation Reference">
                             <p:media value="#{embassyViewVisaApplicationManagedBean.transportation.transportationReferenceImageURL}" width="100%" height="300px"/>  
