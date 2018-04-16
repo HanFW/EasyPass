@@ -57,6 +57,16 @@ public class EndorserLoginManagedBean {
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/endorserLogin.xhtml?faces-redirect=true");
     }
 
+    public String getEndorserName() {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+        if (endorser == null) {
+            return "Endorser";
+        } else {
+            return endorser.getEndorserName();
+        }
+    }
+
     public String getAccountNumber() {
         return accountNumber;
     }
