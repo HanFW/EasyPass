@@ -52,6 +52,7 @@ public class SPFDoEndorsementManagedBean implements Serializable {
     }
 
     public void updateCriminalRecord() throws IOException {
+        
         System.out.println("Criminal Record updated");
         ObjectMapper mapper = new ObjectMapper();
 
@@ -71,18 +72,15 @@ public class SPFDoEndorsementManagedBean implements Serializable {
             if (Constants.localTesting) {
                 mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_request" + owner + ".json"), criminalRecord);
             } else {
+
                 try {
-                    HttpResponse<JsonNode> criminalRecordResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.CriminalRecord/" + criminalRecord.getCriminalRecordId())
-                            .header("accept", "application/json")
-                            .field("$class", Constants.ASSET_CRIMINALRECORD)
-                            .field("criminalRecordId", criminalRecord.getCriminalRecordId())
-                            .field("recordNumber", criminalRecord.getRecordNumber())
-                            .field("recordDetail", criminalRecord.getRecordDetail())
+                    HttpResponse<JsonNode> localContactResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateCriminalRecord")
+                            .field("$class", Constants.TRANSACTION_VALIDATECRIMINALRECORD)
                             .field("endorseStatus", criminalRecord.getEndorseStatus())
-                            .field("owner", criminalRecord.getOwner())
-                            .field("visaApplication", criminalRecord.getVisaApplication())
+                            .field("criminalRecord", Constants.ASSET_CRIMINALRECORD + "#" + criminalRecord.getCriminalRecordId())
+                            .field("spf", Constants.ASSET_SPF + "#" + endorser.getEndorserId())
                             .asJson();
-                    System.out.println(criminalRecordResponse.getBody());
+                    System.out.println(localContactResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -102,18 +100,15 @@ public class SPFDoEndorsementManagedBean implements Serializable {
             if (Constants.localTesting) {
                 mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_request" + owner + ".json"), criminalRecord);
             } else {
+                
                 try {
-                    HttpResponse<JsonNode> criminalRecordResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.CriminalRecord/" + criminalRecord.getCriminalRecordId())
-                            .header("accept", "application/json")
-                            .field("$class", Constants.ASSET_CRIMINALRECORD)
-                            .field("criminalRecordId", criminalRecord.getCriminalRecordId())
-                            .field("recordNumber", criminalRecord.getRecordNumber())
-                            .field("recordDetail", criminalRecord.getRecordDetail())
+                    HttpResponse<JsonNode> localContactResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateCriminalRecord")
+                            .field("$class", Constants.TRANSACTION_VALIDATECRIMINALRECORD)
                             .field("endorseStatus", criminalRecord.getEndorseStatus())
-                            .field("owner", criminalRecord.getOwner())
-                            .field("visaApplication", criminalRecord.getVisaApplication())
+                            .field("criminalRecord", Constants.ASSET_CRIMINALRECORD + "#" + criminalRecord.getCriminalRecordId())
+                            .field("spf", Constants.ASSET_SPF + "#" + endorser.getEndorserId())
                             .asJson();
-                    System.out.println(criminalRecordResponse.getBody());
+                    System.out.println(localContactResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

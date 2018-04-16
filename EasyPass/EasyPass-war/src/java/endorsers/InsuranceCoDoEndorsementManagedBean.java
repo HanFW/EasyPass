@@ -69,7 +69,9 @@ public class InsuranceCoDoEndorsementManagedBean implements Serializable {
             }
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Insurance/post_request" + insurance.getOwner() + ".json"), insurance);
+
         } else {
+
             EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
             String id = endorser.getEndorserId();
             insurance.setEndorseBy(id);
@@ -84,24 +86,34 @@ public class InsuranceCoDoEndorsementManagedBean implements Serializable {
                 ec.getFlash().setKeepMessages(true);
             }
 
-            ObjectMapper mapper = new ObjectMapper();
-
             try {
-                HttpResponse<JsonNode> insuranceResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.Insurance/" + insurance.getInsuranceId())
-                        .header("accept", "application/json")
-                        .field("$class", Constants.ASSET_INSURANCE)
-                        .field("insuranceId", insurance.getInsuranceId())
-                        .field("companyName", insurance.getCompanyName())
-                        .field("referenceNumber", insurance.getReferenceNumber())
-                        .field("insuranceContractImageURL", insurance.getInsuranceContractImageURL())
+                HttpResponse<JsonNode> insuranceResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateInsuranceReference")
+                        .field("$class", Constants.TRANSACTION_VALIDATEINSURANCE)
                         .field("endorseStatus", insurance.getEndorseStatus())
-                        .field("owner", insurance.getOwner())
-                        .field("visaApplication", insurance.getVisaApplication())
+                        .field("insurance", Constants.ASSET_INSURANCE + "#" + insurance.getInsuranceId())
+                        .field("insuranceCompany", Constants.ASSET_INSURANCECOMPANY + "#" + endorser.getEndorserId())
                         .asJson();
                 System.out.println(insuranceResponse.getBody());
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+//            try {
+//                HttpResponse<JsonNode> insuranceResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.Insurance/" + insurance.getInsuranceId())
+//                        .header("accept", "application/json")
+//                        .field("$class", Constants.ASSET_INSURANCE)
+//                        .field("insuranceId", insurance.getInsuranceId())
+//                        .field("companyName", insurance.getCompanyName())
+//                        .field("referenceNumber", insurance.getReferenceNumber())
+//                        .field("insuranceContractImageURL", insurance.getInsuranceContractImageURL())
+//                        .field("endorseStatus", insurance.getEndorseStatus())
+//                        .field("owner", insurance.getOwner())
+//                        .field("visaApplication", insurance.getVisaApplication())
+//                        .asJson();
+//                System.out.println(insuranceResponse.getBody());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         }
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/insuranceCompanyViewList.xhtml?faces-redirect=true");
     }

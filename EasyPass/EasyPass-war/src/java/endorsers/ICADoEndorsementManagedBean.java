@@ -54,6 +54,7 @@ public class ICADoEndorsementManagedBean implements Serializable {
         System.out.println("BasicInfo " + basicInfo.getBasicInfoId() + ": " + decision);
 
         if (Constants.localTesting) {
+
             EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
             String id = endorser.getEndorserId();
             basicInfo.setEndorseBy(id);
@@ -69,7 +70,9 @@ public class ICADoEndorsementManagedBean implements Serializable {
             }
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BasicInfo/post_request" + basicInfo.getOwner() + ".json"), basicInfo);
+
         } else {
+
             EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
             String id = endorser.getEndorserId();
             basicInfo.setEndorseBy(id);
@@ -84,26 +87,12 @@ public class ICADoEndorsementManagedBean implements Serializable {
                 ec.getFlash().setKeepMessages(true);
             }
 
-            ObjectMapper mapper = new ObjectMapper();
-
             try {
-                HttpResponse<JsonNode> basicInfoResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.BasicInfo/" + basicInfo.getBasicInfoId())
-                        .header("accept", "application/json")
-                        .field("$class", Constants.ASSET_BASICINFO)
-                        .field("basicInfoId", basicInfo.getBasicInfoId())
-                        .field("firstName", basicInfo.getFirstName())
-                        .field("lastName", basicInfo.getLastName())
-                        .field("birthday", basicInfo.getBirthday())
-                        .field("identityNumber", basicInfo.getIdentityNumber())
-                        .field("residentialAddress", basicInfo.getResidentialAddress())
-                        .field("countryOfResidence", basicInfo.getCountryOfResidence())
-                        .field("maritalStatus", basicInfo.getMaritalStatus())
-                        .field("passportNumber", basicInfo.getPassportNumber())
-                        .field("sex", basicInfo.getSex())
-                        .field("nationality", basicInfo.getNationality())
+                HttpResponse<JsonNode> basicInfoResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateCitizenBasicInfo")
+                        .field("$class", Constants.TRANSACTION_VALIDATEBASICINFO)
                         .field("endorseStatus", basicInfo.getEndorseStatus())
-                        .field("owner", basicInfo.getOwner())
-                        .field("visaApplication", basicInfo.getVisaApplication())
+                        .field("basicInfo", Constants.ASSET_BASICINFO + "#" + basicInfo.getBasicInfoId())
+                        .field("ica", Constants.PARTICIPANT_ICA + "#" + endorser.getEndorserId())
                         .asJson();
                 System.out.println(basicInfoResponse.getBody());
             } catch (Exception e) {

@@ -32,10 +32,14 @@ public class Constants {
     public static final String ASSET_BANKSTATEMENT = "org.acme.easypass.BankStatement";
     public static final String ASSET_BASICINFO = "org.acme.easypass.BasicInfo";
     public static final String ASSET_CRIMINALRECORD = "org.acme.easypass.CriminalRecord";
+    public static final String ASSET_SPF = "org.acme.easypass.SPF";
     public static final String ASSET_INSURANCE = "org.acme.easypass.Insurance";
+    public static final String ASSET_INSURANCECOMPANY = "org.acme.easypass.InsuranceCompany";
     public static final String ASSET_LOCALCONTACT = "org.acme.easypass.LocalContact";
+    public static final String ASSET_LOCALCONTACTPERSON = "org.acme.easypass.LocalContactPerson";
     public static final String ASSET_PASSPORT = "org.acme.easypass.Passport";
     public static final String ASSET_TRANSPORTATION = "org.acme.easypass.TransportationReference";
+    public static final String ASSET_TRANSPORTATIONPROVIDER = "org.acme.easypass.TransportationProvider";
     public static final String ASSET_VISA = "org.acme.easypass.Visa";
     public static final String ASSET_VISAAPPLICATION = "org.acme.easypass.VisaApplication";
     public static final String ASSET_VISASTATUS = "org.acme.easypass.VisaStatus";
@@ -50,6 +54,16 @@ public class Constants {
     public static final String PARTICIPANT_LOCALCONTACT = "org.acme.easypass.LocalContactPerson";
     public static final String PARTICIPANT_SFP = "org.acme.easypass.SPF";
     public static final String PARTICIPANT_TRANSPORTATION = "org.acme.easypass.TransportationProvider";
+
+    //transaction
+    public static final String TRANSACTION_VALIDATEBANKSTATEMENT = "org.acme.easypass.ValidateBankStatement";
+    public static final String TRANSACTION_UPDATEVISASTATUS = "org.acme.easypass.UpdateVisaStatus";
+    public static final String TRANSACTION_VALIDATEACCOMMODATION = "org.acme.easypass.ValidateAccommodationReference";
+    public static final String TRANSACTION_VALIDATEBASICINFO = "org.acme.easypass.ValidateCitizenBasicInfo";
+    public static final String TRANSACTION_VALIDATECRIMINALRECORD = "org.acme.easypass.ValidateCriminalRecord";
+    public static final String TRANSACTION_VALIDATEINSURANCE = "org.acme.easypass.ValidateInsuranceReference";
+    public static final String TRANSACTION_VALIDATELOCALCONTACT = "org.acme.easypass.ValidateLocalContactInformation";
+    public static final String TRANSACTION_VALIDATETRANSPORTATION = "org.acme.easypass.ValidateTransportationBookingReference";
 
     public static final boolean localTesting = false;
 }

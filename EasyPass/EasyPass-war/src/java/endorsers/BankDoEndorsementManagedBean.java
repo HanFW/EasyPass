@@ -66,7 +66,7 @@ public class BankDoEndorsementManagedBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rejection Submitted", " "));
                 ec.getFlash().setKeepMessages(true);
             }
-            
+
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BankStatement/post_request" + bankStatement.getOwner() + ".json"), bankStatement);
 
@@ -87,18 +87,12 @@ public class BankDoEndorsementManagedBean implements Serializable {
                 ec.getFlash().setKeepMessages(true);
             }
 
-            ObjectMapper mapper = new ObjectMapper();
-
             try {
-                HttpResponse<JsonNode> bankStatementResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.BankStatement/" + bankStatement.getBankStatementId())
-                        .field("$class", Constants.ASSET_BANKSTATEMENT)
-                        .field("bankStatementId", bankStatement.getBankStatementId())
-                        .field("bankName", bankStatement.getBankName())
-                        .field("accountNumber", bankStatement.getAccountNumber())
-                        .field("bankStatementImageURL", bankStatement.getBankStatementImageURL())
+                HttpResponse<JsonNode> bankStatementResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateBankStatement")
+                        .field("$class", Constants.TRANSACTION_VALIDATEBANKSTATEMENT)
                         .field("endorseStatus", bankStatement.getEndorseStatus())
-                        .field("owner", bankStatement.getOwner())
-                        .field("visaApplication", bankStatement.getVisaApplication())
+                        .field("bankStatement", Constants.ASSET_BANKSTATEMENT + "#" + bankStatement.getBankStatementId())
+                        .field("bank", Constants.PARTICIPANT_BANK + "#" + endorser.getEndorserId())
                         .asJson();
                 System.out.println(bankStatementResponse.getBody());
             } catch (Exception e) {

@@ -54,6 +54,7 @@ public class TransportationProviderDoEndorsementManagedBean implements Serializa
         System.out.println("TransportationReference " + transportationReference.getTransportationReferenceId() + ": " + decision);
 
         if (Constants.localTesting) {
+
             EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
             String id = endorser.getEndorserId();
             transportationReference.setEndorseBy(id);
@@ -69,7 +70,9 @@ public class TransportationProviderDoEndorsementManagedBean implements Serializa
             }
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/TransportationReference/post_request" + transportationReference.getOwner() + ".json"), transportationReference);
+
         } else {
+
             EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
             String id = endorser.getEndorserId();
             transportationReference.setEndorseBy(id);
@@ -84,21 +87,14 @@ public class TransportationProviderDoEndorsementManagedBean implements Serializa
                 ec.getFlash().setKeepMessages(true);
             }
 
-            ObjectMapper mapper = new ObjectMapper();
-
             try {
-                HttpResponse<JsonNode> transportationResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.TransportationReference/" + transportationReference.getTransportationReferenceId())
-                        .header("accept", "application/json")
-                        .field("$class", Constants.ASSET_TRANSPORTATION)
-                        .field("transportationReferenceId", transportationReference.getTransportationReferenceId())
-                        .field("carrierName", transportationReference.getCarrierName())
-                        .field("reference", transportationReference.getReference())
-                        .field("transportationReferenceImageURL", transportationReference.getTransportationReferenceImageURL())
+                HttpResponse<JsonNode> localContactResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateTransportationBookingReference ")
+                        .field("$class", Constants.TRANSACTION_VALIDATETRANSPORTATION)
                         .field("endorseStatus", transportationReference.getEndorseStatus())
-                        .field("owner", transportationReference.getOwner())
-                        .field("visaApplication", transportationReference.getVisaApplication())
+                        .field("transportationReference", Constants.ASSET_TRANSPORTATION + "#" + transportationReference.getTransportationReferenceId())
+                        .field("transportationProvider", Constants.ASSET_TRANSPORTATIONPROVIDER + "#" + endorser.getEndorserId())
                         .asJson();
-                System.out.println(transportationResponse.getBody());
+                System.out.println(localContactResponse.getBody());
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -32,6 +32,7 @@ public class HotelDoEndorsementManagedBean implements Serializable {
 
     private Accommodation accommodation;
     private String decision;
+    private EndorserEntity endorser;
 
     /**
      * Creates a new instance of hotelDoEndorsementManagedBean
@@ -44,6 +45,8 @@ public class HotelDoEndorsementManagedBean implements Serializable {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         accommodation = (Accommodation) ec.getFlash().get("accommodation");
         System.out.println("View accommodation: " + accommodation.getAccommodationId());
+
+        endorser = (EndorserEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("endorser");
     }
 
     //validate or reject document
@@ -86,18 +89,13 @@ public class HotelDoEndorsementManagedBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rejection Submitted", " "));
                 ec.getFlash().setKeepMessages(true);
             }
-            ObjectMapper mapper = new ObjectMapper();
+
             try {
-                HttpResponse<JsonNode> accommodationResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.Accommodation/" + accommodation.getAccommodationId())
-                        .header("accept", "application/json")
-                        .field("$class", Constants.ASSET_ACCOMMODATION)
-                        .field("accommodationId", accommodation.getAccommodationId())
-                        .field("carrierName", accommodation.getCarrierName())
-                        .field("referenceNumber", accommodation.getReferenceNumber())
-                        .field("accommodationReferenceImageURL", accommodation.getAccommodationReferenceImageURL())
+                HttpResponse<JsonNode> accommodationResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateAccommodationReference")
+                        .field("$class", Constants.TRANSACTION_VALIDATEACCOMMODATION)
                         .field("endorseStatus", accommodation.getEndorseStatus())
-                        .field("owner", accommodation.getOwner())
-                        .field("visaApplication", accommodation.getVisaApplication())
+                        .field("accommodation", Constants.ASSET_ACCOMMODATION + "#" + accommodation.getAccommodationId())
+                        .field("hotel", Constants.PARTICIPANT_HOTEL + "#" + endorser.getEndorserId())
                         .asJson();
                 System.out.println(accommodationResponse.getBody());
             } catch (Exception e) {
