@@ -11,7 +11,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 *.zip
@@ -39,3 +38,4 @@ hs_err_pid*
 /EasyPass/EasyPass-war/nbproject/build-impl.xml
 /EasyPass/EasyPass-war/nbproject/genfiles.properties
 /EasyPass/EasyPass-ejb/setup/glassfish-resources.xml
+../EasyPass-ejb/setup/
