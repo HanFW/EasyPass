@@ -43,7 +43,7 @@ public class EndorserLoginManagedBean {
             EndorserEntity endorser = loginSessionBeanLocal.endorserDoLogin(accountNumber, password);
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             ec.getSessionMap().put("endorser", endorser);
-            ec.redirect(ec.getRequestContextPath() + "/web/endorser/endorserLogin");
+            ec.redirect(ec.getRequestContextPath() + "/web/endorser/endorserViewList");
         } catch (NoSuchEntityException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Account does not exist.", " "));
         } catch (AuthenticationFailException ex) {

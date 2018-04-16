@@ -50,7 +50,7 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession httpSession = req.getSession(true);
         String requestServletPath = req.getServletPath();
-        
+
         if (requestServletPath.startsWith("/web/endorser/") && httpSession.getAttribute("endorser") == null) { //endorser not authenticated: redirect to login page
             req.getRequestDispatcher("/web/endorser/endorserLogin.xhtml").forward(request, response);
         } else if (requestServletPath.startsWith("/web/citizen/") && httpSession.getAttribute("citizen") == null) { //citizen not authenticated: redirect to login page
@@ -59,7 +59,7 @@ public class AuthenticationFilter implements Filter {
             req.getRequestDispatcher("/web/embassy/embassyLogin.xhtml").forward(request, response);
         } else {
             EndorserEntity endorser = (EndorserEntity) httpSession.getAttribute("endorser");
-            if (requestServletPath.equals("/web/endorser/endorserLogin") || requestServletPath.equals("/web/endorser/endorserViewList")) { //redirect endorser based on role
+            if (requestServletPath.equals("/web/endorser/endorserViewList") || requestServletPath.equals("/web/endorser/endorserViewList")) { //redirect endorser based on role
                 switch (endorser.getEndorserRole()) {
                     case Constants.ENDORSER_ROLE_BANK:
                         req.getRequestDispatcher("/web/endorser/bankViewList.xhtml").forward(request, response);
@@ -85,9 +85,10 @@ public class AuthenticationFilter implements Filter {
                     default:
                         req.getRequestDispatcher("/web/endorser/endorserLogin.xhtml").forward(request, response);
                 }
+            } else {
+                chain.doFilter(request, response);
             }
         }
-        chain.doFilter(request, response);
     }
 
     /**
