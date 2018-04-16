@@ -6,6 +6,9 @@
 package endorsers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import entity.EndorserEntity;
 import java.io.File;
 import java.io.IOException;
@@ -49,17 +52,48 @@ public class TransportationProviderDoEndorsementManagedBean implements Serializa
         //$$$ValidateTransportationReference transaction
         System.out.println("TransportationReference " + transportationReference.getTransportationReferenceId() + ": " + decision);
 
-        EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
-        String id = endorser.getEndorserId();
-        transportationReference.setEndorseBy(id);
+        if (Constants.localTesting) {
+            EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+            String id = endorser.getEndorserId();
+            transportationReference.setEndorseBy(id);
 
-        if (decision.equals("Validated")) {
-            transportationReference.setEndorseStatus(Constants.STATUS_VERIFIED);
+            if (decision.equals("Validated")) {
+                transportationReference.setEndorseStatus(Constants.STATUS_VERIFIED);
+            } else {
+                transportationReference.setEndorseStatus(Constants.STATUS_INVALIDATE);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/TransportationReference/post_request" + transportationReference.getOwner() + ".json"), transportationReference);
         } else {
-            transportationReference.setEndorseStatus(Constants.STATUS_INVALIDATE);
+            EndorserEntity endorser = (EndorserEntity) ec.getSessionMap().get("endorser");
+            String id = endorser.getEndorserId();
+            transportationReference.setEndorseBy(id);
+
+            if (decision.equals("Validated")) {
+                transportationReference.setEndorseStatus(Constants.STATUS_VERIFIED);
+            } else {
+                transportationReference.setEndorseStatus(Constants.STATUS_INVALIDATE);
+            }
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            try {
+                HttpResponse<JsonNode> transportationResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.TransportationReference/" + transportationReference.getTransportationReferenceId())
+                        .header("accept", "application/json")
+                        .field("$class", Constants.ASSET_TRANSPORTATION)
+                        .field("transportationReferenceId", transportationReference.getTransportationReferenceId())
+                        .field("carrierName", transportationReference.getCarrierName())
+                        .field("reference", transportationReference.getReference())
+                        .field("transportationReferenceImageURL", transportationReference.getTransportationReferenceImageURL())
+                        .field("endorseStatus", transportationReference.getEndorseStatus())
+                        .field("owner", transportationReference.getOwner())
+                        .field("visaApplication", transportationReference.getVisaApplication())
+                        .asJson();
+                System.out.println(transportationResponse.getBody());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/TransportationReference/post_request" + transportationReference.getOwner() + ".json"), transportationReference);
 
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/TransportationProviderViewList.xhtml?faces-redirect=true");
     }

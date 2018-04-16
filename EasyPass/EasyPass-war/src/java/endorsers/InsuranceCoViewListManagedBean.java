@@ -19,7 +19,6 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import objects.BankStatement;
 import objects.Insurance;
 import util.Constants;
 

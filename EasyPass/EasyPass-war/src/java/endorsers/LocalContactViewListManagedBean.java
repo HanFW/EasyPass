@@ -23,7 +23,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import objects.BasicInfo;
 import objects.Citizen;
 import objects.LocalContact;
 import util.Constants;

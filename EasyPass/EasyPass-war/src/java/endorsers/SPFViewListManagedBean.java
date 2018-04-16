@@ -7,6 +7,9 @@ package endorsers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import java.io.File;
 import java.io.IOException;
 import javax.inject.Named;
@@ -16,6 +19,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import objects.CriminalRecord;
+import util.Constants;
 
 /**
  *
@@ -28,6 +32,10 @@ public class SPFViewListManagedBean {
     /**
      * Creates a new instance of SPFViewListManagedBean
      */
+    private ArrayList<CriminalRecord> pendingCriminalRecords;
+    private ArrayList<CriminalRecord> verifiedCriminalRecords;
+    private ArrayList<CriminalRecord> invalideCriminalRecords;
+
     public SPFViewListManagedBean() {
     }
 
@@ -35,13 +43,26 @@ public class SPFViewListManagedBean {
     public ArrayList<CriminalRecord> getPendingCriminalRecords() throws IOException {
         //---Retrieve list of pending criminal records of visa applicants
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<CriminalRecord> criminalRecords = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/get_response.json"), new TypeReference<List<CriminalRecord>>() {
-        });
+        if (Constants.localTesting) {
+            pendingCriminalRecords = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/get_response.json"), new TypeReference<List<CriminalRecord>>() {
+            });
+        } else {
+            try {
+                HttpResponse<JsonNode> criminalRecordResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.CriminalRecord")
+                        .header("accept", "application/json")
+                        .asJson();
+                System.out.println(criminalRecordResponse.getBody().toString());
+                pendingCriminalRecords = mapper.readValue(criminalRecordResponse.getBody().toString(), new TypeReference<List<CriminalRecord>>() {
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         ArrayList<CriminalRecord> filteredCriminalRecords = new ArrayList<>();
-        for (int i = 0; i < criminalRecords.size(); i++) {
-            if (criminalRecords.get(i).getEndorseStatus().equals("PENDING")) {
-                filteredCriminalRecords.add(criminalRecords.get(i));
+        for (int i = 0; i < pendingCriminalRecords.size(); i++) {
+            if (pendingCriminalRecords.get(i).getEndorseStatus().equals("PENDING")) {
+                filteredCriminalRecords.add(pendingCriminalRecords.get(i));
             }
         }
 
@@ -51,13 +72,26 @@ public class SPFViewListManagedBean {
     public ArrayList<CriminalRecord> getVaidatedCriminalRecords() throws IOException {
         //---Retrieve list of validated criminal records of visa applicants
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<CriminalRecord> criminalRecords = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/get_response.json"), new TypeReference<List<CriminalRecord>>() {
-        });
+        if (Constants.localTesting) {
+            verifiedCriminalRecords = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/get_response.json"), new TypeReference<List<CriminalRecord>>() {
+            });
+        } else {
+            try {
+                HttpResponse<JsonNode> criminalRecordResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.CriminalRecord")
+                        .header("accept", "application/json")
+                        .asJson();
+                System.out.println(criminalRecordResponse.getBody().toString());
+                verifiedCriminalRecords = mapper.readValue(criminalRecordResponse.getBody().toString(), new TypeReference<List<CriminalRecord>>() {
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         ArrayList<CriminalRecord> filteredCriminalRecords = new ArrayList<>();
-        for (int i = 0; i < criminalRecords.size(); i++) {
-            if (criminalRecords.get(i).getEndorseStatus().equals("VERIFIED")) {
-                filteredCriminalRecords.add(criminalRecords.get(i));
+        for (int i = 0; i < verifiedCriminalRecords.size(); i++) {
+            if (verifiedCriminalRecords.get(i).getEndorseStatus().equals("VERIFIED")) {
+                filteredCriminalRecords.add(verifiedCriminalRecords.get(i));
             }
         }
 
@@ -67,13 +101,26 @@ public class SPFViewListManagedBean {
     public ArrayList<CriminalRecord> getRejectedCriminalRecords() throws IOException {
         //---Retrieve list of rejected criminal records of visa applicants
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<CriminalRecord> criminalRecords = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/get_response.json"), new TypeReference<List<CriminalRecord>>() {
-        });
+        if (Constants.localTesting) {
+            invalideCriminalRecords = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/get_response.json"), new TypeReference<List<CriminalRecord>>() {
+            });
+        } else {
+            try {
+                HttpResponse<JsonNode> criminalRecordResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.CriminalRecord")
+                        .header("accept", "application/json")
+                        .asJson();
+                System.out.println(criminalRecordResponse.getBody().toString());
+                invalideCriminalRecords = mapper.readValue(criminalRecordResponse.getBody().toString(), new TypeReference<List<CriminalRecord>>() {
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         ArrayList<CriminalRecord> filteredCriminalRecords = new ArrayList<>();
-        for (int i = 0; i < criminalRecords.size(); i++) {
-            if (criminalRecords.get(i).getEndorseStatus().equals("INVALIDATE")) {
-                filteredCriminalRecords.add(criminalRecords.get(i));
+        for (int i = 0; i < invalideCriminalRecords.size(); i++) {
+            if (invalideCriminalRecords.get(i).getEndorseStatus().equals("INVALIDATE")) {
+                filteredCriminalRecords.add(invalideCriminalRecords.get(i));
             }
         }
 

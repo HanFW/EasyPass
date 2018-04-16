@@ -6,6 +6,9 @@
 package endorsers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import entity.EndorserEntity;
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +63,26 @@ public class SPFDoEndorsementManagedBean implements Serializable {
         if (decision.equals("Validated")) {
             criminalRecord.setEndorseStatus(Constants.STATUS_VERIFIED);
             criminalRecord.setEndorseBy(endorserID);
-            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_request" + owner + ".json"), criminalRecord);
+
+            if (Constants.localTesting) {
+                mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_request" + owner + ".json"), criminalRecord);
+            } else {
+                try {
+                    HttpResponse<JsonNode> criminalRecordResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.CriminalRecord/" + criminalRecord.getCriminalRecordId())
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_CRIMINALRECORD)
+                            .field("criminalRecordId", criminalRecord.getCriminalRecordId())
+                            .field("recordNumber", criminalRecord.getRecordNumber())
+                            .field("recordDetail", criminalRecord.getRecordDetail())
+                            .field("endorseStatus", criminalRecord.getEndorseStatus())
+                            .field("owner", criminalRecord.getOwner())
+                            .field("visaApplication", criminalRecord.getVisaApplication())
+                            .asJson();
+                    System.out.println(criminalRecordResponse.getBody());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         } else {
             //$$$ValidateCriminalRecord transaction
             System.out.println("Validate criminal Record: " + criminalRecord.getCriminalRecordId());
@@ -69,7 +91,26 @@ public class SPFDoEndorsementManagedBean implements Serializable {
             String state = Constants.STATUS_INVALIDATE;
             criminalRecord.setEndorseStatus(state);
             criminalRecord.setEndorseBy(endorserID);
-            mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_request" + owner + ".json"), criminalRecord);
+
+            if (Constants.localTesting) {
+                mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_request" + owner + ".json"), criminalRecord);
+            } else {
+                try {
+                    HttpResponse<JsonNode> criminalRecordResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.CriminalRecord/" + criminalRecord.getCriminalRecordId())
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_CRIMINALRECORD)
+                            .field("criminalRecordId", criminalRecord.getCriminalRecordId())
+                            .field("recordNumber", criminalRecord.getRecordNumber())
+                            .field("recordDetail", criminalRecord.getRecordDetail())
+                            .field("endorseStatus", criminalRecord.getEndorseStatus())
+                            .field("owner", criminalRecord.getOwner())
+                            .field("visaApplication", criminalRecord.getVisaApplication())
+                            .asJson();
+                    System.out.println(criminalRecordResponse.getBody());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         //validate criminal record of visa applicant
