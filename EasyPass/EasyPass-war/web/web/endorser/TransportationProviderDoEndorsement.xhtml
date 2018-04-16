@@ -7,22 +7,28 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="content">
         <h:form>
-            <p:outputLabel value="Passport Number: " />
-            <p:outputLabel value="#{utilManagedBean.formatId(transportationProviderDoEndorsementManagedBean.transportationReference.owner)}" />
-            <h:outputText value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
-            <p:outputLabel value="Transportation Reference Number: " />
-            <p:outputLabel value="#{transportationProviderDoEndorsementManagedBean.transportationReference.reference}" />
-            <br/>
+            <center>
+                <div class="citizen-info-panel">
+                    <p:outputLabel class="citizen-info-title" value="Carrier Name: " />
+                    <p:outputLabel class="citizen-info-content" value="#{transportationProviderDoEndorsementManagedBean.transportationReference.carrierName}" />
+                    <br/>
+                    <p:outputLabel class="citizen-info-title" value="Passport Number: " />
+                    <p:outputLabel class="citizen-info-content" value="#{utilManagedBean.formatId(transportationProviderDoEndorsementManagedBean.transportationReference.owner)}" />
+                    <p:outputLabel class="citizen-info-title" value="Transportation Reference Number: " />
+                    <p:outputLabel class="citizen-info-content" value="#{transportationProviderDoEndorsementManagedBean.transportationReference.reference}" />
+                </div>
 
-            <p:media value="#{transportationProviderDoEndorsementManagedBean.transportationReference.transportationReferenceImageURL}" width="90%" height="400px"/>  
+                <p:media value="#{transportationProviderDoEndorsementManagedBean.transportationReference.transportationReferenceImageURL}" width="90%" height="400px"/>  
 
-            <p:message id="decisionMessage" for="decisionRadio"/>
-            <p:selectOneRadio id="decisionRadio" value="#{transportationProviderDoEndorsementManagedBean.decision}" required="true" requiredMessage="Please select to validate or reject ">
-                <f:selectItem itemLabel="Reject" itemValue="Rejected" />
-                <f:selectItem itemLabel="Validate" itemValue="Validated" />
-            </p:selectOneRadio>
-            <br/>
-            <p:commandButton value="Submit" action="#{transportationProviderDoEndorsementManagedBean.validateDocument()}" update="decisionMessage"/>
+                <div class="endorser-decision-panel">
+                    <p:message id="decisionMessage" for="decisionRadio"/>
+                    <p:selectOneRadio id="decisionRadio" value="#{transportationProviderDoEndorsementManagedBean.decision}" required="true" requiredMessage="Please select to validate or reject ">
+                        <f:selectItem itemLabel="Reject" itemValue="Rejected" />
+                        <f:selectItem itemLabel="Validate" itemValue="Validated" />
+                    </p:selectOneRadio>
+                </div>
+                <p:commandButton value="Submit" action="#{transportationProviderDoEndorsementManagedBean.validateDocument()}" update="decisionMessage"/>
+            </center>
         </h:form>
     </ui:define>
 

@@ -2,3 +2,19 @@
     height: 100%;
     width: auto;
 }
+
+.citizen-info-panel {
+    margin-bottom: 10px;
+}
+
+.citizen-info-title {
+    font-weight: bold;
+}
+
+.citizen-info-content {
+    margin-right: 50px;
+}
+
+.endorser-decision-panel, .endorser-record-panel {
+    margin-bottom: 7px;
+}

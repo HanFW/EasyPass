@@ -7,21 +7,29 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="content">
         <h:form>
-            <p:outputLabel value="Passport number: " />
-            <p:outputLabel value="#{utilManagedBean.formatId(bankDoEndorsementManagedBean.bankStatement.owner)}" />
-            <h:outputText value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
-            <p:outputLabel value="Account number: " />
-            <p:outputLabel value="#{bankDoEndorsementManagedBean.bankStatement.accountNumber}" />
-            <br/>
+            <center>
+                <div class="citizen-info-panel">
+                    <p:outputLabel class="citizen-info-title" value="Bank name: " />
+                    <p:outputLabel class="citizen-info-content" value="#{bankDoEndorsementManagedBean.bankStatement.bankName}" />
+                    <br/>
+                    <p:outputLabel class="citizen-info-title" value="Passport number: " />
+                    <p:outputLabel class="citizen-info-content" value="#{utilManagedBean.formatId(bankDoEndorsementManagedBean.bankStatement.owner)}" />
+                    <p:outputLabel class="citizen-info-title" value="Account number: " />
+                    <p:outputLabel class="citizen-info-content" value="#{bankDoEndorsementManagedBean.bankStatement.accountNumber}" />
+                </div>
 
-            <p:media value="#{bankDoEndorsementManagedBean.bankStatement.bankStatementImageURL}" width="90%" height="400px"/>  
+                <p:media value="#{bankDoEndorsementManagedBean.bankStatement.bankStatementImageURL}" width="100%" height="400px"/>  
 
-            <p:message id="decisionMessage" for="decisionRadio"/>
-            <p:selectOneRadio id="decisionRadio" value="#{bankDoEndorsementManagedBean.decision}" required="true" requiredMessage="Please select to validate or reject ">
-                <f:selectItem itemLabel="Reject" itemValue="Rejected" />
-                <f:selectItem itemLabel="Validate" itemValue="Validated" />
-            </p:selectOneRadio>
-            <p:commandButton value="Submit" action="#{bankDoEndorsementManagedBean.validateDocument}" update="decisionMessage"/>
+                <div class="endorser-decision-panel">
+                    <p:message id="decisionMessage" for="decisionRadio"/>
+                    <p:selectOneRadio id="decisionRadio" value="#{bankDoEndorsementManagedBean.decision}" required="true" requiredMessage="Please select to validate or reject ">
+                        <f:selectItem itemLabel="Reject" itemValue="Rejected" />
+                        <f:selectItem itemLabel="Validate" itemValue="Validated" />
+                    </p:selectOneRadio>
+                </div>
+
+                <p:commandButton value="Submit" action="#{bankDoEndorsementManagedBean.validateDocument}" update="decisionMessage"/>
+            </center>
         </h:form>
     </ui:define>
 
