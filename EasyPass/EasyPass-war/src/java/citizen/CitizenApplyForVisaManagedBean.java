@@ -388,24 +388,21 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
             String filename = applicationId + "-bankStatement.pdf";
             bankStatementURL = "https://localhost:8181/" + filename;
             String newFilePath = System.getProperty("user.dir").replace("config", "docroot") + System.getProperty("file.separator");
-            OutputStream output = new FileOutputStream(new File(newFilePath, filename));
-
-            int a;
-            int BUFFER_SIZE = 8192;
-            byte[] buffer = new byte[BUFFER_SIZE];
-
-            InputStream inputStream = bankStatementFile.getInputstream();
-
-            while (true) {
-                a = inputStream.read(buffer);
-                if (a < 0) {
-                    break;
+            InputStream inputStream;
+            try (OutputStream output = new FileOutputStream(new File(newFilePath, filename))) {
+                int a;
+                int BUFFER_SIZE = 8192;
+                byte[] buffer = new byte[BUFFER_SIZE];
+                inputStream = bankStatementFile.getInputstream();
+                while (true) {
+                    a = inputStream.read(buffer);
+                    if (a < 0) {
+                        break;
+                    }
+                    output.write(buffer, 0, a);
+                    output.flush();
                 }
-                output.write(buffer, 0, a);
-                output.flush();
             }
-
-            output.close();
             inputStream.close();
             FacesContext.getCurrentInstance().addMessage("bankStatement", new FacesMessage(FacesMessage.SEVERITY_INFO, "Bank statement uploaded successfully!", " "));
         } else {
@@ -420,24 +417,21 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
             String filename = applicationId + "-transportation.pdf";
             transportationURL = "https://localhost:8181/" + filename;
             String newFilePath = System.getProperty("user.dir").replace("config", "docroot") + System.getProperty("file.separator");
-            OutputStream output = new FileOutputStream(new File(newFilePath, filename));
-
-            int a;
-            int BUFFER_SIZE = 8192;
-            byte[] buffer = new byte[BUFFER_SIZE];
-
-            InputStream inputStream = bankStatementFile.getInputstream();
-
-            while (true) {
-                a = inputStream.read(buffer);
-                if (a < 0) {
-                    break;
+            InputStream inputStream;
+            try (OutputStream output = new FileOutputStream(new File(newFilePath, filename))) {
+                int a;
+                int BUFFER_SIZE = 8192;
+                byte[] buffer = new byte[BUFFER_SIZE];
+                inputStream = bankStatementFile.getInputstream();
+                while (true) {
+                    a = inputStream.read(buffer);
+                    if (a < 0) {
+                        break;
+                    }
+                    output.write(buffer, 0, a);
+                    output.flush();
                 }
-                output.write(buffer, 0, a);
-                output.flush();
             }
-
-            output.close();
             inputStream.close();
             FacesContext.getCurrentInstance().addMessage("transportationFile", new FacesMessage(FacesMessage.SEVERITY_INFO, "Transportation document uploaded successfully!", " "));
         } else {
@@ -452,24 +446,21 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
             String filename = applicationId + "-accommodation.pdf";
             accommodationURL = "https://localhost:8181/" + filename;
             String newFilePath = System.getProperty("user.dir").replace("config", "docroot") + System.getProperty("file.separator");
-            OutputStream output = new FileOutputStream(new File(newFilePath, filename));
-
-            int a;
-            int BUFFER_SIZE = 8192;
-            byte[] buffer = new byte[BUFFER_SIZE];
-
-            InputStream inputStream = bankStatementFile.getInputstream();
-
-            while (true) {
-                a = inputStream.read(buffer);
-                if (a < 0) {
-                    break;
+            InputStream inputStream;
+            try (OutputStream output = new FileOutputStream(new File(newFilePath, filename))) {
+                int a;
+                int BUFFER_SIZE = 8192;
+                byte[] buffer = new byte[BUFFER_SIZE];
+                inputStream = bankStatementFile.getInputstream();
+                while (true) {
+                    a = inputStream.read(buffer);
+                    if (a < 0) {
+                        break;
+                    }
+                    output.write(buffer, 0, a);
+                    output.flush();
                 }
-                output.write(buffer, 0, a);
-                output.flush();
             }
-
-            output.close();
             inputStream.close();
             FacesContext.getCurrentInstance().addMessage("accommodationFile", new FacesMessage(FacesMessage.SEVERITY_INFO, "Accommodation document uploaded successfully!", " "));
         } else {
@@ -484,24 +475,21 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
             String filename = applicationId + "-insurance.pdf";
             insuranceURL = "https://localhost:8181/" + filename;
             String newFilePath = System.getProperty("user.dir").replace("config", "docroot") + System.getProperty("file.separator");
-            OutputStream output = new FileOutputStream(new File(newFilePath, filename));
-
-            int a;
-            int BUFFER_SIZE = 8192;
-            byte[] buffer = new byte[BUFFER_SIZE];
-
-            InputStream inputStream = bankStatementFile.getInputstream();
-
-            while (true) {
-                a = inputStream.read(buffer);
-                if (a < 0) {
-                    break;
+            InputStream inputStream;
+            try (OutputStream output = new FileOutputStream(new File(newFilePath, filename))) {
+                int a;
+                int BUFFER_SIZE = 8192;
+                byte[] buffer = new byte[BUFFER_SIZE];
+                inputStream = bankStatementFile.getInputstream();
+                while (true) {
+                    a = inputStream.read(buffer);
+                    if (a < 0) {
+                        break;
+                    }
+                    output.write(buffer, 0, a);
+                    output.flush();
                 }
-                output.write(buffer, 0, a);
-                output.flush();
             }
-
-            output.close();
             inputStream.close();
             FacesContext.getCurrentInstance().addMessage("insuranceFile", new FacesMessage(FacesMessage.SEVERITY_INFO, "Insurance document uploaded successfully!", " "));
         } else {
