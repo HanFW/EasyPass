@@ -34,8 +34,11 @@ public class CitizenViewEVisaManagedBean implements Serializable {
 
     private boolean showVisa = false;
     private boolean showText = true;
+    private boolean showEmpty = false;
     private Passport passport;
     private Visa visa;
+
+    private String visaId;
 
     /**
      * Creates a new instance of CitizenViewEVisaManagedBean
@@ -57,7 +60,7 @@ public class CitizenViewEVisaManagedBean implements Serializable {
                 passport = mapper.readValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Passport/get_response.json"), Passport.class);
 
                 //get visaId (visa is linked to passport)
-                String visaId = passport.getVisas().get(0).getVisaId();
+                visaId = passport.getVisas().get(0).getVisaId();
 
                 if (visaId != null) {
                     showVisa = true;
@@ -78,12 +81,29 @@ public class CitizenViewEVisaManagedBean implements Serializable {
                     e.printStackTrace();
                 }
 
-                //get visaId (visa is linked to passport)
-                String visaId = passport.getVisas().get(0).getVisaId();
+                if (passport != null) {
+                    //get visaId (visa is linked to passport)
+                    if (!passport.getVisas().isEmpty()) {
+                        visaId = passport.getVisas().get(0).getVisaId();
 
-                if (visaId != null) {
-                    showVisa = true;
+                        if (visaId != null) {
+                            showVisa = true;
+                            showText = false;
+                            showEmpty = false;
+                        } else {
+                            showVisa = false;
+                            showText = true;
+                            showEmpty = false;
+                        }
+                    } else {
+                        showVisa = false;
+                        showText = true;
+                        showEmpty = false;
+                    }
+                } else {
+                    showVisa = false;
                     showText = false;
+                    showEmpty = true;
                 }
             }
 
@@ -122,23 +142,30 @@ public class CitizenViewEVisaManagedBean implements Serializable {
                 e.printStackTrace();
             }
 
-            //get visaId (visa is linked to passport)
-            String visaId = passport.getVisas().get(0).getVisaId();
+            if (passport != null) {
+                if (!passport.getVisas().isEmpty()) {
+                    //get visaId (visa is linked to passport)
+                    visaId = passport.getVisas().get(0).getVisaId();
 
-            //get visa by visa ID
-            try {
-                HttpResponse<JsonNode> visaResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Visa/" + visaId)
-                        .header("accept", "application/json")
-                        .asJson();
-                visa = mapper.readValue(visaResponse.getBody().getObject().toString(), Visa.class);
-                System.out.println(visaResponse.getBody().getObject().toString());
-            } catch (Exception e) {
-                e.printStackTrace();
+                    //get visa by visa ID
+                    try {
+                        HttpResponse<JsonNode> visaResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Visa/" + visaId)
+                                .header("accept", "application/json")
+                                .asJson();
+                        visa = mapper.readValue(visaResponse.getBody().getObject().toString(), Visa.class);
+                        System.out.println(visaResponse.getBody().getObject().toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    return visa;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
             }
-
-            return visa;
         }
-
     }
 
     public boolean isShowVisa() {
@@ -155,5 +182,13 @@ public class CitizenViewEVisaManagedBean implements Serializable {
 
     public void setShowText(boolean showText) {
         this.showText = showText;
+    }
+
+    public boolean isShowEmpty() {
+        return showEmpty;
+    }
+
+    public void setShowEmpty(boolean showEmpty) {
+        this.showEmpty = showEmpty;
     }
 }

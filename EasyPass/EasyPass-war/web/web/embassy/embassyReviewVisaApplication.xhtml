@@ -13,6 +13,9 @@
                         <p:tab title="Endorsement State">
                             <center>
                                 <p:panelGrid columns="2">
+                                    <p:outputLabel value="Basic Information: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.basicInfo.endorseStatus}"/>
+
                                     <p:outputLabel value="Bank Statement: "/>
                                     <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.bankStatement.endorseStatus}"/>
 
@@ -21,11 +24,15 @@
 
                                     <p:outputLabel value="Transportation: "/>
                                     <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.transportation.endorseStatus}"/>
+
                                     <p:outputLabel value="Insurance: "/>
                                     <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.insurance.endorseStatus}"/>
 
                                     <p:outputLabel value="Local Contact: "/>
                                     <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.localContact.endorseStatus}"/>
+
+                                    <p:outputLabel value="Criminal Record: "/>
+                                    <p:outputLabel value="#{embassyReviewVisaApplicationManagedBean.criminalRecord.endorseStatus}"/>
                                 </p:panelGrid>
                             </center>
                         </p:tab>
