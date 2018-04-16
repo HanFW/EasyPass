@@ -14,7 +14,7 @@
             <p:outputLabel value="#{transportationProviderDoEndorsementManagedBean.transportationReference.reference}" />
             <br/>
 
-            <p:media value="https://localhost:8181/#{transportationProviderDoEndorsementManagedBean.transportationReference.transportationReferenceImageURL}" width="90%" height="400px"/>  
+            <p:media value="#{transportationProviderDoEndorsementManagedBean.transportationReference.transportationReferenceImageURL}" width="90%" height="400px"/>  
 
             <p:message id="decisionMessage" for="decisionRadio"/>
             <p:selectOneRadio id="decisionRadio" value="#{transportationProviderDoEndorsementManagedBean.decision}" required="true" requiredMessage="Please select to validate or reject ">

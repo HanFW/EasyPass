@@ -17,7 +17,7 @@
             </p:panelGrid>
             <br/>
 
-            <p:media value="https://localhost:8181/#{insuranceCoDoEndorsementManagedBean.insurance.insuranceContractImageURL}" width="90%" height="400px"/>  
+            <p:media value="#{insuranceCoDoEndorsementManagedBean.insurance.insuranceContractImageURL}" width="90%" height="400px"/>  
 
             <p:message id="decisionMessage" for="decisionRadio"/>
             <p:selectOneRadio id="decisionRadio" value="#{insuranceCoDoEndorsementManagedBean.decision}" required="true" requiredMessage="Please select to validate or reject ">

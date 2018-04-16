@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -31,6 +32,7 @@ import objects.Citizen;
 import objects.CriminalRecord;
 import objects.Insurance;
 import objects.LocalContact;
+import objects.Passport;
 import objects.TransportationReference;
 import objects.Visa;
 import objects.VisaApplication;
@@ -55,6 +57,8 @@ public class EmbassyReviewVisaApplicationManagedBean implements Serializable {
     private Insurance insurance;
     private LocalContact localContact;
     private CriminalRecord criminalRecord;
+    private Passport passport;
+    private List<VisaApplication> visaApplications;
     private String visaType;
     private Date validUtil;
     private String decision;
@@ -142,6 +146,13 @@ public class EmbassyReviewVisaApplicationManagedBean implements Serializable {
                                 .header("accept", "application/json")
                                 .asJson();
                         criminalRecord = mapper.readValue(criminalRecordResponse.getBody().getObject().toString(), CriminalRecord.class);
+
+                        String[] passportIdArray = visaApplication.getPassport().split("#");
+                        HttpResponse<JsonNode> passportResponse = Unirest.get("http://localhost:3000/api/org.acme.easypass.Passport/" + passportIdArray[1])
+                                .header("accept", "application/json")
+                                .asJson();
+                        passport = mapper.readValue(passportResponse.getBody().getObject().toString(), Passport.class);
+                        visaApplications = passport.getVisaApplications();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -217,12 +228,22 @@ public class EmbassyReviewVisaApplicationManagedBean implements Serializable {
                             .asJson();
                     System.out.println(visaResponse.getBody());
 
+                    HttpResponse<JsonNode> passportResponse = Unirest.put("http://localhost:3000/api/org.acme.easypass.Passport/" + citizen.getPassportNumber())
+                            .header("accept", "application/json")
+                            .field("$class", Constants.ASSET_PASSPORT)
+                            .field("passportNumber", passport.getPassportNumber())
+                            .field("fullName", passport.getFullName())
+                            .field("owner", passport.getOwner())
+                            .field("visas", visaResponse.getBody().getArray())
+                            .asJson();
+                    System.out.println(passportResponse.getBody());
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         } else {
-            
+
             //reject visa application & update message
             visaStatus.setStatusState(Constants.APPLICATION_STATUS_DENIED);
             visaStatus.setMessage(message);
