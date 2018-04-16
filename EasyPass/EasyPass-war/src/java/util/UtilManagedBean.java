@@ -17,7 +17,7 @@ import java.io.Serializable;
 @SessionScoped
 public class UtilManagedBean implements Serializable {
     
-    private String theme = "blue-grey";
+    private String theme = "dark-green";
 
     /**
      * Creates a new instance of utilManagedBean
