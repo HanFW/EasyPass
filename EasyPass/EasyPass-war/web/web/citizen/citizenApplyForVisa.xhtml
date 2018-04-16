@@ -8,7 +8,7 @@
 
     <ui:define name="content">
         <h:form enctype="multipart/form-data">
-            <p:messages id="message" globalOnly="true"/>
+            <p:growl id="growl" life="4000" />
 
             <p:wizard widgetVar ="visaApplicationWizard" flowListener="#{citizenApplyForVisaManagedBean.onFlowProcess}" showNavBar="false">
                 <p:tab id="basic">

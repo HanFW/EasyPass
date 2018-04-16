@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -160,7 +161,7 @@ public class LocalContactViewListManagedBean implements Serializable {
                 e.printStackTrace();
             }
         }
-        
+
         return citizen.getName();
     }
 
@@ -176,6 +177,9 @@ public class LocalContactViewListManagedBean implements Serializable {
             localContact.setEndorseBy(id);
 
             localContact.setEndorseStatus(Constants.STATUS_VERIFIED);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Approval Submitted", " "));
+            ec.getFlash().setKeepMessages(true);
+
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_request" + localContact.getOwner() + ".json"), localContact);
         } else {
@@ -184,6 +188,9 @@ public class LocalContactViewListManagedBean implements Serializable {
             localContact.setEndorseBy(id);
 
             localContact.setEndorseStatus(Constants.STATUS_VERIFIED);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Approval Submitted", " "));
+            ec.getFlash().setKeepMessages(true);
+
             ObjectMapper mapper = new ObjectMapper();
 
             try {
@@ -216,6 +223,9 @@ public class LocalContactViewListManagedBean implements Serializable {
             localContact.setEndorseBy(id);
 
             localContact.setEndorseStatus(Constants.STATUS_INVALIDATE);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rejection Submitted", " "));
+            ec.getFlash().setKeepMessages(true);
+
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/LocalContact/post_request" + localContact.getOwner() + ".json"), localContact);
         } else {
@@ -224,6 +234,9 @@ public class LocalContactViewListManagedBean implements Serializable {
             localContact.setEndorseBy(id);
 
             localContact.setEndorseStatus(Constants.STATUS_INVALIDATE);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rejection Submitted", " "));
+            ec.getFlash().setKeepMessages(true);
+
             ObjectMapper mapper = new ObjectMapper();
 
             try {

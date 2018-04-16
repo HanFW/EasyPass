@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -59,8 +60,12 @@ public class ICADoEndorsementManagedBean implements Serializable {
 
             if (decision.equals("Validated")) {
                 basicInfo.setEndorseStatus(Constants.STATUS_VERIFIED);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Approval Submitted", " "));
+                ec.getFlash().setKeepMessages(true);
             } else {
                 basicInfo.setEndorseStatus(Constants.STATUS_INVALIDATE);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rejection Submitted", " "));
+                ec.getFlash().setKeepMessages(true);
             }
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/BasicInfo/post_request" + basicInfo.getOwner() + ".json"), basicInfo);
@@ -71,8 +76,12 @@ public class ICADoEndorsementManagedBean implements Serializable {
 
             if (decision.equals("Validated")) {
                 basicInfo.setEndorseStatus(Constants.STATUS_VERIFIED);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Approval Submitted", " "));
+                ec.getFlash().setKeepMessages(true);
             } else {
                 basicInfo.setEndorseStatus(Constants.STATUS_INVALIDATE);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rejection Submitted", " "));
+                ec.getFlash().setKeepMessages(true);
             }
 
             ObjectMapper mapper = new ObjectMapper();
@@ -101,7 +110,7 @@ public class ICADoEndorsementManagedBean implements Serializable {
                 e.printStackTrace();
             }
         }
-        
+
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/ICAViewList.xhtml?faces-redirect=true");
     }
 

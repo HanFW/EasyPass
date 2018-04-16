@@ -8,10 +8,12 @@
 
     <ui:define name="content">
         <h:form>
+            <p:growl id="growl" life="4000" />
+
             <div align="center">
                 <p:tabView cache="false" dynamic="true">
                     <p:tab title="Pending">
-                           <p:dataTable var="basicInfo" id="basicInfoTable" value="#{iCAViewListManagedBean.pendingBasicInfos}" reflow="true" paginatorPosition="bottom">
+                        <p:dataTable var="basicInfo" id="basicInfoTable" value="#{iCAViewListManagedBean.pendingBasicInfos}" reflow="true" paginatorPosition="bottom">
                             <f:facet name="header">
                                 Basic Information of Visa Applicants
                             </f:facet>
@@ -34,7 +36,7 @@
                         </p:dataTable>
                     </p:tab>
                     <p:tab title="Validated">
-                           <p:dataTable var="basicInfo" id="basicInfoTable1" value="#{iCAViewListManagedBean.validatedBasicInfos}" reflow="true" paginatorPosition="bottom">
+                        <p:dataTable var="basicInfo" id="basicInfoTable1" value="#{iCAViewListManagedBean.validatedBasicInfos}" reflow="true" paginatorPosition="bottom">
                             <f:facet name="header">
                                 Basic Information of Visa Applicants
                             </f:facet>
@@ -57,7 +59,7 @@
                         </p:dataTable>
                     </p:tab>
                     <p:tab title="Rejected">
-                           <p:dataTable var="basicInfo" id="basicInfoTable2" value="#{iCAViewListManagedBean.rejectedBasicInfos}" reflow="true" paginatorPosition="bottom">
+                        <p:dataTable var="basicInfo" id="basicInfoTable2" value="#{iCAViewListManagedBean.rejectedBasicInfos}" reflow="true" paginatorPosition="bottom">
                             <f:facet name="header">
                                 Basic Information of Visa Applicants
                             </f:facet>

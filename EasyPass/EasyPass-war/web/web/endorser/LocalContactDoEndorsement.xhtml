@@ -7,6 +7,8 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="content">
         <h:form>
+            <p:growl id="growl" life="4000" />
+
             <div align="center">
                 <p:tabView cache="false" dynamic="true">
                     <p:tab title="Pending">
@@ -27,11 +29,13 @@
 
 
                             <p:column>
-                                <p:commandButton value="Validate" action="#{localContactViewListManagedBean.validateVisaApplicant(localContact)}"/>
+                                <p:commandButton value="Validate" action="#{localContactViewListManagedBean.validateVisaApplicant(localContact)}"
+                                                 update="@form"/>
                             </p:column>
 
                             <p:column>
-                                <p:commandButton value="Reject" action="#{localContactViewListManagedBean.rejectVisaApplicant(localContact)}"/>
+                                <p:commandButton value="Reject" action="#{localContactViewListManagedBean.rejectVisaApplicant(localContact)}"
+                                                 update="@form"/>
                             </p:column>
 
                         </p:dataTable>

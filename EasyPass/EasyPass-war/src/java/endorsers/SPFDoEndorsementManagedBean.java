@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -64,6 +65,9 @@ public class SPFDoEndorsementManagedBean implements Serializable {
             criminalRecord.setEndorseStatus(Constants.STATUS_VERIFIED);
             criminalRecord.setEndorseBy(endorserID);
 
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Approval Submitted", " "));
+            ec.getFlash().setKeepMessages(true);
+
             if (Constants.localTesting) {
                 mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_request" + owner + ".json"), criminalRecord);
             } else {
@@ -91,6 +95,9 @@ public class SPFDoEndorsementManagedBean implements Serializable {
             String state = Constants.STATUS_INVALIDATE;
             criminalRecord.setEndorseStatus(state);
             criminalRecord.setEndorseBy(endorserID);
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rejection Submitted", " "));
+            ec.getFlash().setKeepMessages(true);
 
             if (Constants.localTesting) {
                 mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_request" + owner + ".json"), criminalRecord);

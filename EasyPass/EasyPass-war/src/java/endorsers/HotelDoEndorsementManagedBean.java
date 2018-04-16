@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -60,8 +61,12 @@ public class HotelDoEndorsementManagedBean implements Serializable {
 
             if (decision.equals("Validated")) {
                 accommodation.setEndorseStatus(Constants.STATUS_VERIFIED);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Approval Submitted", " "));
+                ec.getFlash().setKeepMessages(true);
             } else {
                 accommodation.setEndorseStatus(Constants.STATUS_INVALIDATE);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rejection Submitted", " "));
+                ec.getFlash().setKeepMessages(true);
             }
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/Accommodation/post_request" + accommodation.getOwner() + ".json"), accommodation);
@@ -74,8 +79,12 @@ public class HotelDoEndorsementManagedBean implements Serializable {
 
             if (decision.equals("Validated")) {
                 accommodation.setEndorseStatus(Constants.STATUS_VERIFIED);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Approval Submitted", " "));
+                ec.getFlash().setKeepMessages(true);
             } else {
                 accommodation.setEndorseStatus(Constants.STATUS_INVALIDATE);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rejection Submitted", " "));
+                ec.getFlash().setKeepMessages(true);
             }
             ObjectMapper mapper = new ObjectMapper();
             try {
