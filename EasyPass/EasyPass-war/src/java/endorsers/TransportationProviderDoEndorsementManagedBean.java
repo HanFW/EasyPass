@@ -88,13 +88,13 @@ public class TransportationProviderDoEndorsementManagedBean implements Serializa
             }
 
             try {
-                HttpResponse<JsonNode> localContactResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateTransportationBookingReference ")
+                HttpResponse<JsonNode> transportResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateTransportationBookingReference ")
                         .field("$class", Constants.TRANSACTION_VALIDATETRANSPORTATION)
                         .field("endorseStatus", transportationReference.getEndorseStatus())
                         .field("transportationReference", Constants.ASSET_TRANSPORTATION + "#" + transportationReference.getTransportationReferenceId())
                         .field("transportationProvider", Constants.ASSET_TRANSPORTATIONPROVIDER + "#" + endorser.getEndorserId())
                         .asJson();
-                System.out.println(localContactResponse.getBody());
+                System.out.println(transportResponse.getBody());
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -74,13 +74,13 @@ public class SPFDoEndorsementManagedBean implements Serializable {
             } else {
 
                 try {
-                    HttpResponse<JsonNode> localContactResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateCriminalRecord")
+                    HttpResponse<JsonNode> criminalRecordResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateCriminalRecord")
                             .field("$class", Constants.TRANSACTION_VALIDATECRIMINALRECORD)
                             .field("endorseStatus", criminalRecord.getEndorseStatus())
                             .field("criminalRecord", Constants.ASSET_CRIMINALRECORD + "#" + criminalRecord.getCriminalRecordId())
                             .field("spf", Constants.ASSET_SPF + "#" + endorser.getEndorserId())
                             .asJson();
-                    System.out.println(localContactResponse.getBody());
+                    System.out.println(criminalRecordResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -102,13 +102,13 @@ public class SPFDoEndorsementManagedBean implements Serializable {
             } else {
                 
                 try {
-                    HttpResponse<JsonNode> localContactResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateCriminalRecord")
+                    HttpResponse<JsonNode> criminalRecordResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateCriminalRecord")
                             .field("$class", Constants.TRANSACTION_VALIDATECRIMINALRECORD)
                             .field("endorseStatus", criminalRecord.getEndorseStatus())
                             .field("criminalRecord", Constants.ASSET_CRIMINALRECORD + "#" + criminalRecord.getCriminalRecordId())
                             .field("spf", Constants.ASSET_SPF + "#" + endorser.getEndorserId())
                             .asJson();
-                    System.out.println(localContactResponse.getBody());
+                    System.out.println(criminalRecordResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
