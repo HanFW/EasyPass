@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../templates/endorserTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="content">
+        <h:form>
+            <center>
+                <p:panelGrid columns="2">
+                <p:outputLabel class="citizen-info-title" value="Passport Number: " />
+                <p:outputLabel class="citizen-info-content" value="#{iCADoEndorsementManagedBean.basicInfo.passportNumber}" />
+                <p:outputLabel class="citizen-info-title" value="First Name: " />
+                <p:outputLabel class="citizen-info-content" value="#{iCADoEndorsementManagedBean.basicInfo.firstName}" />
+                <p:outputLabel class="citizen-info-title" value="Last Name: " />
+                <p:outputLabel class="citizen-info-content" value="#{iCADoEndorsementManagedBean.basicInfo.lastName}" />
+                <p:outputLabel class="citizen-info-title" value="Country of Residence: " />
+                <p:outputLabel class="citizen-info-content" value="#{iCADoEndorsementManagedBean.basicInfo.countryOfResidence}" />
+                <p:outputLabel class="citizen-info-title" value="Identity Number: " />
+                <p:outputLabel class="citizen-info-content" value="#{iCADoEndorsementManagedBean.basicInfo.identityNumber}" />
+                <p:outputLabel class="citizen-info-title" value="Residential Address: " />
+                <p:outputLabel class="citizen-info-content" value="#{iCADoEndorsementManagedBean.basicInfo.residentialAddress}" />
+                <p:outputLabel class="citizen-info-title" value="Maritial Status: " />
+                <p:outputLabel class="citizen-info-content" value="#{iCADoEndorsementManagedBean.basicInfo.maritalStatus}" />
+                <p:outputLabel class="citizen-info-title" value="Gender: " />
+                <p:outputLabel class="citizen-info-content" value="#{iCADoEndorsementManagedBean.basicInfo.sex}" />
+                <p:outputLabel class="citizen-info-title" value="Nationality: " />
+                <p:outputLabel class="citizen-info-content" value="#{iCADoEndorsementManagedBean.basicInfo.nationality}" />
+            </p:panelGrid>
+
+        </center>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
