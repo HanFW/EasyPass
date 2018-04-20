@@ -133,5 +133,12 @@ public class HotelViewListManagedBean implements Serializable {
         ec.getFlash().put("accommodation", accommodation);
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/hotelDoEndorsement.xhtml?faces-redirect=true");
     }
+    
+    //redirect to view endorsed hotel booking reference of individual visa applicant
+    public void viewEndorsedAccommodation(Accommodation accommodation) throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.getFlash().put("accommodation", accommodation);
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/hotelViewEndorsedDocuments.xhtml?faces-redirect=true");
+    }
 
 }
