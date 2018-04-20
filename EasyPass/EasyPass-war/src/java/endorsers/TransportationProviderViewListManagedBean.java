@@ -134,4 +134,10 @@ public class TransportationProviderViewListManagedBean implements Serializable {
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/TransportationProviderDoEndorsement.xhtml?faces-redirect=true");
     }
 
+    //redirect to view endorsed transportation reference of individual visa applicant
+    public void viewEndorsedTransportationReference(TransportationReference transportationReference) throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.getFlash().put("transportationReference", transportationReference);
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/TransportationProvideViewEndorsedDocuments.xhtml?faces-redirect=true");
+    }
 }
