@@ -134,4 +134,17 @@ public class SPFViewListManagedBean {
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/SPFDoEndorsement.xhtml?faces-redirect=true");
     }
 
+    //redirect to  view validated criminal record of individual visa applicant
+    public void viewValidatedCriminalRecords(CriminalRecord criminalRecord) throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.getFlash().put("criminalRecord", criminalRecord);
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/SPFViewValidatedCriminalRecords.xhtml?faces-redirect=true");
+    }
+
+    //redirect to  view rejected criminal record of individual visa applicant
+    public void viewRejectedCriminalRecords(CriminalRecord criminalRecord) throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.getFlash().put("criminalRecord", criminalRecord);
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/SPFViewRejectedCriminalRecords.xhtml?faces-redirect=true");
+    }
 }

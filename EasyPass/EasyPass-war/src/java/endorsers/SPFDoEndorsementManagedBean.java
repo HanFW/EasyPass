@@ -52,7 +52,7 @@ public class SPFDoEndorsementManagedBean implements Serializable {
     }
 
     public void updateCriminalRecord() throws IOException {
-        
+
         System.out.println("Criminal Record updated");
         ObjectMapper mapper = new ObjectMapper();
 
@@ -100,7 +100,7 @@ public class SPFDoEndorsementManagedBean implements Serializable {
             if (Constants.localTesting) {
                 mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_request" + owner + ".json"), criminalRecord);
             } else {
-                
+
                 try {
                     HttpResponse<JsonNode> criminalRecordResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateCriminalRecord")
                             .field("$class", Constants.TRANSACTION_VALIDATECRIMINALRECORD)
@@ -163,7 +163,9 @@ public class SPFDoEndorsementManagedBean implements Serializable {
     }
 
     public String getRecordNumber() {
+
         return recordNumber;
+
     }
 
     public void setRecordNumber(String recordNumber) {
