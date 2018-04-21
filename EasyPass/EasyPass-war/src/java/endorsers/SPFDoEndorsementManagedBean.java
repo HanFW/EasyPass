@@ -79,6 +79,8 @@ public class SPFDoEndorsementManagedBean implements Serializable {
                             .field("endorseStatus", criminalRecord.getEndorseStatus())
                             .field("criminalRecord", Constants.ASSET_CRIMINALRECORD + "#" + criminalRecord.getCriminalRecordId())
                             .field("spf", Constants.ASSET_SPF + "#" + endorser.getEndorserId())
+                            .field("recordNumber", criminalRecord.getRecordNumber())
+                            .field("recordDetail", criminalRecord.getRecordDetail())
                             .asJson();
                     System.out.println(criminalRecordResponse.getBody());
                 } catch (Exception e) {
@@ -107,6 +109,8 @@ public class SPFDoEndorsementManagedBean implements Serializable {
                             .field("endorseStatus", criminalRecord.getEndorseStatus())
                             .field("criminalRecord", Constants.ASSET_CRIMINALRECORD + "#" + criminalRecord.getCriminalRecordId())
                             .field("spf", Constants.ASSET_SPF + "#" + endorser.getEndorserId())
+                            .field("recordNumber", criminalRecord.getRecordNumber())
+                            .field("recordDetail", criminalRecord.getRecordDetail())
                             .asJson();
                     System.out.println(criminalRecordResponse.getBody());
                 } catch (Exception e) {

@@ -65,5 +65,5 @@ public class Constants {
     public static final String TRANSACTION_VALIDATELOCALCONTACT = "org.acme.easypass.ValidateLocalContactInformation";
     public static final String TRANSACTION_VALIDATETRANSPORTATION = "org.acme.easypass.ValidateTransportationBookingReference";
 
-    public static final boolean localTesting = true;
+    public static final boolean localTesting = false;
 }

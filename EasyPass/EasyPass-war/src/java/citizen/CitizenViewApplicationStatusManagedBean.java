@@ -369,7 +369,7 @@ public class CitizenViewApplicationStatusManagedBean {
     public String getCRStatus() throws IOException {
         //get criminalRecordID
 
-        if (getVisaApplication() != null) {
+        if (getVisaApplication() != null && getVisaApplication().getCriminalRecord() != null) {
             criminalRecordID = getVisaApplication().getCriminalRecord();
             criminalRecordIDArray = criminalRecordID.split("#");
 
