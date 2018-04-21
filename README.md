@@ -3,21 +3,16 @@
 EasyPass is a G2C initiative that incorporates blockchain technology for a swift, secure and reliable visa application process.
 
 ## Features
-- **Citizen**: 
-    a. Submit new visa application 
-    b. View visa application status
-    c. View e-visa
-- **Endorser**: 
-    a. Validate / reject the assets that submitted by citizen
-        - Bank -> Bank statement
-        - TransportationProvider -> Transportation Reference
-        - AccommodationProvider -> Accommodation Reference 
-        - InsuranceCompany -> Insurance Reference
-        - LocalContactPerson -> Local Contact Infomation
-        - ICA -> BasicInfo
-        - SPF -> Criminal Record (Only asset that filled by endoser)
-- **Embassy**: 
-    a. Issue visa based on the validated visa application
+- **Citizen**: Submit new visa application 
+- **Endorser**: Validate / reject the assets that submitted by citizen
+    - Bank -> Bank statement
+    - TransportationProvider -> Transportation Reference
+    - AccommodationProvider -> Accommodation Reference 
+    - InsuranceCompany -> Insurance Reference
+    - LocalContactPerson -> Local Contact Infomation
+    - ICA -> BasicInfo
+    - SPF -> Criminal Record (Only asset that filled by endoser)
+- **Embassy**: Issue visa based on the validated visa application
 
 ## Pre-Requisites
 * Netbeans v8.x 
