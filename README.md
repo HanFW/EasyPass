@@ -3,9 +3,16 @@
 EasyPass is a G2C initiative that incorporates blockchain technology for a swift, secure and reliable visa application process.
 
 ## Features
-- **Visa Application**: Citizen submit new visa application 
-- **Endorser Validate**: Different endorser can validate corresponding asset
-- **Issue Visa**: Embassy can issue visa based on the validated visa application
+- **Citizen**: Submit new visa application 
+- **Endorser**: Validate / reject the assets that submitted by citizen
+    - Bank -> Bank statement
+    - TransportationProvider -> Transportation Reference
+    - AccommodationProvider -> Accommodation Reference 
+    - InsuranceCompany -> Insurance Reference
+    - LocalContactPerson -> Local Contact Infomation
+    - ICA -> BasicInfo
+    - SPF -> Criminal Record (Only asset that filled by endoser)
+- **Embassy**: Issue visa based on the validated visa application
 
 ## Pre-Requisites
 * Netbeans v8.x 
@@ -15,9 +22,9 @@ EasyPass is a G2C initiative that incorporates blockchain technology for a swift
 * NodeJS 
 
 # Loading initial data
-0. Make sure MySQL is installed and Hyperledger is running at localhost:3000
-1. Unzip 'initial data.zip'
-2. Change MySQL credential in 'config.json'
+1. Make sure MySQL is installed and Hyperledger is running at localhost:3000
+2. Unzip 'initial data.zip'
+3. Change MySQL credential in 'config.json'
 ```shell
 # To install dependencies 
 $ npm install
@@ -33,9 +40,11 @@ Block chain: use Vagrant or Docker image to run hyperledger faric and expose the
 
 Frontend + backend application: 
 1. Open netbeans and import project 
+2. Create JDBC Resources -> please refer to https://docs.oracle.com/cd/E19798-01/821-1751/gharo/index.html to create a jdbc resource and connection pool (e.g. jdbc/easyPass) for glassfish server
 2. Right click the proejct -> clean and build
 3. Right click the proejct -> depoly 
-4. The project should be running at localhost:8080
+4. Right click the proejct -> run 
+5. The project should be running at localhost:8080
 
 ## Login credential 
 User ID: 
