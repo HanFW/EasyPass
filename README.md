@@ -4,9 +4,9 @@ EasyPass is a G2C initiative that incorporates blockchain technology for a swift
 
 ## Features
 - **Citizen**: 
-    **a. Submit new visa application**
-    b. View visa application status
-    c. View e-visa
+    1. Submit new visa application**
+    2. View visa application status
+    3. View e-visa
 - **Endorser**: Validate / reject the assets that submitted by citizen
     - Bank -> Bank statement
     - TransportationProvider -> Transportation Reference
