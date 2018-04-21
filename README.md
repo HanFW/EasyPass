@@ -20,7 +20,7 @@ EasyPass is a G2C initiative that incorporates blockchain technology for a swift
 2. Change MySQL credential in 'config.json'
 ```shell
 # To install dependencies 
-$ npm intall
+$ npm install
 
 # To load the intial data into MySQL and Hyperledger
 $ npm start
