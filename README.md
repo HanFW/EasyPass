@@ -29,7 +29,7 @@ EasyPass is a G2C initiative that incorporates blockchain technology for a swift
 # Loading initial data
 1. Make sure MySQL is installed and Hyperledger is running at localhost:3000
 2. Unzip 'initial data.zip'
-3. Change MySQL credential in 'config.json'
+3. Change MySQL credential in 'config.json'（use your own MySQL credential information)
 ```shell
 # To install dependencies 
 $ npm install
