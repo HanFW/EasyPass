@@ -145,6 +145,7 @@ public class LocalContactViewListManagedBean implements Serializable {
 
     //retrive the name of the citizen by citizenID (passportNumber)
     public String getCitizenNamebyID(String citizenID) throws IOException {
+        
         String[] citizenIdArray = citizenID.split("#");
 
         ObjectMapper mapper = new ObjectMapper();

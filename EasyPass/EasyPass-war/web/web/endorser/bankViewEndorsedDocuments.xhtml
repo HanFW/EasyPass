@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../templates/endorserTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="content">
+        <h:form>
+            <center>
+                <div class="citizen-info-panel">
+                    <p:outputLabel class="citizen-info-title" value="Bank name: " />
+                    <p:outputLabel class="citizen-info-content" value="#{bankDoEndorsementManagedBean.bankStatement.bankName}" />
+                    <br/>
+                    <p:outputLabel class="citizen-info-title" value="Passport number: " />
+                    <p:outputLabel class="citizen-info-content" value="#{utilManagedBean.formatId(bankDoEndorsementManagedBean.bankStatement.owner)}" />
+                    <p:outputLabel class="citizen-info-title" value="Account number: " />
+                    <p:outputLabel class="citizen-info-content" value="#{bankDoEndorsementManagedBean.bankStatement.accountNumber}" />
+                </div>
+
+                <p:media value="#{bankDoEndorsementManagedBean.bankStatement.bankStatementImageURL}" width="100%" height="400px"/>  
+            </center>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

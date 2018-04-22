@@ -161,7 +161,7 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
                 LocalContact localContact = new LocalContact(localContactName, localContactIdentityNumber, applicationId, citizen.getCitizenId());
                 mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/LocalContact/post_request_" + firstName + ".json"), localContact);
                 // - create criminal record
-                CriminalRecord criminalRecord = new CriminalRecord(applicationId, citizen.getCitizenId());
+                CriminalRecord criminalRecord = new CriminalRecord(applicationId, citizen.getCitizenId(), firstName + " " + lastName);
                 mapper.writeValue(new File("/Users/hanfengwei/Desktop/IS4302/project/data/Asset/CriminalRecord/post_request_" + firstName + ".json"), criminalRecord);
                 // - update visa application
                 visaApplication.updateVisaApplicationInfo(formatDate(startDate), formatDate(endDate), purposeOfVisit);
@@ -315,7 +315,7 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
                 }
 
                 // - create criminal record
-                CriminalRecord criminalRecord = new CriminalRecord(applicationId, citizen.getCitizenId());
+                CriminalRecord criminalRecord = new CriminalRecord(applicationId, citizen.getCitizenId(), firstName + " " + lastName);
                 try {
                     HttpResponse<JsonNode> criminalRecordResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.CriminalRecord")
                             .header("accept", "application/json")
@@ -326,6 +326,7 @@ public class CitizenApplyForVisaManagedBean implements Serializable {
                             .field("endorseStatus", criminalRecord.getEndorseStatus())
                             .field("owner", criminalRecord.getOwner())
                             .field("visaApplication", criminalRecord.getVisaApplication())
+                            .field("fullName", criminalRecord.getFullName())
                             .asJson();
                     System.out.println(criminalRecordResponse.getBody());
                 } catch (Exception e) {

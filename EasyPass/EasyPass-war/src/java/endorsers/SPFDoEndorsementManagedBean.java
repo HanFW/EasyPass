@@ -52,7 +52,7 @@ public class SPFDoEndorsementManagedBean implements Serializable {
     }
 
     public void updateCriminalRecord() throws IOException {
-        
+
         System.out.println("Criminal Record updated");
         ObjectMapper mapper = new ObjectMapper();
 
@@ -74,13 +74,15 @@ public class SPFDoEndorsementManagedBean implements Serializable {
             } else {
 
                 try {
-                    HttpResponse<JsonNode> localContactResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateCriminalRecord")
+                    HttpResponse<JsonNode> criminalRecordResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateCriminalRecord")
                             .field("$class", Constants.TRANSACTION_VALIDATECRIMINALRECORD)
                             .field("endorseStatus", criminalRecord.getEndorseStatus())
                             .field("criminalRecord", Constants.ASSET_CRIMINALRECORD + "#" + criminalRecord.getCriminalRecordId())
                             .field("spf", Constants.ASSET_SPF + "#" + endorser.getEndorserId())
+                            .field("recordNumber", criminalRecord.getRecordNumber())
+                            .field("recordDetail", criminalRecord.getRecordDetail())
                             .asJson();
-                    System.out.println(localContactResponse.getBody());
+                    System.out.println(criminalRecordResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -100,15 +102,17 @@ public class SPFDoEndorsementManagedBean implements Serializable {
             if (Constants.localTesting) {
                 mapper.writeValue(new File("/Users/Jingyuan/Desktop/IS4302/project/data/Asset/CriminalRecord/put_request" + owner + ".json"), criminalRecord);
             } else {
-                
+
                 try {
-                    HttpResponse<JsonNode> localContactResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateCriminalRecord")
+                    HttpResponse<JsonNode> criminalRecordResponse = Unirest.post("http://localhost:3000/api/org.acme.easypass.ValidateCriminalRecord")
                             .field("$class", Constants.TRANSACTION_VALIDATECRIMINALRECORD)
                             .field("endorseStatus", criminalRecord.getEndorseStatus())
                             .field("criminalRecord", Constants.ASSET_CRIMINALRECORD + "#" + criminalRecord.getCriminalRecordId())
                             .field("spf", Constants.ASSET_SPF + "#" + endorser.getEndorserId())
+                            .field("recordNumber", criminalRecord.getRecordNumber())
+                            .field("recordDetail", criminalRecord.getRecordDetail())
                             .asJson();
-                    System.out.println(localContactResponse.getBody());
+                    System.out.println(criminalRecordResponse.getBody());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -163,7 +167,9 @@ public class SPFDoEndorsementManagedBean implements Serializable {
     }
 
     public String getRecordNumber() {
+
         return recordNumber;
+
     }
 
     public void setRecordNumber(String recordNumber) {

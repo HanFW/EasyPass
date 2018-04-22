@@ -49,7 +49,7 @@
 
                             <p:column headerText="Endorse Criminal Record">
                                 <center>
-                                    <p:commandButton icon="ui-icon-document" action="#{sPFViewListManagedBean.redirectPage(criminalRecord)}"/>
+                                    <p:commandButton icon="ui-icon-document" action="#{sPFViewListManagedBean.viewValidatedCriminalRecords(criminalRecord)}"/>
                                 </center>
                             </p:column>
                         </p:dataTable>
@@ -70,7 +70,7 @@
 
                             <p:column headerText="Endorse Criminal Record">
                                 <center>
-                                    <p:commandButton icon="ui-icon-document" action="#{sPFViewListManagedBean.redirectPage(criminalRecord)}"/>
+                                    <p:commandButton icon="ui-icon-document" action="#{sPFViewListManagedBean.viewRejectedCriminalRecords(criminalRecord)}"/>
                                 </center>
                             </p:column>
                         </p:dataTable>

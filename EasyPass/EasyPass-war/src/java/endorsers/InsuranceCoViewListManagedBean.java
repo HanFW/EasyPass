@@ -134,5 +134,12 @@ public class InsuranceCoViewListManagedBean implements Serializable {
         ec.getFlash().put("insurance", insurance);
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/insuranceCompanyDoEndorsement.xhtml?faces-redirect=true");
     }
+    
+        //redirect to view endorsed insurance contract of individual visa applicant
+    public void viewEndorsedInsurance(Insurance insurance) throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.getFlash().put("insurance", insurance);
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/insuranceCoViewEndorsedDocuments.xhtml?faces-redirect=true");
+    }
 
 }

@@ -134,4 +134,10 @@ public class ICAViewListManagedBean implements Serializable {
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/ICADoEndorsement.xhtml?faces-redirect=true");
     }
 
+    //redirect to view endorsed basic information of individual visa applicant
+    public void viewEndorsedBasicInfo(BasicInfo basicInfo) throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.getFlash().put("basicInfo", basicInfo);
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/ICAViewEndorsedDocuments.xhtml?faces-redirect=true");
+    }
 }

@@ -22,6 +22,7 @@ public class CriminalRecord {
     private String owner;
     private String endorseBy;
     private String visaApplication;
+    private String fullName;
 
     public CriminalRecord() {
         this.$class = Constants.ASSET_CRIMINALRECORD;
@@ -31,10 +32,11 @@ public class CriminalRecord {
         this.recordDetail = " ";
     }
 
-    public CriminalRecord(String visaApplication, String owner) {
+    public CriminalRecord(String visaApplication, String owner, String fullName) {
         this();
         this.visaApplication = Constants.ASSET_VISAAPPLICATION + "#" + visaApplication;
         this.owner = Constants.PARTICIPANT_CITIZEN + "#" + owner;
+        this.fullName = fullName;
     }
 
     public String get$class() {
@@ -99,6 +101,14 @@ public class CriminalRecord {
 
     public void setVisaApplication(String visaApplication) {
         this.visaApplication = visaApplication;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
 }

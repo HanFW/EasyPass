@@ -135,4 +135,11 @@ public class BankViewListManagedBean {
         ec.getFlash().put("bankStatement", bankStatement);
         ec.redirect(ec.getRequestContextPath() + "/web/endorser/bankDoEndorsement.xhtml?faces-redirect=true");
     }
+    
+    //redirect to view endorsed bank statement of indivisual visa applicant
+        public void viewEndorsedBankStatement(BankStatement bankStatement) throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.getFlash().put("bankStatement", bankStatement);
+        ec.redirect(ec.getRequestContextPath() + "/web/endorser/bankViewEndorsedDocuments.xhtml?faces-redirect=true");
+    }
 }
